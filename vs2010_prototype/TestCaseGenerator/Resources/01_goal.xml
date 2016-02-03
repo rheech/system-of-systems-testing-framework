@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Goal">
+  <Goal name="SavePatient" relationship="and">
+    <Goal name="GetDisasterReport" />
+    <Goal name="LocatePatient" />
+    <Goal name="TransferPatientToHospital" />
+  </Goal>
+</Diagram>

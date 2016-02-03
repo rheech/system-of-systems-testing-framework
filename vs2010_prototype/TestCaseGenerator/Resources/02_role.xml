@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Role">
+  <Actor name="Driver">
+    <arrow name="transferPatient" to="MobileCareUnit" />
+  </Actor>
+  <Role name="MobileCareUnit">
+    <attribute type="achieves" name="TransferPatientToHospital" />
+    <attribute type="requires" name="TransferPatient" />
+    <attribute type="requires" name="FindSuitableHospital" />
+    <arrow name="driveAmbulance" to="Driver" />
+    <arrow name="receivePatient" to="MedicalCenter" />
+  </Role>
+  <Role name="MedicalCenter">
+    <attribute type="achieves" name="SavePatient" />
+    <attribute type="requires" name="TreatPatient" />
+  </Role>
+  <Role name="EmergencyControl">
+    <attribute type="achieves" name="GetDisasterReport" />
+    <attribute type="achieves" name="LocatePatient" />
+    <attribute type="requires" name="ProcessHelpRequest" />
+    <arrow name="pickupPatient" to="MobileCareUnit" />
+    <arrow name="talkToPatient" to="CallReceiver" />
+    <arrow name="waitForPickup" to="Patient" />
+  </Role>
+  <Actor name="CallReceiver">
+    <arrow name="assignAmbulance" to="EmergencyControl" />
+  </Actor>
+  <Actor name="Patient">
+    <arrow name="requestPickup" to="EmergencyControl" />
+  </Actor>
+</Diagram>
