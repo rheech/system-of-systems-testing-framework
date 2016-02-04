@@ -20,6 +20,11 @@ namespace TestCaseGenerator
         {
             XmlRoleModel role = new XmlRoleModel("Resources\\" + txtRole.Text);
 
+            string a = role.GetRoleFromGoal("LocatePatient");
+
+            MessageBox.Show(a);
+
+            MessageBox.Show(role.GetCapabilityFromRole(a));
         }
     }
 }
