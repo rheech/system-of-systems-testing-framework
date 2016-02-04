@@ -40,7 +40,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtProtocol = new System.Windows.Forms.TextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -147,13 +147,13 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Protocol Model";
             // 
-            // textBox6
+            // txtProtocol
             // 
-            this.textBox6.Location = new System.Drawing.Point(132, 191);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(225, 21);
-            this.textBox6.TabIndex = 13;
-            this.textBox6.Text = "05_protocol.xml";
+            this.txtProtocol.Location = new System.Drawing.Point(132, 191);
+            this.txtProtocol.Name = "txtProtocol";
+            this.txtProtocol.Size = new System.Drawing.Size(225, 21);
+            this.txtProtocol.TabIndex = 13;
+            this.txtProtocol.Text = "05_protocol.xml";
             // 
             // btnGenerate
             // 
@@ -171,7 +171,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 291);
             this.Controls.Add(this.btnGenerate);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtProtocol);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label6);
@@ -206,7 +206,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtProtocol;
         private System.Windows.Forms.Button btnGenerate;
     }
 }

@@ -17,9 +17,7 @@ namespace TestCaseGenerator
 
         public string GetRoleFromGoal(string goalName)
         {
-            XmlNodeList nodes = RootNode;
-
-            string temp;
+            XmlNodeList nodes = RootNodes;
 
             foreach (XmlNode node in nodes)
             {
@@ -58,7 +56,7 @@ namespace TestCaseGenerator
 
         private XmlNode FindRole(string roleName)
         {
-            foreach (XmlNode x in RootNode)
+            foreach (XmlNode x in RootNodes)
             {
                 if (x.Attributes["name"].InnerText == roleName)
                 {

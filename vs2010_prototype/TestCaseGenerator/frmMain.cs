@@ -19,12 +19,17 @@ namespace TestCaseGenerator
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             XmlRoleModel role = new XmlRoleModel("Resources\\" + txtRole.Text);
+            XmlProtocolModel protocol = new XmlProtocolModel("Resources\\" + txtProtocol.Text);
 
+            StringBuilder sb = new StringBuilder();
             string a = role.GetRoleFromGoal("LocatePatient");
+            string b = role.GetCapabilityFromRole(a);
+            
+            sb.AppendFormat("{0}\r\n{1}", a, b);
 
-            MessageBox.Show(a);
+            Arrow[] arr = protocol.TrackSequence(a);
 
-            MessageBox.Show(role.GetCapabilityFromRole(a));
+            MessageBox.Show(arr.ToString());
         }
     }
 }

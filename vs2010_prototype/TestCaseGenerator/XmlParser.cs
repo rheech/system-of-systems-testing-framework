@@ -63,7 +63,7 @@ namespace TestCaseGenerator
             }
         }
 
-        protected XmlNodeList RootNode
+        protected XmlNodeList RootNodes
         {
             get
             {
