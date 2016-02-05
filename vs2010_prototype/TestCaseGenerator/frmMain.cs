@@ -18,18 +18,46 @@ namespace TestCaseGenerator
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
+            GenerateTestCase("LocatePatient");
+        }
+
+        private void GenerateTestCase(string goalName)
+        {
             XmlRoleModel role = new XmlRoleModel("Resources\\" + txtRole.Text);
             XmlProtocolModel protocol = new XmlProtocolModel("Resources\\" + txtProtocol.Text);
-
-            StringBuilder sb = new StringBuilder();
-            string a = role.GetRoleFromGoal("LocatePatient");
-            string b = role.GetCapabilityFromRole(a);
+            XmlAgentModel agent = new XmlAgentModel("Resources\\" + txtAgent.Text);
             
-            sb.AppendFormat("{0}\r\n{1}", a, b);
+            StringBuilder sb = new StringBuilder();
 
-            Arrow[] arr = protocol.TrackSequence(a);
+            string foundRole = role.GetRoleFromGoal(goalName);
+            string[] foundCaps = role.GetCapabilityFromRole(foundRole);
 
-            MessageBox.Show(arr.ToString());
+            sb.AppendFormat("Goal: {0}\r\n", goalName);
+            sb.AppendFormat("Role to achieve goal: {0}\r\n", foundRole);
+            sb.AppendFormat("Capability:\r\n");
+
+            foreach (string s in foundCaps)
+            {
+                sb.AppendFormat("{0}\r\n", s);
+            }
+
+            sb.AppendFormat("\r\n");
+
+            Arrow[] arr = protocol.TrackSequence(foundRole);
+
+            sb.AppendFormat("Sequence:\r\n");
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sb.AppendFormat("{0}: {1}.{2}\r\n", arr[i].index, agent.GetAgentFromRole(arr[i].to), arr[i].name);
+            }
+
+            txtOutput.Text = sb.ToString();
+        }
+
+        private void lstGoals_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GenerateTestCase(lstGoals.SelectedItem.ToString());
         }
     }
 }

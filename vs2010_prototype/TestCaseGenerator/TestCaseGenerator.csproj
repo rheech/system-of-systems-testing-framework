@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlAgentModel.cs" />
     <Compile Include="XmlGoalModel.cs" />
     <Compile Include="XmlProtocolModel.cs" />
     <Compile Include="XmlRoleModel.cs" />

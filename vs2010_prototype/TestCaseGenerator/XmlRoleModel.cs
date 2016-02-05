@@ -36,22 +36,23 @@ namespace TestCaseGenerator
             return "";
         }
 
-        public string GetCapabilityFromRole(string roleName)
+        public string[] GetCapabilityFromRole(string roleName)
         {
             XmlNodeList nodes = FindRole(roleName).ChildNodes;
+            List<string> capabilities = new List<string>();
 
             foreach (XmlNode x in nodes)
             {
-                if (x.Attributes["type"].InnerText == "requires")
+                if (x.Attributes["type"] != null && x.Attributes["type"].InnerText == "requires")
                 {
-                    return x.Attributes["name"].InnerText;
+                    capabilities.Add(x.Attributes["name"].InnerText);
                 }
 
                 //temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
                 //temp = node.SelectSingleNode("arrow").InnerText;
             }
 
-            return "";
+            return capabilities.ToArray();
         }
 
         private XmlNode FindRole(string roleName)
