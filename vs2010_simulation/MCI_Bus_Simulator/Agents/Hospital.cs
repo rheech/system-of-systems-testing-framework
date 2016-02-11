@@ -9,16 +9,17 @@ namespace MCI_Bus_Simulator.Agents
     public class Hospital : Agent
     {
         private PositionInfo _position;
-        private Patient[] _patients;
+        private List<Patient> _patients;
 
         public Hospital(PositionInfo p)
         {
             p = _position;
+            _patients = new List<Patient>();
         }
 
-        public void receivePatient()
+        public void receivePatient(Patient pt)
         {
-            throw new System.NotImplementedException();
+            _patients.Add(pt);
         }
 
         public PositionInfo Position

@@ -9,6 +9,7 @@ namespace MCI_Bus_Simulator.Agents
     public class Ambulance : Agent
     {
         PositionInfo _position;
+        Patient _currentPatient;
 
         public Ambulance(PositionInfo p)
         {
@@ -20,9 +21,9 @@ namespace MCI_Bus_Simulator.Agents
             _position = p;
         }
 
-        public void pickupPatient()
+        public void pickupPatient(Patient pt)
         {
-            
+            _currentPatient = pt;
         }
 
         public void performPrimaryTriage()

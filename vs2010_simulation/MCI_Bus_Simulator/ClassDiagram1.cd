@@ -17,14 +17,14 @@
   <Class Name="MCI_Bus_Simulator.Agents.EmergencyCallCenter">
     <Position X="3.25" Y="3.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAEAAAAAAAAAAAABAAIQAAAAAAAIAAAAAACAAA=</HashCode>
+      <HashCode>AACQAAAEAAAAAAAAAAAABAAIQAAAAAAAIAAAAAACAAA=</HashCode>
       <FileName>Agents\EmergencyCallCenter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MCI_Bus_Simulator.Agents.Hospital">
     <Position X="6" Y="3.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAgAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAAgAABAAA=</HashCode>
       <FileName>Agents\Hospital.cs</FileName>
     </TypeIdentifier>
   </Class>

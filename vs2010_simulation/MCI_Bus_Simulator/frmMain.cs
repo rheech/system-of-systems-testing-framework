@@ -54,5 +54,10 @@ namespace MCI_Bus_Simulator
                 txtOutput.Text = _tcGenerator.GenerateTestCase(lstGoals.SelectedItem.ToString());
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

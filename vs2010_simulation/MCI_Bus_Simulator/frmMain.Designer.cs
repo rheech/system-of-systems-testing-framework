@@ -63,6 +63,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.txtProtocol = new System.Windows.Forms.TextBox();
@@ -83,7 +84,7 @@
             this.lstGoals = new System.Windows.Forms.ListBox();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnRunTC = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -365,6 +366,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -373,6 +375,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Simulation";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(85, 94);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(306, 81);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "|----|----|----|----|\r\n       X       H\r\n          A";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tabPage2
             // 
@@ -592,15 +605,14 @@
             this.btnRunTC.Text = "Run";
             this.btnRunTC.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // button1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(52, 127);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(306, 54);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "|----|----|----|----|\r\n       X\r\n";
+            this.button1.Location = new System.Drawing.Point(379, 271);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -695,6 +707,7 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnRunTC;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
