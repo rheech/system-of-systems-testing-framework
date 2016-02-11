@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Protocol">
+  <Object type="Actor" name="MCI_Reporter">
+    <arrow index="1" name="activateMCI" to="CommunicationCenter" />
+  </Object>
+  <Object type="Role" name="CommunicationCenter">
+    <arrow index="2" name="reportMCI" to="IncidentCommander" />
+    <arrow index="4" name="pickupPatient" to="EmergencyVehicle" />
+  </Object>
+  <Object type="Role" name="IncidentCommander">
+    <arrow index="3" name="assignAmbulance" to="CommunicationCenter" />
+  </Object>
+  <Object type="Role" name="EmergencyVehicle">
+    <arrow index="5" name="performPrimaryTriage" to="EmergencyServices" />
+  </Object>
+  <Object type="Role" name="EmergencyServices">
+    <arrow index="6" name="receivePatient" to="MedicalCenter" />
+  </Object>
+  <Object type="Role" name="MedicalCenter">
+    <arrow index="7" name="reportSavedPatient" to="CommunicationCenter" />
+  </Object>
+</Diagram>

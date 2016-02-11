@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Capability">
+  <Capability name="TransferPatient">
+    <Plan name="LocatePatient" />
+  </Capability>
+  <Capability name="FindSuitableHospital">
+    <Plan name="GetPatientStatus" />
+  </Capability>
+  <Capability name="TreatPatient">
+    <Plan name="GetPatient" />
+  </Capability>
+  <Capability name="ProcessHelpRequest">
+    <Plan name="GetEmergencyCall" />
+  </Capability>
+</Diagram>
