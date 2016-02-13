@@ -2,44 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MCI_Bus_Simulator.Environment;
+using MCI_Bus_Simulator.Objects;
 
 namespace MCI_Bus_Simulator.Agents
 {
     public class EmergencyCallCenter : Agent
     {
-        private PositionInfo _disasterPosition;
         private int _reportedNumOfPatients;
         private int _savedPatients;
-
-        private Hospital _hospital;
-        private Ambulance _ambulance;
+        private Disaster _disaster;
 
         public EmergencyCallCenter()
         {
-            _hospital = new Hospital(new PositionInfo(3));
         }
 
-        // Set accident info
-        public void activateMCI(int numOfPatients, PositionInfo incidentPosition)
+        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
         {
-            _disasterPosition = incidentPosition;
-            _reportedNumOfPatients = numOfPatients;
+            switch (msgType)
+            {
+                case MESSAGE_TYPE.DISASTER_REPORT:
+                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ASSIGN_AMBULANCE, Simulator.patients.Count, _disaster.X);
+                    break;
+                case MESSAGE_TYPE.ASSIGN_AMBULANCE:
+                case MESSAGE_TYPE.CHECK_MORE_PATIENTS:
+                    if (Simulator.patients.Count > 0)
+                    {
+                        SendMessage(typeof(Ambulance), MESSAGE_TYPE.REMAINING_PATIENTS, Simulator.patients.Count, _disaster.X);
+                    }
+                    else
+                    {
+                        SendMessage(typeof(Agent), MESSAGE_TYPE.RESCUE_COMPLETE, Simulator.patients.Count);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public void assignAmbulance()
+        public void ReportDisaster(Disaster disaster)
         {
-            _ambulance = new Ambulance(_hospital.Position);
-        }
-
-        public void reportMCI()
-        {
-            Console.WriteLine("MCI broadcasting: ...");
-        }
-
-        public void reportSavedPatient()
-        {
-            Console.WriteLine("Saved patients: {0}", _savedPatients);
+            _disaster = disaster;
+            SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.DISASTER_REPORT, _disaster.X);
         }
     }
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MCI_Bus_Simulator.Environment
+namespace MCI_Bus_Simulator.Objects
 {
-    public class PositionInfo
+    public class Disaster : MCI_Object, IPosition
     {
         int _x;
 
-        public PositionInfo(int x)
+        public Disaster(int x)
         {
             _x = x;
         }
@@ -22,11 +22,6 @@ namespace MCI_Bus_Simulator.Environment
             }
             set
             {
-                if (value < 0)
-                {
-                    throw new Exception("Invalid position");
-                }
-
                 _x = value;
             }
         }

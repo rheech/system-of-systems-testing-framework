@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,12 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
+            this.btnReset = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.txtProtocol = new System.Windows.Forms.TextBox();
@@ -84,11 +90,12 @@
             this.lstGoals = new System.Windows.Forms.ListBox();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnRunTC = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -110,7 +117,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(468, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(483, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -340,9 +347,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 350);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 397);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(468, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(483, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -361,31 +368,83 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(468, 326);
+            this.tabControl1.Size = new System.Drawing.Size(483, 373);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.trackBar1);
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.lblStatus);
+            this.tabPage1.Controls.Add(this.btnStart);
+            this.tabPage1.Controls.Add(this.simulationVisualizer1);
+            this.tabPage1.Controls.Add(this.btnReset);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(460, 300);
+            this.tabPage1.Size = new System.Drawing.Size(475, 347);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Simulation";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // trackBar1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(85, 94);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(306, 81);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "|----|----|----|----|\r\n       X       H\r\n          A";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.trackBar1.Location = new System.Drawing.Point(11, 280);
+            this.trackBar1.Minimum = 1;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(187, 45);
+            this.trackBar1.TabIndex = 6;
+            this.trackBar1.Value = 5;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(11, 153);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(456, 121);
+            this.textBox1.TabIndex = 5;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(8, 15);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(95, 26);
+            this.lblStatus.TabIndex = 4;
+            this.lblStatus.Text = "Waiting patients: 0\r\nSaved patients: 0";
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(392, 318);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 3;
+            this.btnStart.Text = "&Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // simulationVisualizer1
+            // 
+            this.simulationVisualizer1.AutoSize = true;
+            this.simulationVisualizer1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold);
+            this.simulationVisualizer1.Location = new System.Drawing.Point(6, 59);
+            this.simulationVisualizer1.Name = "simulationVisualizer1";
+            this.simulationVisualizer1.Size = new System.Drawing.Size(306, 27);
+            this.simulationVisualizer1.TabIndex = 2;
+            this.simulationVisualizer1.Text = "|----|----|----|----|";
+            this.simulationVisualizer1.Click += new System.EventHandler(this.simulationVisualizer1_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(312, 318);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 1;
+            this.btnReset.Text = "&Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // tabPage2
             // 
@@ -405,7 +464,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(460, 300);
+            this.tabPage2.Size = new System.Drawing.Size(475, 347);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Case Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -418,7 +477,6 @@
             this.btnGenerate.TabIndex = 3;
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
             // txtProtocol
             // 
@@ -482,7 +540,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 71);
+            this.label4.Location = new System.Drawing.Point(8, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 18;
@@ -527,11 +585,10 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(460, 300);
+            this.tabPage3.Size = new System.Drawing.Size(475, 347);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Test Case Result";
             this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // splitContainer1
             // 
@@ -547,8 +604,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.btnRunTC);
-            this.splitContainer1.Size = new System.Drawing.Size(454, 294);
-            this.splitContainer1.SplitterDistance = 257;
+            this.splitContainer1.Size = new System.Drawing.Size(469, 341);
+            this.splitContainer1.SplitterDistance = 297;
             this.splitContainer1.TabIndex = 18;
             // 
             // splitContainer2
@@ -564,8 +621,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.txtOutput);
-            this.splitContainer2.Size = new System.Drawing.Size(454, 257);
-            this.splitContainer2.SplitterDistance = 151;
+            this.splitContainer2.Size = new System.Drawing.Size(469, 297);
+            this.splitContainer2.SplitterDistance = 155;
             this.splitContainer2.TabIndex = 0;
             // 
             // lstGoals
@@ -582,7 +639,7 @@
             "TransferPatient"});
             this.lstGoals.Location = new System.Drawing.Point(0, 0);
             this.lstGoals.Name = "lstGoals";
-            this.lstGoals.Size = new System.Drawing.Size(151, 257);
+            this.lstGoals.Size = new System.Drawing.Size(155, 297);
             this.lstGoals.TabIndex = 17;
             this.lstGoals.SelectedIndexChanged += new System.EventHandler(this.lstGoals_SelectedIndexChanged);
             // 
@@ -593,7 +650,7 @@
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(299, 257);
+            this.txtOutput.Size = new System.Drawing.Size(310, 297);
             this.txtOutput.TabIndex = 16;
             // 
             // btnRunTC
@@ -605,20 +662,16 @@
             this.btnRunTC.Text = "Run";
             this.btnRunTC.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // tmrSimulation
             // 
-            this.button1.Location = new System.Drawing.Point(379, 271);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tmrSimulation.Interval = 1000;
+            this.tmrSimulation.Tick += new System.EventHandler(this.tmrSimulation_Tick);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 372);
+            this.ClientSize = new System.Drawing.Size(483, 419);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -626,6 +679,7 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MCI Simulator v0.1";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -633,6 +687,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -706,8 +761,13 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnRunTC;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnReset;
+        private Visualizer.SimulationVisualizer simulationVisualizer1;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Timer tmrSimulation;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

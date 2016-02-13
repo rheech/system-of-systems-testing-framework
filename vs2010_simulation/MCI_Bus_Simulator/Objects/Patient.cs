@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MCI_Bus_Simulator.Environment
+namespace MCI_Bus_Simulator.Objects
 {
     public enum PATIENT_STATUS
     {
@@ -13,7 +13,7 @@ namespace MCI_Bus_Simulator.Environment
         Dead
     }
 
-    public class Patient
+    public class Patient : MCI_Object
     {
         private PATIENT_STATUS _patientStatus;
 

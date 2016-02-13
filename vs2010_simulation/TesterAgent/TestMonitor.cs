@@ -9,11 +9,13 @@ namespace TesterAgent
 
     public class TestMonitor
     {
-        TestMethod _method;
-
-        public TestMonitor(TestMethod aa)
+        public TestMonitor()
         {
-            _method = aa;
+        }
+
+        public void TestProgress(object sender, string methodName)
+        {
+            Console.WriteLine("{0}.{1} called.", sender.GetType().Name, methodName);
         }
     }
 }

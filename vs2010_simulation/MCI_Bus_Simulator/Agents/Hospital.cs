@@ -2,35 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MCI_Bus_Simulator.Environment;
+using MCI_Bus_Simulator.Objects;
 
 namespace MCI_Bus_Simulator.Agents
 {
-    public class Hospital : Agent
+    public class Hospital : Agent, IPosition
     {
-        private PositionInfo _position;
         private List<Patient> _patients;
+        private int _x;
 
-        public Hospital(PositionInfo p)
+        public Hospital(int x)
         {
-            p = _position;
+            _x = x;
             _patients = new List<Patient>();
         }
 
-        public void receivePatient(Patient pt)
+        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
         {
-            _patients.Add(pt);
+            switch (msgType)
+            {
+                case MESSAGE_TYPE.PATIENT_ARRIVAL:
+                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.CHECK_MORE_PATIENTS);
+                    break;
+                case MESSAGE_TYPE.PATIENT_PICKEDUP:
+                    SendMessage(typeof(Ambulance), MESSAGE_TYPE.HOSPITAL_LOCATION, _x);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public PositionInfo Position
+        public int X
         {
             get
             {
-                return _position;
+                return _x;
             }
             set
             {
-                value = _position;
+                _x = value;
             }
         }
     }

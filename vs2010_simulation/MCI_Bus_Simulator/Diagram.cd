@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MCI_Bus_Simulator.Agents.Agent">
+    <Position X="4.75" Y="4.5" Width="2" />
+    <NestedTypes>
+      <Delegate Name="MCI_Bus_Simulator.Agents.Agent.MessageEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Agents\Agent.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAACAAIAAACAAAAAAAAAAAAAAAAgQ=</HashCode>
+      <FileName>Agents\Agent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MCI_Bus_Simulator.Agents.Ambulance">
+    <Position X="1.75" Y="8.5" Width="2.5" />
+    <NestedTypes>
+      <Enum Name="MCI_Bus_Simulator.Agents.Ambulance.VEHICLE_STATUS" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Agents\Ambulance.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAACAAAQAAEAAIAAAICAAAEAAAAAAAQgA=</HashCode>
+      <FileName>Agents\Ambulance.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MCI_Bus_Simulator.Agents.EmergencyCallCenter">
+    <Position X="4.5" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAAAAAAAAAAABABAAIAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Agents\EmergencyCallCenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MCI_Bus_Simulator.Agents.Hospital">
+    <Position X="7.25" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQgA=</HashCode>
+      <FileName>Agents\Hospital.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MCI_Bus_Simulator.Objects.MCI_Object">
+    <Position X="4.5" Y="0.5" Width="2.5" />
+    <NestedTypes>
+      <Delegate Name="MCI_Bus_Simulator.Objects.MCI_Object.TickEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Objects\MCI_Object.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAABACAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Objects\MCI_Object.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MCI_Bus_Simulator.Objects.Patient">
+    <Position X="1.75" Y="4.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Patient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MCI_Bus_Simulator.Objects.Disaster">
+    <Position X="7" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Objects\Disaster.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
