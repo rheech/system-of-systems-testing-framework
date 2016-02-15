@@ -64,12 +64,15 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lblStatus = new System.Windows.Forms.Label();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.btnStart = new System.Windows.Forms.Button();
-            this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
             this.btnReset = new System.Windows.Forms.Button();
+            this.tbChangeSpeed = new System.Windows.Forms.TrackBar();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtSimOutput = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.txtProtocol = new System.Windows.Forms.TextBox();
@@ -91,11 +94,24 @@
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnRunTC = new System.Windows.Forms.Button();
             this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
+            this.lblSlow = new System.Windows.Forms.Label();
+            this.lblFast = new System.Windows.Forms.Label();
+            this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbChangeSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -117,7 +133,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(483, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(689, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -347,9 +363,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 397);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 421);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(483, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(689, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -368,83 +384,131 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(483, 373);
+            this.tabControl1.Size = new System.Drawing.Size(689, 397);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.trackBar1);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.lblStatus);
-            this.tabPage1.Controls.Add(this.btnStart);
-            this.tabPage1.Controls.Add(this.simulationVisualizer1);
-            this.tabPage1.Controls.Add(this.btnReset);
+            this.tabPage1.Controls.Add(this.splitContainer3);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(475, 347);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Simulation";
+            this.tabPage1.Size = new System.Drawing.Size(681, 371);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Simulator";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // trackBar1
+            // splitContainer3
             // 
-            this.trackBar1.Location = new System.Drawing.Point(11, 280);
-            this.trackBar1.Minimum = 1;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(187, 45);
-            this.trackBar1.TabIndex = 6;
-            this.trackBar1.Value = 5;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer3.Name = "splitContainer3";
             // 
-            // textBox1
+            // splitContainer3.Panel1
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 153);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(456, 121);
-            this.textBox1.TabIndex = 5;
+            this.splitContainer3.Panel1.Controls.Add(this.lblFast);
+            this.splitContainer3.Panel1.Controls.Add(this.lblSlow);
+            this.splitContainer3.Panel1.Controls.Add(this.btnStart);
+            this.splitContainer3.Panel1.Controls.Add(this.btnReset);
+            this.splitContainer3.Panel1.Controls.Add(this.tbChangeSpeed);
             // 
-            // lblStatus
+            // splitContainer3.Panel2
             // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(8, 15);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(95, 26);
-            this.lblStatus.TabIndex = 4;
-            this.lblStatus.Text = "Waiting patients: 0\r\nSaved patients: 0";
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
+            this.splitContainer3.Size = new System.Drawing.Size(675, 365);
+            this.splitContainer3.SplitterDistance = 224;
+            this.splitContainer3.TabIndex = 0;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(392, 318);
+            this.btnStart.Location = new System.Drawing.Point(126, 323);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 3;
+            this.btnStart.TabIndex = 9;
             this.btnStart.Text = "&Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // simulationVisualizer1
-            // 
-            this.simulationVisualizer1.AutoSize = true;
-            this.simulationVisualizer1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold);
-            this.simulationVisualizer1.Location = new System.Drawing.Point(6, 59);
-            this.simulationVisualizer1.Name = "simulationVisualizer1";
-            this.simulationVisualizer1.Size = new System.Drawing.Size(306, 27);
-            this.simulationVisualizer1.TabIndex = 2;
-            this.simulationVisualizer1.Text = "|----|----|----|----|";
-            this.simulationVisualizer1.Click += new System.EventHandler(this.simulationVisualizer1_Click);
-            // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(312, 318);
+            this.btnReset.Location = new System.Drawing.Point(23, 323);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 1;
+            this.btnReset.TabIndex = 8;
             this.btnReset.Text = "&Reset";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // tbChangeSpeed
+            // 
+            this.tbChangeSpeed.Location = new System.Drawing.Point(14, 247);
+            this.tbChangeSpeed.Maximum = 7;
+            this.tbChangeSpeed.Minimum = 1;
+            this.tbChangeSpeed.Name = "tbChangeSpeed";
+            this.tbChangeSpeed.Size = new System.Drawing.Size(187, 45);
+            this.tbChangeSpeed.TabIndex = 7;
+            this.tbChangeSpeed.Value = 4;
+            this.tbChangeSpeed.Scroll += new System.EventHandler(this.tbChangeSpeed_Scroll);
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.groupBox2);
+            this.splitContainer4.Size = new System.Drawing.Size(447, 365);
+            this.splitContainer4.SplitterDistance = 179;
+            this.splitContainer4.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblStatus);
+            this.groupBox1.Controls.Add(this.simulationVisualizer1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(447, 179);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Simulator";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(6, 25);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(95, 26);
+            this.lblStatus.TabIndex = 6;
+            this.lblStatus.Text = "Waiting patients: 0\r\nSaved patients: 0";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtSimOutput);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(447, 182);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Output";
+            // 
+            // txtSimOutput
+            // 
+            this.txtSimOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSimOutput.Location = new System.Drawing.Point(3, 16);
+            this.txtSimOutput.Multiline = true;
+            this.txtSimOutput.Name = "txtSimOutput";
+            this.txtSimOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtSimOutput.Size = new System.Drawing.Size(441, 163);
+            this.txtSimOutput.TabIndex = 6;
             // 
             // tabPage2
             // 
@@ -464,7 +528,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(475, 347);
+            this.tabPage2.Size = new System.Drawing.Size(681, 371);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Case Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -585,7 +649,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(475, 347);
+            this.tabPage3.Size = new System.Drawing.Size(681, 371);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Test Case Result";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -604,8 +668,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.btnRunTC);
-            this.splitContainer1.Size = new System.Drawing.Size(469, 341);
-            this.splitContainer1.SplitterDistance = 297;
+            this.splitContainer1.Size = new System.Drawing.Size(675, 365);
+            this.splitContainer1.SplitterDistance = 317;
             this.splitContainer1.TabIndex = 18;
             // 
             // splitContainer2
@@ -621,8 +685,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.txtOutput);
-            this.splitContainer2.Size = new System.Drawing.Size(469, 297);
-            this.splitContainer2.SplitterDistance = 155;
+            this.splitContainer2.Size = new System.Drawing.Size(675, 317);
+            this.splitContainer2.SplitterDistance = 223;
             this.splitContainer2.TabIndex = 0;
             // 
             // lstGoals
@@ -639,7 +703,7 @@
             "TransferPatient"});
             this.lstGoals.Location = new System.Drawing.Point(0, 0);
             this.lstGoals.Name = "lstGoals";
-            this.lstGoals.Size = new System.Drawing.Size(155, 297);
+            this.lstGoals.Size = new System.Drawing.Size(223, 317);
             this.lstGoals.TabIndex = 17;
             this.lstGoals.SelectedIndexChanged += new System.EventHandler(this.lstGoals_SelectedIndexChanged);
             // 
@@ -650,7 +714,7 @@
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(310, 297);
+            this.txtOutput.Size = new System.Drawing.Size(448, 317);
             this.txtOutput.TabIndex = 16;
             // 
             // btnRunTC
@@ -667,11 +731,39 @@
             this.tmrSimulation.Interval = 1000;
             this.tmrSimulation.Tick += new System.EventHandler(this.tmrSimulation_Tick);
             // 
+            // lblSlow
+            // 
+            this.lblSlow.AutoSize = true;
+            this.lblSlow.Location = new System.Drawing.Point(11, 295);
+            this.lblSlow.Name = "lblSlow";
+            this.lblSlow.Size = new System.Drawing.Size(30, 13);
+            this.lblSlow.TabIndex = 10;
+            this.lblSlow.Text = "Slow";
+            // 
+            // lblFast
+            // 
+            this.lblFast.AutoSize = true;
+            this.lblFast.Location = new System.Drawing.Point(174, 295);
+            this.lblFast.Name = "lblFast";
+            this.lblFast.Size = new System.Drawing.Size(27, 13);
+            this.lblFast.TabIndex = 11;
+            this.lblFast.Text = "Fast";
+            // 
+            // simulationVisualizer1
+            // 
+            this.simulationVisualizer1.AutoSize = true;
+            this.simulationVisualizer1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold);
+            this.simulationVisualizer1.Location = new System.Drawing.Point(4, 69);
+            this.simulationVisualizer1.Name = "simulationVisualizer1";
+            this.simulationVisualizer1.Size = new System.Drawing.Size(306, 27);
+            this.simulationVisualizer1.TabIndex = 5;
+            this.simulationVisualizer1.Text = "|----|----|----|----|";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 419);
+            this.ClientSize = new System.Drawing.Size(689, 443);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -686,8 +778,20 @@
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tbChangeSpeed)).EndInit();
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -740,7 +844,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox txtProtocol;
         private System.Windows.Forms.Label label7;
@@ -761,13 +864,20 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnRunTC;
-        private System.Windows.Forms.Button btnReset;
-        private Visualizer.SimulationVisualizer simulationVisualizer1;
-        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Timer tmrSimulation;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.TrackBar tbChangeSpeed;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private Visualizer.SimulationVisualizer simulationVisualizer1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtSimOutput;
+        private System.Windows.Forms.Label lblFast;
+        private System.Windows.Forms.Label lblSlow;
     }
 }
 

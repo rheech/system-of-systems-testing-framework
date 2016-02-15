@@ -1,35 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Role">
   <Actor name="MCI_Reporter">
-    <arrow name="activateMCI" to="CommunicationCenter" />
+    <arrow name="NOTIFY_INCIDENT" to="CommunicationCenter" />
   </Actor>
   <Role name="CommunicationCenter">
+    <attribute type="organization" name="Communication_System" />
     <attribute type="achieves" name="Communicate" />
     <attribute type="requires" name="ProcessHelpRequest" />
-    <arrow name="reportMCI" to="IncidentCommander" />
-    <arrow name="pickupPatient" to="EmergencyVehicle" />
+    <arrow name="INCIDENT_REPORT" to="IncidentCommander" />
+    <arrow name="RESCUE_COMPLETE" to="IncidentCommander" />
+    <arrow name="RESCUE_REQUEST" to="EmergencyVehicle" />
   </Role>
   <Role name="IncidentCommander">
+    <attribute type="organization" name="Communication_System" />
     <attribute type="achieves" name="ReportIncident" />
     <attribute type="requires" name="BroadcastVehicle" />
-    <arrow name="assignAmbulance" to="CommunicationCenter" />
+    <arrow name="ASSIGN_AMBULANCE" to="CommunicationCenter" />
   </Role>
   <Role name="EmergencyVehicle">
+    <attribute type="organization" name="Communication_System" />
     <attribute type="achieves" name="LocatePatient" />
     <attribute type="achieves" name="TransferPatient" />
     <attribute type="requires" name="GetPatientStatus" />
     <attribute type="requires" name="FindSuitableHospital" />
-    <arrow name="performPrimaryTriage" to="EmergencyServices" />
+    <arrow name="PATIENT_PICKUP" to="EmergencyServices" />
   </Role>
   <Role name="EmergencyServices">
+    <attribute type="organization" name="Medical_System" />
     <attribute type="achieves" name="TreatPatient" />
     <attribute type="requires" name="PerformFirstAid" />
-    <arrow name="receivePatient" to="MedicalCenter" />
+    <arrow name="FIND_HOSPITAL" to="MedicalCenter" />
+    <arrow name="PATIENT_ARRIVAL" to="MedicalCenter" />
   </Role>
   <Role name="MedicalCenter">
+    <attribute type="organization" name="Medical_System" />
     <attribute type="achieves" name="SavePatient" />
     <attribute type="achieves" name="MedicalCare" />
     <attribute type="requires" name="CurePatient" />
-    <arrow name="reportSavedPatient" to="CommunicationCenter" />
+    <arrow name="HOSPITAL_LOCATION" to="EmergencyServices" />
+    <arrow name="CHECK_MORE_PATIENTS" to="CommunicationCenter" />
   </Role>
 </Diagram>

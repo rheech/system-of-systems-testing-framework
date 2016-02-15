@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Agent">
   <Actor name="MCI_Reporter">
-    <arrow name="activateMCI" to="EmergencyCallCenter" />
+    <arrow name="NOTIFY_INCIDENT" to="EmergencyCallCenter" />
   </Actor>
   <Agent name="EmergencyCallCenter">
     <attribute type="plays" name="CommunicationCenter" />
     <attribute type="plays" name="IncidentCommander" />
     <attribute type="possesses" name="ProcessHelpRequest" />
     <attribute type="possesses" name="BroadcastVehicle" />
-    <arrow name="reportMCI" to="EmergencyCallCenter" />
-    <arrow name="assignAmbulance" to="EmergencyCallCenter" />
-    <arrow name="pickupPatient" to="Ambulance" />
+    <arrow name="INCIDENT_REPORT" to="EmergencyCallCenter" />
+    <arrow name="ASSIGN_AMBULANCE" to="EmergencyCallCenter" />
+    <arrow name="RESCUE_COMPLETE" to="EmergencyCallCenter" />
+    <arrow name="RESCUE_COMPLETE" to="Ambulance" />
   </Agent>
   <Agent name="Ambulance">
     <attribute type="plays" name="EmergencyVehicle" />
@@ -18,12 +19,14 @@
     <attribute type="possesses" name="GetPatientStatus" />
     <attribute type="possesses" name="FindSuitableHospital" />
     <attribute type="possesses" name="PerformFirstAid"></attribute>
-    <arrow name="performPrimaryTriage" to="Ambulance" />
-    <arrow name="receivePatient" to="Hospital" />
+    <arrow name="PATIENT_PICKEDUP" to="Ambulance" />
+    <arrow name="PATIENT_ARRIVAL" to="Hospital" />
+    <arrow name="FIND_HOSPITAL" to="Hospital" />
   </Agent>
   <Agent name="Hospital">
     <attribute type="plays" name="MedicalCenter" />
     <attribute type="possesses" name="CurePatient" />
-    <arrow name="reportSavedPatient" to="EmergencyCallCenter" />
+    <arrow name="HOSPITAL_LOCATION" to="Ambulance" />
+    <arrow name="CHECK_MORE_PATIENTS" to="EmergencyCallCenter" />
   </Agent>
 </Diagram>

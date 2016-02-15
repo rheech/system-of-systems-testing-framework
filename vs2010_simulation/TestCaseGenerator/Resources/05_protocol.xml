@@ -1,22 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Protocol">
   <Object type="Actor" name="MCI_Reporter">
-    <arrow index="1" name="activateMCI" to="CommunicationCenter" />
+    <arrow index="1" name="NOTIFY_INCIDENT" to="CommunicationCenter" />
   </Object>
   <Object type="Role" name="CommunicationCenter">
-    <arrow index="2" name="reportMCI" to="IncidentCommander" />
-    <arrow index="4" name="pickupPatient" to="EmergencyVehicle" />
+    <arrow index="2" name="INCIDENT_REPORT" to="IncidentCommander" />
+    <arrow index="4" name="RESCUE_REQUEST" to="EmergencyVehicle" />
+    <arrow index="10" name="RESCUE_COMPLETE" to="IncidentCommander" />
   </Object>
   <Object type="Role" name="IncidentCommander">
-    <arrow index="3" name="assignAmbulance" to="CommunicationCenter" />
+    <arrow index="3" name="ASSIGN_AMBULANCE" to="CommunicationCenter" />
   </Object>
   <Object type="Role" name="EmergencyVehicle">
-    <arrow index="5" name="performPrimaryTriage" to="EmergencyServices" />
+    <arrow index="5" name="PATIENT_PICKEDUP" to="EmergencyServices" />
   </Object>
   <Object type="Role" name="EmergencyServices">
-    <arrow index="6" name="receivePatient" to="MedicalCenter" />
+    <arrow index="6" name="FIND_HOSPITAL" to="MedicalCenter" />
   </Object>
   <Object type="Role" name="MedicalCenter">
-    <arrow index="7" name="reportSavedPatient" to="CommunicationCenter" />
+    <arrow index="7" name="HOSPITAL_LOCATION" to="EmergencyServices" />
+    <arrow index="8" name="PATIENT_ARRIVAL" to="MedicalCenter" />
+    <arrow index="9" name="CHECK_MORE_PATIENTS" to="CommunicationCenter" />
   </Object>
 </Diagram>

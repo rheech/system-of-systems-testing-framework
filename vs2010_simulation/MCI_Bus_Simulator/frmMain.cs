@@ -28,19 +28,19 @@ namespace MCI_Bus_Simulator
         {
             StringBuilder sb = new StringBuilder();
 
-            if (textBox1.Text != "")
+            if (txtSimOutput.Text != "")
             {
-                sb.AppendFormat("{0}\r\n{1}", textBox1.Text, text);
+                sb.AppendFormat("{0}\r\n{1}", txtSimOutput.Text, text);
             }
             else
             {
                 sb.Append(text);
             }
 
-            textBox1.Text = sb.ToString();
+            txtSimOutput.Text = sb.ToString();
 
-            textBox1.SelectionStart = textBox1.Text.Length;
-            textBox1.ScrollToCaret();
+            txtSimOutput.SelectionStart = txtSimOutput.Text.Length;
+            txtSimOutput.ScrollToCaret();
         }
 
         private void updateTCResourceFile()
@@ -69,19 +69,8 @@ namespace MCI_Bus_Simulator
             s.MonitorAgent.OnTextUpdate += MonitorAgent_OnTextUpdate;
         }
         
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            tmrSimulation.Enabled = false;
-            s.InitializeSimulation();
-            InitializeSimulator();
-            textBox1.Text = "";
-        }
 
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            s.RunSimulator();
-            tmrSimulation.Enabled = true;
-        }
+
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -105,9 +94,24 @@ namespace MCI_Bus_Simulator
             }*/
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void tbChangeSpeed_Scroll(object sender, EventArgs e)
         {
-            tmrSimulation.Interval = trackBar1.Value * 50;
+            tmrSimulation.Interval = ((tbChangeSpeed.Maximum + 1) - tbChangeSpeed.Value) * 50;
         }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            s.RunSimulator();
+            tmrSimulation.Enabled = true;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            tmrSimulation.Enabled = false;
+            s.InitializeSimulation();
+            InitializeSimulator();
+            txtSimOutput.Text = "";
+        }
+
     }
 }

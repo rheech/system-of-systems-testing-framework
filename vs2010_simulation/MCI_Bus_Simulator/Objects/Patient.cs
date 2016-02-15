@@ -15,11 +15,12 @@ namespace MCI_Bus_Simulator.Objects
 
     public class Patient : MCI_Object
     {
+        private int _delayed;
         private PATIENT_STATUS _patientStatus;
 
         public Patient()
         {
-            
+            _delayed = 0;
         }
 
         public PATIENT_STATUS Status
@@ -32,6 +33,11 @@ namespace MCI_Bus_Simulator.Objects
             {
                 _patientStatus = value;
             }
+        }
+
+        protected override void OnTick()
+        {
+            _delayed++;
         }
     }
 }
