@@ -24,7 +24,7 @@ namespace MCI_Bus_Simulator.Agents
                 case MESSAGE_TYPE.PATIENT_ARRIVAL:
                     SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.CHECK_MORE_PATIENTS);
                     break;
-                case MESSAGE_TYPE.PATIENT_PICKEDUP:
+                case MESSAGE_TYPE.FIND_HOSPITAL:
                     SendMessage(typeof(Ambulance), MESSAGE_TYPE.HOSPITAL_LOCATION, _x);
                     break;
                 default:

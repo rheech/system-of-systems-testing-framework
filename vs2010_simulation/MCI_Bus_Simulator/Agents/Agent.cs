@@ -10,13 +10,14 @@ namespace MCI_Bus_Simulator.Agents
 {
     public enum MESSAGE_TYPE
     {
-        DISASTER_REPORT,
+        INCIDENT_REPORT,
         ASSIGN_AMBULANCE,
+        RESCUE_REQUEST,
         PATIENT_PICKEDUP,
+        FIND_HOSPITAL,
         HOSPITAL_LOCATION,
         PATIENT_ARRIVAL,
         CHECK_MORE_PATIENTS,
-        REMAINING_PATIENTS,
         RESCUE_COMPLETE
     }
 

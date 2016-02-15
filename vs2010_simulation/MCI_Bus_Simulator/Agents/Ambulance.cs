@@ -44,15 +44,18 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.DISASTER_REPORT:
+                case MESSAGE_TYPE.INCIDENT_REPORT:
                     MoveTo((int)info[0]);
                     _vehicleStatus = VEHICLE_STATUS.TO_DISASTER_AREA;
+                    break;
+                case MESSAGE_TYPE.PATIENT_PICKEDUP:
+                    SendMessage(typeof(Hospital), MESSAGE_TYPE.FIND_HOSPITAL);
                     break;
                 case MESSAGE_TYPE.HOSPITAL_LOCATION:
                     MoveTo((int)info[0]);
                     _vehicleStatus = VEHICLE_STATUS.TO_HOSPITAL;
                     break;
-                case MESSAGE_TYPE.REMAINING_PATIENTS:
+                case MESSAGE_TYPE.RESCUE_REQUEST:
                     {
                         int iNumPatients;
                         iNumPatients = (int)info[0];
@@ -94,7 +97,7 @@ namespace MCI_Bus_Simulator.Agents
                     if (_vehicleStatus == VEHICLE_STATUS.TO_DISASTER_AREA)
                     {
                         _currentPatient = Simulator.patients.Dequeue();
-                        SendMessage(typeof(Hospital), MESSAGE_TYPE.PATIENT_PICKEDUP);
+                        SendMessage(typeof(Ambulance), MESSAGE_TYPE.PATIENT_PICKEDUP);
                     }
                     else if (_vehicleStatus == VEHICLE_STATUS.TO_HOSPITAL) // to hospital
                     {
