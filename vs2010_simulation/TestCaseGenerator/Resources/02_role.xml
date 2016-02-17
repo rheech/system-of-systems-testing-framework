@@ -23,7 +23,7 @@
     <attribute type="achieves" name="TransferPatient" />
     <attribute type="requires" name="GetPatientStatus" />
     <attribute type="requires" name="FindSuitableHospital" />
-    <arrow name="PATIENT_PICKUP" to="EmergencyServices" />
+    <arrow name="PATIENT_PICKEDUP" to="EmergencyServices" />
   </Role>
   <Role name="EmergencyServices">
     <attribute type="organization" name="Medical_System" />

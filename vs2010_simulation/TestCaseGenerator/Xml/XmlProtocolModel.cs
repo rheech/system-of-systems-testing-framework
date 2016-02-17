@@ -119,6 +119,8 @@ namespace TestCaseGenerator.Xml
             Arrow arrow = new Arrow();
             arrow.index = -1;
 
+            //Console.WriteLine("GetNextArrow: {0}", prevArrow.name);
+
             // Find only next element
             foreach (XmlNode x in FindObject(prevArrow.to))
             {
@@ -139,6 +141,8 @@ namespace TestCaseGenerator.Xml
         {
             Arrow arrow = new Arrow();
             arrow.index = -1;
+
+            //Console.WriteLine("GetPrevArrow: {0}", nextArrow.name);
 
             // Find everywhere
             foreach (XmlNode x in RootNodes)
@@ -165,6 +169,7 @@ namespace TestCaseGenerator.Xml
             {
                 if (x.Attributes["name"].InnerText == objectName)
                 {
+                    Console.WriteLine("FindObject: {0}", objectName);
                     return x;
                 }
                 /*

@@ -16,10 +16,10 @@
   </Object>
   <Object type="Role" name="EmergencyServices">
     <arrow index="6" name="FIND_HOSPITAL" to="MedicalCenter" />
+	<arrow index="8" name="PATIENT_ARRIVAL" to="MedicalCenter" />
   </Object>
   <Object type="Role" name="MedicalCenter">
     <arrow index="7" name="HOSPITAL_LOCATION" to="EmergencyServices" />
-    <arrow index="8" name="PATIENT_ARRIVAL" to="MedicalCenter" />
     <arrow index="9" name="CHECK_MORE_PATIENTS" to="CommunicationCenter" />
   </Object>
 </Diagram>
