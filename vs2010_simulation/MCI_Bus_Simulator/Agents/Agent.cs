@@ -10,6 +10,7 @@ namespace MCI_Bus_Simulator.Agents
 {
     public enum MESSAGE_TYPE
     {
+        NOTIFY_INCIDENT,
         INCIDENT_REPORT,
         ASSIGN_AMBULANCE,
         RESCUE_REQUEST,
@@ -18,7 +19,8 @@ namespace MCI_Bus_Simulator.Agents
         HOSPITAL_LOCATION,
         PATIENT_ARRIVAL,
         CHECK_MORE_PATIENTS,
-        RESCUE_COMPLETE
+        RESCUE_COMPLETE,
+        SIMULATION_COMPLETE
     }
 
     public abstract class Agent : MCI_Object
@@ -64,15 +66,24 @@ namespace MCI_Bus_Simulator.Agents
                     target.Name == "Agent" ||
                     this.GetType().Name == "MonitorAgent") // if monitoring agent, receive all
             {
-                //if (r.Next(0, 100) < 90) // 메시지가 90% 의 확률로 전달됨.
+                // if (r.Next(1, 101) < 95) // 메시지가 90% 의 확률로 전달됨.
                 {
                     OnMessageReceived(from, target, msgType, info);
+                }
+                //else
+                {
+                    //SimulationComplete(true);
                 }
             }
         }
 
         protected virtual void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
         {
+        }
+
+        protected void SimulationComplete(bool error)
+        {
+            SendMessage(typeof(Agent), MESSAGE_TYPE.SIMULATION_COMPLETE);
         }
     }
 }

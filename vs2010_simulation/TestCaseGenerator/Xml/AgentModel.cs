@@ -6,9 +6,9 @@ using System.Xml;
 
 namespace TestCaseGenerator.Xml
 {
-    class XmlAgentModel : XmlParser
+    class AgentModel : XmlParser
     {
-        public XmlAgentModel(string file) : base(file, "/Diagram/Agent")
+        public AgentModel(string file) : base(file, "/Diagram/Agent")
         {
 
         }

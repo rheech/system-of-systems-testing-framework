@@ -6,11 +6,11 @@ using System.Xml;
 
 namespace TestCaseGenerator.Xml
 {
-    class XmlRoleModel : XmlParser
+    class RoleModel : XmlParser
     {
         // XML Parsing Reference: http://www.doublecloud.org/2013/08/parsing-xml-in-c-a-quick-working-sample/
 
-        public XmlRoleModel(string file) : base(file, "/Diagram/Role")
+        public RoleModel(string file) : base(file, "/Diagram/Role")
         {
 
         }

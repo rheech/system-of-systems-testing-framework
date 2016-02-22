@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MCI_Bus_Simulator.Agents;
 using MCI_Bus_Simulator.Objects;
+using TestCaseGenerator;
 
 namespace MCI_Bus_Simulator
 {
@@ -13,7 +14,15 @@ namespace MCI_Bus_Simulator
         public static Queue<Patient> patients;
         public static List<Patient> savedPatients;
 
-        public MonitorAgent MonitorAgent;
+        public delegate void LogUpdateHandler(string text);
+        public delegate void SimulationCompleteHandler();
+        public event LogUpdateHandler OnLogUpdate;
+        public event SimulationCompleteHandler OnSimulationComplete;
+
+        // Monitoring agent
+        MonitorAgent _monitorAgent;
+
+        // other agents
         Ambulance _ambulance;
         Hospital _hospital;
         EmergencyCallCenter _callCenter;
@@ -29,7 +38,11 @@ namespace MCI_Bus_Simulator
             Agent.ResetEventHandler();
             MCI_Object.ResetEventHandler();
 
-            MonitorAgent = new MonitorAgent();
+            // simulation input
+            _monitorAgent = new MonitorAgent();
+            _monitorAgent.OnTextUpdate += MonitorAgent_OnTextUpdate;
+            _monitorAgent.OnSimulationFinished += MonitorAgent_OnSimulationFinished;
+
             _hospital = new Hospital(15);
             _ambulance = new Ambulance(15);
             _callCenter = new EmergencyCallCenter();
@@ -79,6 +92,62 @@ namespace MCI_Bus_Simulator
             sb.AppendFormat("{0}{1}", new String(' ', _ambulance.X), "A");
 
             return sb.ToString();
+        }
+
+        public bool CompareResult(TestInfo tcResult)
+        {
+            SimulationEntry[] simResult;
+            string output;
+            StringBuilder sb = new StringBuilder();
+            bool bExists = true;
+
+            simResult = _monitorAgent.GetSimulationLog();
+            
+            for (int i = 0; i < simResult.Length; i++)
+            {
+                sb.AppendFormat("{0}\n", simResult[i].ToString());
+            }
+
+            output = sb.ToString();
+
+            foreach (Arrow arrow in tcResult.sequence)
+            {
+                bExists &= (output.IndexOf(arrow.ToString()) != -1);
+            }
+
+            return bExists;
+        }
+
+        private void MonitorAgent_OnTextUpdate(string text)
+        {
+            if (OnLogUpdate != null)
+            {
+                OnLogUpdate(text);
+            }
+            /*
+            StringBuilder sb = new StringBuilder();
+
+            if (txtSimOutput.Text != "")
+            {
+                sb.AppendFormat("{0}\r\n{1}", txtSimOutput.Text, text);
+            }
+            else
+            {
+                sb.Append(text);
+            }
+
+            txtSimOutput.Text = sb.ToString();
+
+            txtSimOutput.SelectionStart = txtSimOutput.Text.Length;
+            txtSimOutput.ScrollToCaret();*/
+        }
+
+        private void MonitorAgent_OnSimulationFinished()
+        {
+            if (OnSimulationComplete != null)
+            {
+                OnSimulationComplete();
+            }
         }
 
         private string MergeTwoString(string exp1, string exp2)

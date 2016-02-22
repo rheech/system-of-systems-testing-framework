@@ -3,26 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Debugger;
 
 namespace TestCaseGenerator.Xml
 {
-    public struct Arrow
+    class ProtocolModel : XmlParser
     {
-        public int index;
-        public string name;
-        public string to;
-    }
-    class XmlProtocolModel : XmlParser
-    {
-        public XmlProtocolModel(string file)
+        public ProtocolModel(string file)
             : base(file, "/Diagram/Object")
         {
             GetArrowByIndex(1);
         }
 
-        public Arrow[] TrackSequence_depreciated(string roleName)
+        public Arrow[] TrackSequence(string roleName, AgentModel agentModel)
         {
             List<Arrow> aList = new List<Arrow>();
+            Arrow[] arrows;
 
             int i = 0;
 
@@ -30,8 +26,8 @@ namespace TestCaseGenerator.Xml
             {
                 Arrow arrow = new Arrow();
                 arrow.index = Int32.Parse(x.Attributes["index"].InnerText);
-                arrow.name = x.Attributes["name"].InnerText;
-                arrow.to = x.Attributes["to"].InnerText;
+                arrow.message = x.Attributes["name"].InnerText;
+                arrow.role_to = x.Attributes["to"].InnerText;
 
                 // Find last index
                 if (i == 0)
@@ -45,27 +41,31 @@ namespace TestCaseGenerator.Xml
                 Arrow nextArrow = GetNextArrow(arrow);
 
                 while (nextArrow.index != -1
-                        && nextArrow.to == roleName)
+                        && nextArrow.role_to == roleName)
                 {
                     aList.Add(nextArrow);
                     nextArrow = GetNextArrow(nextArrow);
                 }
             }
 
-            return aList.ToArray();
+            // Track agents
+            arrows = aList.ToArray();
+
+            for (int k = 0; k < arrows.Length; k++)
+            {
+                arrows[k].agent_to = agentModel.GetAgentFromRole(arrows[k].role_to);
+            }
+
+            return arrows;
         }
 
-        public Arrow[] TrackSequence(string roleName)
+        public Arrow[] TrackSequence_depreciated(string roleName, AgentModel agentModel)
         {
             List<Arrow> aList = new List<Arrow>();
+            Arrow[] arrows;
 
             //int i = 0;
             int destIndex = 0;
-
-            if (roleName == "MedicalCare")
-            {
-                Console.Write("ASDF");
-            }
 
             // Find last index
             foreach (XmlNode x in FindObject(roleName))
@@ -73,8 +73,8 @@ namespace TestCaseGenerator.Xml
                 // Get found arrow
                 Arrow arrow = new Arrow();
                 arrow.index = Int32.Parse(x.Attributes["index"].InnerText);
-                arrow.name = x.Attributes["name"].InnerText;
-                arrow.to = x.Attributes["to"].InnerText;
+                arrow.message = x.Attributes["name"].InnerText;
+                arrow.role_to = x.Attributes["to"].InnerText;
 
                 destIndex = arrow.index;
             }
@@ -87,7 +87,15 @@ namespace TestCaseGenerator.Xml
                 newArrow = GetNextArrow(newArrow);
             }
 
-            return aList.ToArray();
+            // Track agents
+            arrows = aList.ToArray();
+
+            for (int k = 0; k < arrows.Length; k++)
+            {
+                arrows[k].agent_to = agentModel.GetAgentFromRole(arrows[k].role_to);
+            }
+
+            return arrows;
         }
 
         private Arrow GetArrowByIndex(int index)
@@ -103,8 +111,8 @@ namespace TestCaseGenerator.Xml
                             (Int32.Parse(y.Attributes["index"].InnerText) == index))
                     {
                         arrow.index = Int32.Parse(y.Attributes["index"].InnerText);
-                        arrow.name = y.Attributes["name"].InnerText;
-                        arrow.to = y.Attributes["to"].InnerText;
+                        arrow.message = y.Attributes["name"].InnerText;
+                        arrow.role_to = y.Attributes["to"].InnerText;
 
                         return arrow; 
                     }
@@ -119,16 +127,16 @@ namespace TestCaseGenerator.Xml
             Arrow arrow = new Arrow();
             arrow.index = -1;
 
-            //Console.WriteLine("GetNextArrow: {0}", prevArrow.name);
+            Debug.Print("GetNextArrow: {0}", prevArrow.message);
 
             // Find only next element
-            foreach (XmlNode x in FindObject(prevArrow.to))
+            foreach (XmlNode x in FindObject(prevArrow.role_to))
             {
                 if (prevArrow.index == (Int32.Parse(x.Attributes["index"].InnerText) - 1))
                 {
                     arrow.index = Int32.Parse(x.Attributes["index"].InnerText);
-                    arrow.name = x.Attributes["name"].InnerText;
-                    arrow.to = x.Attributes["to"].InnerText;
+                    arrow.message = x.Attributes["name"].InnerText;
+                    arrow.role_to = x.Attributes["to"].InnerText;
 
                     return arrow;
                 }
@@ -142,7 +150,7 @@ namespace TestCaseGenerator.Xml
             Arrow arrow = new Arrow();
             arrow.index = -1;
 
-            //Console.WriteLine("GetPrevArrow: {0}", nextArrow.name);
+            Debug.Print("GetPrevArrow: {0}", nextArrow.message);
 
             // Find everywhere
             foreach (XmlNode x in RootNodes)
@@ -152,8 +160,8 @@ namespace TestCaseGenerator.Xml
                     if (nextArrow.index == (Int32.Parse(y.Attributes["index"].InnerText) + 1))
                     {
                         arrow.index = Int32.Parse(y.Attributes["index"].InnerText);
-                        arrow.name = y.Attributes["name"].InnerText;
-                        arrow.to = y.Attributes["to"].InnerText;
+                        arrow.message = y.Attributes["name"].InnerText;
+                        arrow.role_to = y.Attributes["to"].InnerText;
 
                         return arrow;
                     }
@@ -169,7 +177,7 @@ namespace TestCaseGenerator.Xml
             {
                 if (x.Attributes["name"].InnerText == objectName)
                 {
-                    Console.WriteLine("FindObject: {0}", objectName);
+                    Debug.Print("FindObject: {0}", objectName);
                     return x;
                 }
                 /*

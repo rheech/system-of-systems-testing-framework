@@ -43,6 +43,12 @@
     <Compile Include="TestMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Debugger\Debugger.csproj">
+      <Project>{B451A7F8-C342-432F-8AB3-B8C53B9A0B2B}</Project>
+      <Name>Debugger</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

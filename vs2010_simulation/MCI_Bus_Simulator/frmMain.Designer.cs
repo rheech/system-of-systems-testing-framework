@@ -61,10 +61,16 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lstViewGoal = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lblFast = new System.Windows.Forms.Label();
+            this.lblSlow = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.tbChangeSpeed = new System.Windows.Forms.TrackBar();
@@ -94,8 +100,6 @@
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnRunTC = new System.Windows.Forms.Button();
             this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
-            this.lblSlow = new System.Windows.Forms.Label();
-            this.lblFast = new System.Windows.Forms.Label();
             this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -105,6 +109,7 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbChangeSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
@@ -362,18 +367,17 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.tsLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 421);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(689, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // tsLabel
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.tsLabel.Name = "tsLabel";
+            this.tsLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // tabControl1
             // 
@@ -406,6 +410,7 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.groupBox3);
             this.splitContainer3.Panel1.Controls.Add(this.lblFast);
             this.splitContainer3.Panel1.Controls.Add(this.lblSlow);
             this.splitContainer3.Panel1.Controls.Add(this.btnStart);
@@ -418,6 +423,57 @@
             this.splitContainer3.Size = new System.Drawing.Size(675, 365);
             this.splitContainer3.SplitterDistance = 224;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.lstViewGoal);
+            this.groupBox3.Location = new System.Drawing.Point(5, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(216, 238);
+            this.groupBox3.TabIndex = 12;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Goal";
+            // 
+            // lstViewGoal
+            // 
+            this.lstViewGoal.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.lstViewGoal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstViewGoal.Location = new System.Drawing.Point(3, 16);
+            this.lstViewGoal.Name = "lstViewGoal";
+            this.lstViewGoal.Size = new System.Drawing.Size(210, 219);
+            this.lstViewGoal.TabIndex = 0;
+            this.lstViewGoal.UseCompatibleStateImageBehavior = false;
+            this.lstViewGoal.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Goal";
+            this.columnHeader1.Width = 88;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Pass/Fail";
+            this.columnHeader2.Width = 86;
+            // 
+            // lblFast
+            // 
+            this.lblFast.AutoSize = true;
+            this.lblFast.Location = new System.Drawing.Point(174, 295);
+            this.lblFast.Name = "lblFast";
+            this.lblFast.Size = new System.Drawing.Size(27, 13);
+            this.lblFast.TabIndex = 11;
+            this.lblFast.Text = "Fast";
+            // 
+            // lblSlow
+            // 
+            this.lblSlow.AutoSize = true;
+            this.lblSlow.Location = new System.Drawing.Point(11, 295);
+            this.lblSlow.Name = "lblSlow";
+            this.lblSlow.Size = new System.Drawing.Size(30, 13);
+            this.lblSlow.TabIndex = 10;
+            this.lblSlow.Text = "Slow";
             // 
             // btnStart
             // 
@@ -731,24 +787,6 @@
             this.tmrSimulation.Interval = 1000;
             this.tmrSimulation.Tick += new System.EventHandler(this.tmrSimulation_Tick);
             // 
-            // lblSlow
-            // 
-            this.lblSlow.AutoSize = true;
-            this.lblSlow.Location = new System.Drawing.Point(11, 295);
-            this.lblSlow.Name = "lblSlow";
-            this.lblSlow.Size = new System.Drawing.Size(30, 13);
-            this.lblSlow.TabIndex = 10;
-            this.lblSlow.Text = "Slow";
-            // 
-            // lblFast
-            // 
-            this.lblFast.AutoSize = true;
-            this.lblFast.Location = new System.Drawing.Point(174, 295);
-            this.lblFast.Name = "lblFast";
-            this.lblFast.Size = new System.Drawing.Size(27, 13);
-            this.lblFast.TabIndex = 11;
-            this.lblFast.Text = "Fast";
-            // 
             // simulationVisualizer1
             // 
             this.simulationVisualizer1.AutoSize = true;
@@ -783,6 +821,7 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbChangeSpeed)).EndInit();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
@@ -842,7 +881,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel tsLabel;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox txtProtocol;
@@ -878,6 +917,10 @@
         private System.Windows.Forms.TextBox txtSimOutput;
         private System.Windows.Forms.Label lblFast;
         private System.Windows.Forms.Label lblSlow;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ListView lstViewGoal;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 

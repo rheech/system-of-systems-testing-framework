@@ -20,6 +20,9 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
+                case MESSAGE_TYPE.NOTIFY_INCIDENT:
+                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.INCIDENT_REPORT, Simulator.patients.Count, _disaster.X);
+                    break;
                 case MESSAGE_TYPE.INCIDENT_REPORT:
                     SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ASSIGN_AMBULANCE, Simulator.patients.Count, _disaster.X);
                     break;
@@ -31,8 +34,11 @@ namespace MCI_Bus_Simulator.Agents
                     }
                     else
                     {
-                        SendMessage(typeof(Agent), MESSAGE_TYPE.RESCUE_COMPLETE, Simulator.patients.Count);
+                        SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.RESCUE_COMPLETE, Simulator.patients.Count);
                     }
+                    break;
+                case MESSAGE_TYPE.RESCUE_COMPLETE:
+                    SimulationComplete(false);
                     break;
                 default:
                     break;
@@ -42,7 +48,7 @@ namespace MCI_Bus_Simulator.Agents
         public void ReportDisaster(Disaster disaster)
         {
             _disaster = disaster;
-            SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.INCIDENT_REPORT, _disaster.X);
+            SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.NOTIFY_INCIDENT, _disaster.X);
         }
     }
 }

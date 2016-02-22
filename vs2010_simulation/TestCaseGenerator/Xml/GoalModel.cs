@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestCaseGenerator.Model
+namespace TestCaseGenerator.Xml
 {
-    public class GoalModel
+    class GoalModel
     {
         public GoalModel()
         {
         }
 
-        
+        public string[] listAllGoals()
+        {
+            return null;
+        }
     }
 }

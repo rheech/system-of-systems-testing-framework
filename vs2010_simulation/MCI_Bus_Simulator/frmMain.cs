@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TestCaseGenerator;
 using MCI_Bus_Simulator.Agents;
+using TestCaseGenerator.Xml;
 
 namespace MCI_Bus_Simulator
 {
@@ -21,10 +22,88 @@ namespace MCI_Bus_Simulator
         public frmMain()
         {
             InitializeComponent();
+            lstViewGoal.FullRowSelect = true;
             _tcGenerator = new TCGenerator();
         }
 
-        private void MonitorAgent_OnTextUpdate(string text)
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            InitializeSimulator();
+            s.OnLogUpdate += Simulator_OnLogUpdate;
+            s.OnSimulationComplete += Simulator_OnSimulationComplete;
+        }
+
+        private void updateTCResourceFile()
+        {
+            // SavePatient, Communicate, MedicalCare, ReportIncident, LocatePatient, TreatPatient, TransferPatient
+            _tcGenerator.GoalModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
+            _tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
+            _tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
+            _tcGenerator.ProtocolModel = String.Format("{0}{1}", BASE_PATH, txtProtocol.Text);
+        }
+
+        private void lstGoals_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstGoals.SelectedIndex != -1)
+            {
+                updateTCResourceFile();
+
+                // Update visualization
+                txtOutput.Text = _tcGenerator.GenerateTestCase(lstGoals.SelectedItem.ToString()).ToString();
+            }
+        }
+
+        private void InitializeSimulator()
+        {
+            simulationVisualizer1.StartVisualization();
+            simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());
+            lblStatus.Text = s.GetNumbers();
+
+            // Reset listview
+            SetupGoalList();
+        }
+
+        private void SetupGoalList()
+        {
+            // Reset listvies
+            lstViewGoal.Items.Clear();
+
+            string[] goalList = { "SavePatient", "Communicate", "MedicalCare", "ReportIncident", "LocatePatient", "TreatPatient", "TransferPatient" };
+            ListViewItem item;
+
+            foreach (string ss in goalList)
+            {
+                item = new ListViewItem(ss);
+                item.SubItems.Add("");
+
+                lstViewGoal.Items.Add(item);
+            }
+        }
+
+        private void UpdateGoalList()
+        {
+            updateTCResourceFile();
+            TestInfo info;
+
+            foreach (ListViewItem item in lstViewGoal.Items)
+            {
+                info = _tcGenerator.GenerateTestCase(item.Text);
+
+                if (s.CompareResult(info))
+                {
+                    item.SubItems[1].Text = "Pass";
+                    item.ForeColor = Color.Green;
+                }
+                else
+                {
+                    item.SubItems[1].Text = "Fail";
+                    item.ForeColor = Color.Red;
+                }
+            }
+        }
+
+
+        private void Simulator_OnLogUpdate(string text)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -43,38 +122,10 @@ namespace MCI_Bus_Simulator
             txtSimOutput.ScrollToCaret();
         }
 
-        private void updateTCResourceFile()
+        private void Simulator_OnSimulationComplete()
         {
-            _tcGenerator.GoalModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
-            _tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
-            _tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
-            _tcGenerator.ProtocolModel = String.Format("{0}{1}", BASE_PATH, txtProtocol.Text);
-        }
-
-        private void lstGoals_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lstGoals.SelectedIndex != -1)
-            {
-                updateTCResourceFile();
-
-                txtOutput.Text = _tcGenerator.GenerateTestCase(lstGoals.SelectedItem.ToString());
-            }
-        }
-
-        private void InitializeSimulator()
-        {
-            simulationVisualizer1.StartVisualization();
-            simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());
-            lblStatus.Text = s.GetNumbers();
-            s.MonitorAgent.OnTextUpdate += MonitorAgent_OnTextUpdate;
-        }
-        
-
-
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            InitializeSimulator();
+            tmrSimulation.Enabled = false;
+            tsLabel.Text = "Simulation complete.";
         }
 
         private void simulationVisualizer1_Click(object sender, EventArgs e)
@@ -92,6 +143,10 @@ namespace MCI_Bus_Simulator
             {
                 tmrSimulation.Enabled = false;
             }*/
+
+            // Update goal listview (test pass/fail)
+            updateTCResourceFile();
+            UpdateGoalList();
         }
 
         private void tbChangeSpeed_Scroll(object sender, EventArgs e)
@@ -103,6 +158,7 @@ namespace MCI_Bus_Simulator
         {
             s.RunSimulator();
             tmrSimulation.Enabled = true;
+            tsLabel.Text = "Simulating...";
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -112,6 +168,5 @@ namespace MCI_Bus_Simulator
             InitializeSimulator();
             txtSimOutput.Text = "";
         }
-
     }
 }
