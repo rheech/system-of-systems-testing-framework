@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Role">
   <Actor name="MCI_Reporter">
-    <arrow name="NOTIFY_INCIDENT" to="CommunicationCenter" />
+    <arrow name="NOTIFY" to="CommunicationCenter" />
   </Actor>
   <Role name="CommunicationCenter">
     <attribute type="organization" name="Communication_System" />

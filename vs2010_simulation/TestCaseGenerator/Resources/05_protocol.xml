@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Protocol">
   <Object type="Actor" name="MCI_Reporter">
-    <arrow index="1" name="NOTIFY_INCIDENT" to="CommunicationCenter" />
+    <arrow index="1" name="NOTIFY" to="CommunicationCenter" />
   </Object>
   <Object type="Role" name="CommunicationCenter">
     <arrow index="2" name="INCIDENT_REPORT" to="IncidentCommander" />

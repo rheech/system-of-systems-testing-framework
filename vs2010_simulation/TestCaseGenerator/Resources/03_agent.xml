@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Agent">
   <Actor name="MCI_Reporter">
-    <arrow name="NOTIFY_INCIDENT" to="EmergencyCallCenter" />
+    <arrow name="NOTIFY" to="EmergencyCallCenter" />
   </Actor>
   <Agent name="EmergencyCallCenter">
     <attribute type="plays" name="CommunicationCenter" />

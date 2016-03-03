@@ -20,7 +20,7 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.NOTIFY_INCIDENT:
+                case MESSAGE_TYPE.NOTIFY:
                     SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.INCIDENT_REPORT, Simulator.patients.Count, _disaster.X);
                     break;
                 case MESSAGE_TYPE.INCIDENT_REPORT:
@@ -48,7 +48,7 @@ namespace MCI_Bus_Simulator.Agents
         public void ReportDisaster(Disaster disaster)
         {
             _disaster = disaster;
-            SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.NOTIFY_INCIDENT, _disaster.X);
+            SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.NOTIFY, _disaster.X);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MCI_Bus_Simulator.Agents
 {
     public enum MESSAGE_TYPE
     {
-        NOTIFY_INCIDENT,
+        NOTIFY,
         INCIDENT_REPORT,
         ASSIGN_AMBULANCE,
         RESCUE_REQUEST,
