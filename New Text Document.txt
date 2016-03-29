@@ -1,0 +1,1 @@
+문제점: SOS표현시에 INTERACTION이 없음
