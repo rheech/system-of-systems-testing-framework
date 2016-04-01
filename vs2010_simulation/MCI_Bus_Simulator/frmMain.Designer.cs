@@ -101,6 +101,8 @@
             this.btnRunTC = new System.Windows.Forms.Button();
             this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
             this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -568,6 +570,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.btnGenerate);
             this.tabPage2.Controls.Add(this.txtProtocol);
             this.tabPage2.Controls.Add(this.label7);
@@ -797,6 +801,23 @@
             this.simulationVisualizer1.TabIndex = 5;
             this.simulationVisualizer1.Text = "|----|----|----|----|";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(111, 180);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(237, 20);
+            this.textBox1.TabIndex = 27;
+            this.textBox1.Text = "06_mci_task.xml";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 184);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Task Model";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -921,6 +942,8 @@
         private System.Windows.Forms.ListView lstViewGoal;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
