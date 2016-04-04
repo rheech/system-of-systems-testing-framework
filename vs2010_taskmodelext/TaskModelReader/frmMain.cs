@@ -15,5 +15,12 @@ namespace TaskModelReader
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TaskModel model = new TaskModel("Resources\\taskmodel.xml");
+
+            MessageBox.Show(model.test());
+        }
     }
 }
