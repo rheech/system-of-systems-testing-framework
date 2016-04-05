@@ -11,8 +11,6 @@ namespace TaskModelReader
         private List<XmlNode> testCase;
         public delegate void dEachNodeAction(XmlNode xmlNode);
 
-        dEachNodeAction FUNC_RETRIEVE_GOAL;
-
         public TaskModel(string file)
             : base(file, "/Diagram/node")
         {
@@ -21,6 +19,7 @@ namespace TaskModelReader
         
         public string[] RetrieveGoalList()
         {
+            dEachNodeAction FUNC_RETRIEVE_GOAL;
             List<string> goalList = new List<string>();
 
             // Define goal procedure for the node traversal
@@ -37,6 +36,32 @@ namespace TaskModelReader
             TraverseAllNodes(ref FUNC_RETRIEVE_GOAL);
 
             return goalList.ToArray();
+        }
+
+        public void RetrieveTaskSequence(string goalName)
+        {
+            Stack<XmlNode> taskList = new Stack<XmlNode>();
+            dEachNodeAction FUNC_RETRIEVE_TASK;
+            bool bFound = false;
+
+            // Define task procedure for the node traversal
+            FUNC_RETRIEVE_TASK = new dEachNodeAction((xmlNode) =>
+            {
+                //Console.WriteLine(xmlNode.Attributes["name"].InnerText);
+
+                if (xmlNode.Attributes["name"].InnerText == goalName)
+                {
+                    bFound = true;
+                    //goalList.Add(xmlNode.Attributes["name"].InnerText);
+                }
+
+                if (bFound)
+                {
+                    taskList.Push(xmlNode);
+                }
+            });
+
+            TraverseAllNodes(ref FUNC_RETRIEVE_TASK);
         }
 
         public string test()
