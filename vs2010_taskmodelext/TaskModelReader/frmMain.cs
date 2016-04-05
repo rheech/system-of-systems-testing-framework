@@ -20,7 +20,8 @@ namespace TaskModelReader
         {
             TaskModel model = new TaskModel("Resources\\taskmodel.xml");
 
-            model.RetrieveGoalList();
+            //model.RetrieveGoalList();
+            model.RetrieveTaskSequence("ProcessInfo");
 
             //MessageBox.Show(model.test());
         }

@@ -80,6 +80,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSimOutput = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.txtProtocol = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -101,8 +103,7 @@
             this.btnRunTC = new System.Windows.Forms.Button();
             this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
             this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -386,6 +387,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
@@ -592,6 +594,23 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Case Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(111, 180);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(237, 20);
+            this.textBox1.TabIndex = 27;
+            this.textBox1.Text = "06_mci_task.xml";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 184);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Task Model";
             // 
             // btnGenerate
             // 
@@ -801,22 +820,15 @@
             this.simulationVisualizer1.TabIndex = 5;
             this.simulationVisualizer1.Text = "|----|----|----|----|";
             // 
-            // textBox1
+            // tabPage4
             // 
-            this.textBox1.Location = new System.Drawing.Point(111, 180);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(237, 20);
-            this.textBox1.TabIndex = 27;
-            this.textBox1.Text = "06_mci_task.xml";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 184);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "Task Model";
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(681, 371);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "Test Case Result 2";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -944,6 +956,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }
 
