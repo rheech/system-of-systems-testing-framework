@@ -8,11 +8,18 @@ namespace TaskModelReader
 {
     class TaskModel : XmlParser
     {
+        private List<XmlNode> testCase;
+
         public TaskModel(string file)
             : base(file, "/Diagram/node")
         {
-
+            testCase = new List<XmlNode>();
         }
+        /*
+        public string[] GetGoals()
+        {
+
+        }*/
 
         public string test()
         {
@@ -37,12 +44,26 @@ namespace TaskModelReader
             //return recFindNode(nodes[0]).Attributes["type"].InnerText;
             bool bFound = false;
 
-            recFindNode(nodes[0], ref bFound);
+            //recFindNode(nodes[0], ref bFound);
 
             return bFound.ToString();
         }
 
-        private void recFindNode(XmlNode xmlNode, ref bool bFound)
+        /*public XmlNode GetTaskSequence(string goalName)
+        {
+            XmlNodeList nodes = RootNodes;
+            XmlNode node = null;
+            //_doc.DocumentElement.
+            
+            //recFindNode(nodes, ref node);
+
+            if (node != null)
+            {
+                
+            }
+        }*/
+
+        private void recFindNode(XmlNode xmlNode, ref XmlNode foundNode)
         {
             Console.WriteLine(xmlNode.Attributes["name"].InnerText);
 
@@ -62,13 +83,17 @@ namespace TaskModelReader
 
                 foreach (XmlNode x in xmlNode.ChildNodes)
                 {
-                    recFindNode(x, ref bFound);
+                    recFindNode(x, ref foundNode);
                 }
+            }
+            else // is leaf
+            {
+
             }
 
             if (xmlNode.Attributes["name"].InnerText == "FindAvailableHospital")
             {
-                bFound = true;
+                foundNode = xmlNode;
             }
         }
 
