@@ -9,17 +9,35 @@ namespace TaskModelReader
     class TaskModel : XmlParser
     {
         private List<XmlNode> testCase;
+        public delegate void dEachNodeAction(XmlNode xmlNode);
+
+        dEachNodeAction FUNC_RETRIEVE_GOAL;
 
         public TaskModel(string file)
             : base(file, "/Diagram/node")
         {
             testCase = new List<XmlNode>();
         }
-        /*
-        public string[] GetGoals()
+        
+        public string[] RetrieveGoalList()
         {
+            List<string> goalList = new List<string>();
 
-        }*/
+            // Define goal procedure for the node traversal
+            FUNC_RETRIEVE_GOAL = new dEachNodeAction((xmlNode) =>
+            {
+                //Console.WriteLine(xmlNode.Attributes["name"].InnerText);
+
+                if (xmlNode.Attributes["type"].InnerText == "goal")
+                {
+                    goalList.Add(xmlNode.Attributes["name"].InnerText);
+                }
+            });
+
+            TraverseAllNodes(ref FUNC_RETRIEVE_GOAL);
+
+            return goalList.ToArray();
+        }
 
         public string test()
         {
@@ -63,9 +81,19 @@ namespace TaskModelReader
             }
         }*/
 
-        private void recFindNode(XmlNode xmlNode, ref XmlNode foundNode)
+        private void TraverseAllNodes(ref dEachNodeAction nodeAction)
         {
-            Console.WriteLine(xmlNode.Attributes["name"].InnerText);
+            XmlNodeList nodes = RootNodes;
+
+            foreach (XmlNode node in nodes)
+            {
+                recTraverseNode(node, ref nodeAction);
+            }
+        }
+
+        private void recTraverseNode(XmlNode xmlNode, ref dEachNodeAction nodeAction)
+        {
+            nodeAction(xmlNode);
 
             if (xmlNode.HasChildNodes)
             {
@@ -83,7 +111,7 @@ namespace TaskModelReader
 
                 foreach (XmlNode x in xmlNode.ChildNodes)
                 {
-                    recFindNode(x, ref foundNode);
+                    recTraverseNode(x, ref nodeAction);
                 }
             }
             else // is leaf
@@ -93,7 +121,7 @@ namespace TaskModelReader
 
             if (xmlNode.Attributes["name"].InnerText == "FindAvailableHospital")
             {
-                foundNode = xmlNode;
+                //foundNode = xmlNode;
             }
         }
 
