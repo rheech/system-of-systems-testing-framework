@@ -40,9 +40,10 @@ namespace TaskModelReader
 
         public void RetrieveTaskSequence(string goalName)
         {
-            TaskSequence priorTasks = new TaskSequence();
+            TreeLogic tl = new TreeLogic(RootNodes[0]);
             dEachNodeAction FUNC_RETRIEVE_TASK;
-            
+
+            string prev_operator = "";
             bool bFound = false;
 
             // Define task procedure for the node traversal
@@ -53,22 +54,32 @@ namespace TaskModelReader
                 if (xmlNode.Attributes["name"].InnerText == goalName)
                 {
                     bFound = true;
+                    //tl = new TreeLogic(xmlNode);
                     //goalList.Add(xmlNode.Attributes["name"].InnerText);
+                }
+
+                switch (prev_operator)
+                {
+                    case "enable":
+                        //priorTasks.Enqueue(xmlNode);
+                        tl.AddChild(xmlNode);
+                        break;
+                    case "choice":
+                        //priorTasks.Duplicate();
+                        tl.AddSibling(xmlNode);
+                        break;
+                    default:
+                        tl.AddChild(xmlNode);
+                        break;
                 }
 
                 if (xmlNode.Attributes["operator"] != null)
                 {
-                    switch (xmlNode.Attributes["operator"].InnerText)
-                    {
-                        case "enable":
-                            priorTasks.Enqueue(xmlNode);
-                            break;
-                        case "choice":
-                            priorTasks.Duplicate();
-                            break;
-                        default:
-                            break;
-                    }
+                    prev_operator = xmlNode.Attributes["operator"].InnerText;
+                }
+                else
+                {
+                    prev_operator = "";
                 }
 
                 if (bFound)

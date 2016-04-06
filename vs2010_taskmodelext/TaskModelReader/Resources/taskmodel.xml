@@ -1,39 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Task">
-  <node name="MCI Response" type="goal">
-    <node name="Report" type="goal" operator="enable">
-      <node name="IncidentReport" type="interaction" operator="enable" />
-      <node name="ProcessInfo" type="goal">
-        <node name="GetIncidentInfo" type="application" operator="choice" />
-        <node name="BroadcastNecessaryInfo" type="application" />
-      </node>
-    </node>
-    <node name="Rescue" type="goal">
-      <node name="FindPatient" type="" operator="concurrent">
-        <node name="ReportFoundPatient" type="application" operator="enable" />
-        <node name="ClassifyPatient" type="goal">
-          <node name="Triage" type="user" operator="enable" />
-          <node name="ReportPatientStatus" type="interaction" operator="enable" />
-          <node name="ProcessPatientInfo" type="application" />
-        </node>
-      </node>
-      <node name="Transport" type="goal">
-        <node name="FindBestRoute" type="goal" operator="concurrent">
-          <node name="InputDisasterLocation" type="interaction" operator="enable" />
-          <node name="CalculateRoute" type="application" />
-        </node>
-        <node name="MedicalTreat" type="goal" operator="concurrent">
-          <node name="ApplyMedicalEquipment" type="interaction" operator="enable" />
-          <node name="MedicalWork" type="goal">
-            <node name="AnalyzePatient" type="application" operator="choice" />
-            <node name="TreatPatient" type="application" />
-          </node>
-        </node>
-        <node name="FindAvailableHospital" type="goal">
-          <node name="RequestContactHospital" type="application" operator="enable" />
-          <node name="FindBestHospital" type="application" />
-        </node>
-      </node>
+  <node name="Report" type="goal" operator="enable">
+    <node name="IncidentReport" type="interaction" operator="enable" />
+    <node name="ProcessInfo" type="goal">
+      <node name="GetIncidentInfo" type="application" operator="choice" />
+      <node name="BroadcastNecessaryInfo" type="application" />
     </node>
   </node>
 </Diagram>
