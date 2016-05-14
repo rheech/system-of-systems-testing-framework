@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Task">
+  <node name="Report" type="goal" operator="enable">
+    <node name="IncidentReport" type="interaction" operator="enable" />
+    <node name="ProcessInfo" type="goal">
+      <node name="GetIncidentInfo" type="application" operator="choice" />
+      <node name="BroadcastNecessaryInfo" type="application" />
+    </node>
+  </node>
+</Diagram>

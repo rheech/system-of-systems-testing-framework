@@ -64,6 +64,7 @@
     <Content Include="Resources\05_protocol.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\06_mci_task.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Debugger\Debugger.csproj">

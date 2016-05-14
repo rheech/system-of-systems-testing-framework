@@ -1,0 +1,166 @@
+<?xmp version="1.0" encoding="UTF-8" standalone="yes"?>
+<TaskModel xmlns="http://giove.isti.cnr.it/ctt" xmlns:coop="http://giove.isti.cnr.it/cttcoop" NameTaskModelID="MCI Response">
+    <Task Identifier="MCI Response" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <SubTask>
+            <Task Identifier="Report" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                <Name>name</Name>
+                <TemporalOperator name="SequentialEnablingInfo"/>
+                <Parent name="MCI Response"/>
+                <SiblingRight name="Rescue"/>
+                <SubTask>
+                    <Task Identifier="IncidentReport" Category="interaction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                        <Name>name</Name>
+                        <TemporalOperator name="SequentialEnablingInfo"/>
+                        <Parent name="Report"/>
+                        <SiblingRight name="ProcessInfo"/>
+                    </Task>
+                    <Task Identifier="ProcessInfo" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                        <Name>name</Name>
+                        <Parent name="Report"/>
+                        <SiblingLeft name="IncidentReport"/>
+                        <SubTask>
+                            <Task Identifier="GetIncidentInfo" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<TemporalOperator name="Choice"/>
+<Parent name="ProcessInfo"/>
+<SiblingRight name="BroadcastNecessaryInfo"/>
+                            </Task>
+                            <Task Identifier="BroadcastNecessaryInfo" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<Parent name="ProcessInfo"/>
+<SiblingLeft name="GetIncidentInfo"/>
+                            </Task>
+                        </SubTask>
+                    </Task>
+                </SubTask>
+            </Task>
+            <Task Identifier="Rescue" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                <Name>name</Name>
+                <Parent name="MCI Response"/>
+                <SiblingLeft name="Report"/>
+                <SubTask>
+                    <Task Identifier="FindPatient" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                        <Name>name</Name>
+                        <TemporalOperator name="Interleaving"/>
+                        <Parent name="Rescue"/>
+                        <SiblingRight name="Transport"/>
+                        <SubTask>
+                            <Task Identifier="ReportFoundPatient" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<TemporalOperator name="SequentialEnablingInfo"/>
+<Parent name="FindPatient"/>
+<SiblingRight name="ClassifyPatient"/>
+                            </Task>
+                            <Task Identifier="ClassifyPatient" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<Parent name="FindPatient"/>
+<SiblingLeft name="ReportFoundPatient"/>
+<SubTask>
+    <Task Identifier="Triage" Category="user" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <Type>None</Type>
+        <TemporalOperator name="SequentialEnablingInfo"/>
+        <Parent name="ClassifyPatient"/>
+        <SiblingRight name="ReportPatientStatus"/>
+    </Task>
+    <Task Identifier="ReportPatientStatus" Category="interaction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <TemporalOperator name="SequentialEnablingInfo"/>
+        <Parent name="ClassifyPatient"/>
+        <SiblingLeft name="Triage"/>
+        <SiblingRight name="ProcessPatientInfo"/>
+    </Task>
+    <Task Identifier="ProcessPatientInfo" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <Parent name="ClassifyPatient"/>
+        <SiblingLeft name="ReportPatientStatus"/>
+    </Task>
+</SubTask>
+                            </Task>
+                        </SubTask>
+                    </Task>
+                    <Task Identifier="Transport" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                        <Name>name</Name>
+                        <Parent name="Rescue"/>
+                        <SiblingLeft name="FindPatient"/>
+                        <SubTask>
+                            <Task Identifier="FindBestRoute" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<TemporalOperator name="Interleaving"/>
+<Parent name="Transport"/>
+<SiblingRight name="MedicalTreat"/>
+<SubTask>
+    <Task Identifier="InputDisasterLocation" Category="interaction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <TemporalOperator name="SequentialEnablingInfo"/>
+        <Parent name="FindBestRoute"/>
+        <SiblingRight name="CalculateRoute"/>
+    </Task>
+    <Task Identifier="CalculateRoute" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <Parent name="FindBestRoute"/>
+        <SiblingLeft name="InputDisasterLocation"/>
+    </Task>
+</SubTask>
+                            </Task>
+                            <Task Identifier="MedicalTreat" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<TemporalOperator name="Interleaving"/>
+<Parent name="Transport"/>
+<SiblingLeft name="FindBestRoute"/>
+<SiblingRight name="FindAvailableHospital"/>
+<SubTask>
+    <Task Identifier="ApplyMedicalEquipment" Category="interaction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <TemporalOperator name="SequentialEnablingInfo"/>
+        <Parent name="MedicalTreat"/>
+        <SiblingRight name="MedicalWork"/>
+    </Task>
+    <Task Identifier="MedicalWork" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <Type>None</Type>
+        <Parent name="MedicalTreat"/>
+        <SiblingLeft name="ApplyMedicalEquipment"/>
+        <SubTask>
+            <Task Identifier="AnalyzePatient" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                <Name>name</Name>
+                <TemporalOperator name="Choice"/>
+                <Parent name="MedicalWork"/>
+                <SiblingRight name="TreatPatient"/>
+            </Task>
+            <Task Identifier="TreatPatient" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+                <Name>name</Name>
+                <Type>None</Type>
+                <Parent name="MedicalWork"/>
+                <SiblingLeft name="AnalyzePatient"/>
+            </Task>
+        </SubTask>
+    </Task>
+</SubTask>
+                            </Task>
+                            <Task Identifier="FindAvailableHospital" Category="abstraction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+<Name>name</Name>
+<Parent name="Transport"/>
+<SiblingLeft name="MedicalTreat"/>
+<SubTask>
+    <Task Identifier="RequestContactHospital" Category="interaction" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <TemporalOperator name="SequentialEnablingInfo"/>
+        <Parent name="FindAvailableHospital"/>
+        <SiblingRight name="FindBestHospital"/>
+    </Task>
+    <Task Identifier="FindBestHospital" Category="application" Iterative="false" Optional="false" PartOfCooperation="false" Frequency=" ">
+        <Name>name</Name>
+        <Parent name="FindAvailableHospital"/>
+        <SiblingLeft name="RequestContactHospital"/>
+    </Task>
+</SubTask>
+                            </Task>
+                        </SubTask>
+                    </Task>
+                </SubTask>
+            </Task>
+        </SubTask>
+    </Task>
+</TaskModel>
