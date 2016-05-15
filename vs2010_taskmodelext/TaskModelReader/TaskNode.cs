@@ -70,6 +70,22 @@ namespace TaskModelReader
             return nType;
         }
 
+        public bool hasChildNode
+        {
+            get
+            {
+                return !isLeaf;
+            }
+        }
+
+        public bool hasNextNode
+        {
+            get
+            {
+                return Operator != TASK_OPERATOR.NONE;
+            }
+        }
+
         public bool hasNextChildNode
         {
             get

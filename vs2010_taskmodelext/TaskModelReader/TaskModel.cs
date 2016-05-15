@@ -6,10 +6,17 @@ using System.Xml;
 
 namespace TaskModelReader
 {
+    public enum TRAVERSE_OPTION
+    {
+        ALL,
+        SIBLING_ONLY,
+        NONE_FINISH
+    }
+
     class TaskModel : XmlParser
     {
         private List<XmlNode> testCase;
-        public delegate bool dEachNodeAction(XmlNode xmlNode, bool isLeaf);
+        public delegate TRAVERSE_OPTION dEachNodeAction(XmlNode xmlNode, bool isLeaf);
 
         public TaskModel(string file)
             : base(file, "/Diagram/node")
@@ -32,7 +39,7 @@ namespace TaskModelReader
                     goalList.Add(xmlNode.Attributes["name"].InnerText);
                 }
 
-                return false;
+                return TRAVERSE_OPTION.ALL;
             });
 
             TraverseAllNodes(ref FUNC_RETRIEVE_GOAL);
@@ -40,14 +47,14 @@ namespace TaskModelReader
             return goalList.ToArray();
         }
 
-        public TaskSequence RetrieveTaskSequence(string goalName)
+        public TaskSequenceSet RetrieveTaskSequence(string goalName)
         {
             //TreeLogic tl = new TreeLogic(RootNodes[0]);
             dEachNodeAction FUNC_RETRIEVE_TASK;
 
             bool bFound = false;
 
-            TaskSequence taskSeq = new TaskSequence();
+            TaskSequenceSet taskSeq = new TaskSequenceSet();
             List<string> taskList = new List<string>();
             TaskNode previousNode = null;
 
@@ -55,8 +62,12 @@ namespace TaskModelReader
             FUNC_RETRIEVE_TASK = new dEachNodeAction((xmlNode, isLeaf) =>
             {
                 TaskNode currentNode;
-                currentNode = new TaskNode();
+                TRAVERSE_OPTION traverseOption;
 
+                currentNode = new TaskNode();
+                traverseOption = TRAVERSE_OPTION.ALL;
+
+                // Parse current task node
                 currentNode.Name = xmlNode.Attributes["name"].InnerText;
 
                 currentNode.Type = NODE_TYPE.NONE;
@@ -81,59 +92,63 @@ namespace TaskModelReader
                 {
                     bFound = true;
                     previousNode = null;
-                    //tl = new TreeLogic(xmlNode);
-                    //goalList.Add(xmlNode.Attributes["name"].InnerText);
-                    return false;
+                    traverseOption = TRAVERSE_OPTION.ALL;
                 }
-                
-                // after goal has found
-                if (bFound)
+                else if (bFound) // after goal has found
                 {
-                    // If first node
-                    if (previousNode == null)
+                    // if a goal node in the goal
+                    if (currentNode.Type == NODE_TYPE.GOAL)
                     {
-                        previousNode = currentNode;
-                        taskList = new List<string>();
-                        taskList.Add(currentNode.Name);
+                        TaskSequenceSet seq;
+                        seq = RetrieveTaskSequence(currentNode.Name);
+                        
+                        
+                        //taskList.Add(currentNode.Name);
+
+
+                        traverseOption = TRAVERSE_OPTION.SIBLING_ONLY;
                     }
                     else
                     {
-                        switch (previousNode.Operator)
+                        // If first node
+                        if (previousNode == null)
                         {
-                            case TASK_OPERATOR.ENABLE:
-                                taskList.Add(currentNode.Name);
-                                break;
-                            case TASK_OPERATOR.CHOICE:
-                                taskSeq.AddList(taskList);
-                                taskList = new List<string>();
-                                taskList.Add(currentNode.Name);
-                                break;
-                            case TASK_OPERATOR.PARALLEL:
-                                break;
-                            default:
-                                taskList.Add(currentNode.Name);
-                                break;
+                            previousNode = currentNode;
+                            taskList = new List<string>();
+                            taskList.Add(currentNode.Name);
                         }
+                        else
+                        {
+                            switch (previousNode.Operator)
+                            {
+                                case TASK_OPERATOR.ENABLE:
+                                    taskList.Add(currentNode.Name);
+                                    break;
+                                case TASK_OPERATOR.CHOICE:
+                                    taskSeq.AddList(taskList);
+                                    taskList = new List<string>();
+                                    taskList.Add(currentNode.Name);
+                                    break;
+                                case TASK_OPERATOR.PARALLEL:
+                                    break;
+                                default:
+                                    taskList.Add(currentNode.Name);
+                                    break;
+                            }
 
-                        previousNode = currentNode;
-                    }
-
-                    // if a goal node
-                    if (currentNode.Type == NODE_TYPE.GOAL)
-                    {
-                        TaskSequence seq;
-                        seq = RetrieveTaskSequence(currentNode.Name);
+                            previousNode = currentNode;
+                        }
                     }
 
                     // if last node
-                    if (!currentNode.hasNextChildNode)
+                    if (!currentNode.hasNextNode)
                     {
                         taskSeq.AddList(taskList);
-                        return true;
+                        traverseOption = TRAVERSE_OPTION.NONE_FINISH;
                     }
                 }
 
-                return false;
+                return traverseOption;
             });
 
             TraverseAllNodes(ref FUNC_RETRIEVE_TASK);
@@ -185,56 +200,45 @@ namespace TaskModelReader
 
         private void TraverseAllNodes(ref dEachNodeAction nodeAction)
         {
-            XmlNodeList nodes = RootNodes;
+            XmlNodeList nodes;
+            TRAVERSE_OPTION traverseOption;
+
+            nodes = RootNodes;
+            traverseOption = TRAVERSE_OPTION.ALL;
 
             foreach (XmlNode node in nodes)
             {
-                recTraverseNode(node, ref nodeAction);
+                traverseOption = recTraverseNode(node, ref nodeAction);
+
+                if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
+                {
+                    break;
+                }
             }
         }
 
-        private bool recTraverseNode(XmlNode xmlNode, ref dEachNodeAction nodeAction)
+        private TRAVERSE_OPTION recTraverseNode(XmlNode xmlNode, ref dEachNodeAction nodeAction)
         {
-            bool isFinished;
+            bool hasChildNodes;
+            TRAVERSE_OPTION traverseOption;
 
-            if (xmlNode.HasChildNodes)
+            hasChildNodes = xmlNode.HasChildNodes;
+            traverseOption = nodeAction(xmlNode, !hasChildNodes);
+
+            if (hasChildNodes && (traverseOption == TRAVERSE_OPTION.ALL))
             {
-                isFinished = nodeAction(xmlNode, false);
-
-                /*if (myNode.Left != null)
-                {
-                    recTraverseInorder(myNode.Left, ref myString);
-                }
-
-                myString = String.Format("{0}\n{1}", myString, myNode.Key);
-
-                if (myNode.Right != null)
-                {
-                    recTraverseInorder(myNode.Right, ref myString);
-                }*/
-
                 foreach (XmlNode x in xmlNode.ChildNodes)
                 {
-                    isFinished = recTraverseNode(x, ref nodeAction);
+                    traverseOption = recTraverseNode(x, ref nodeAction);
 
-                    if (isFinished)
+                    if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
                     {
                         break;
                     }
                 }
             }
-            else // is leaf
-            {
-                isFinished = nodeAction(xmlNode, true);
-            }
 
-            return isFinished;
-
-            /*
-            if (xmlNode.Attributes["name"].InnerText == "FindAvailableHospital")
-            {
-                //foundNode = xmlNode;
-            }*/
+            return traverseOption;
         }
 
         public string GetAgentFromRole(string roleName)

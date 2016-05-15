@@ -59,6 +59,7 @@
     <Compile Include="TaskModel.cs" />
     <Compile Include="TaskNode.cs" />
     <Compile Include="TaskSequence.cs" />
+    <Compile Include="TaskSequenceSet.cs" />
     <Compile Include="XmlParser.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

@@ -7,16 +7,15 @@ namespace TaskModelReader
 {
     class TaskSequence
     {
-        List<List<string>> _taskLists;
+        List<string> _taskList;
 
         public TaskSequence()
         {
-            _taskLists = new List<List<string>>();
+
         }
 
-        public void AddList(List<string> taskList)
+        public void AddTask(string taskName, TASK_OPERATOR taskOperator)
         {
-            _taskLists.Add(taskList);
         }
     }
 }
