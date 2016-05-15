@@ -88,6 +88,7 @@
     <Content Include="Resources\ctte_mci_taskmodel.xml" />
     <Content Include="Resources\taskmodel.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\taskmodel_original.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
