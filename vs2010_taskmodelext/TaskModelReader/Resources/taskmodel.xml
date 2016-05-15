@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Task">
-  <node name="Report" type="goal" operator="enable">
-    <node name="IncidentReport" type="interaction" operator="enable" />
-    <node name="ProcessInfo" type="goal">
-      <node name="GetIncidentInfo" type="application" operator="choice" />
-      <node name="BroadcastNecessaryInfo" type="application" />
+  <node name="MCI_Response" type="goal">
+    <node name="Communicate" type="goal" operator="enable">
+      <node name="DeclareMCI" type="interaction" />
+    </node>
+    <node name="SavePatient" type="goal">
+      <node name="Triage" type="goal" operator="choice">
+        <node name="AssignTriagePosition" type="interaction" operator="interaction" />
+      </node>
+      <node name="Treatment" type="goal" operator="choice" />
     </node>
   </node>
 </Diagram>
