@@ -9,7 +9,7 @@ namespace TaskModelReader
     class TaskModel : XmlParser
     {
         private List<XmlNode> testCase;
-        public delegate void dEachNodeAction(XmlNode xmlNode);
+        public delegate bool dEachNodeAction(XmlNode xmlNode, bool isLeaf);
 
         public TaskModel(string file)
             : base(file, "/Diagram/node")
@@ -23,7 +23,7 @@ namespace TaskModelReader
             List<string> goalList = new List<string>();
 
             // Define goal procedure for the node traversal
-            FUNC_RETRIEVE_GOAL = new dEachNodeAction((xmlNode) =>
+            FUNC_RETRIEVE_GOAL = new dEachNodeAction((xmlNode, isLeaf) =>
             {
                 //Console.WriteLine(xmlNode.Attributes["name"].InnerText);
 
@@ -31,6 +31,8 @@ namespace TaskModelReader
                 {
                     goalList.Add(xmlNode.Attributes["name"].InnerText);
                 }
+
+                return false;
             });
 
             TraverseAllNodes(ref FUNC_RETRIEVE_GOAL);
@@ -38,57 +40,105 @@ namespace TaskModelReader
             return goalList.ToArray();
         }
 
-        public void RetrieveTaskSequence(string goalName)
+        public TaskSequence RetrieveTaskSequence(string goalName)
         {
-            TreeLogic tl = new TreeLogic(RootNodes[0]);
+            //TreeLogic tl = new TreeLogic(RootNodes[0]);
             dEachNodeAction FUNC_RETRIEVE_TASK;
 
-            string prev_operator = "";
             bool bFound = false;
 
+            TaskSequence taskSeq = new TaskSequence();
+            List<string> taskList = new List<string>();
+            TaskNode previousNode = null;
+
             // Define task procedure for the node traversal
-            FUNC_RETRIEVE_TASK = new dEachNodeAction((xmlNode) =>
+            FUNC_RETRIEVE_TASK = new dEachNodeAction((xmlNode, isLeaf) =>
             {
-                Console.WriteLine(xmlNode.Attributes["name"].InnerText);
+                TaskNode currentNode;
+                currentNode = new TaskNode();
 
-                if (xmlNode.Attributes["name"].InnerText == goalName)
+                currentNode.Name = xmlNode.Attributes["name"].InnerText;
+
+                currentNode.Type = NODE_TYPE.NONE;
+
+                if (xmlNode.Attributes["type"] != null)
                 {
-                    bFound = true;
-                    //tl = new TreeLogic(xmlNode);
-                    //goalList.Add(xmlNode.Attributes["name"].InnerText);
+                    currentNode.Type = TaskNode.ParseNodeType(xmlNode.Attributes["type"].InnerText);
                 }
 
-                switch (prev_operator)
-                {
-                    case "enable":
-                        //priorTasks.Enqueue(xmlNode);
-                        tl.AddChild(xmlNode);
-                        break;
-                    case "choice":
-                        //priorTasks.Duplicate();
-                        tl.AddSibling(xmlNode);
-                        break;
-                    default:
-                        tl.AddChild(xmlNode);
-                        break;
-                }
+                currentNode.Operator = TASK_OPERATOR.NONE;
 
                 if (xmlNode.Attributes["operator"] != null)
                 {
-                    prev_operator = xmlNode.Attributes["operator"].InnerText;
-                }
-                else
-                {
-                    prev_operator = "";
+                    currentNode.Operator = TaskNode.ParseOperator(xmlNode.Attributes["operator"].InnerText);
                 }
 
+                currentNode.isLeaf = isLeaf;
+                Console.WriteLine(currentNode.Name);
+
+                // Found Goal
+                if (currentNode.Name == goalName)
+                {
+                    bFound = true;
+                    previousNode = null;
+                    //tl = new TreeLogic(xmlNode);
+                    //goalList.Add(xmlNode.Attributes["name"].InnerText);
+                    return false;
+                }
+                
+                // after goal has found
                 if (bFound)
                 {
+                    // If first node
+                    if (previousNode == null)
+                    {
+                        previousNode = currentNode;
+                        taskList = new List<string>();
+                        taskList.Add(currentNode.Name);
+                    }
+                    else
+                    {
+                        switch (previousNode.Operator)
+                        {
+                            case TASK_OPERATOR.ENABLE:
+                                taskList.Add(currentNode.Name);
+                                break;
+                            case TASK_OPERATOR.CHOICE:
+                                taskSeq.AddList(taskList);
+                                taskList = new List<string>();
+                                taskList.Add(currentNode.Name);
+                                break;
+                            case TASK_OPERATOR.PARALLEL:
+                                break;
+                            default:
+                                taskList.Add(currentNode.Name);
+                                break;
+                        }
 
+                        previousNode = currentNode;
+                    }
+
+                    // if a goal node
+                    if (currentNode.Type == NODE_TYPE.GOAL)
+                    {
+                        TaskSequence seq;
+                        seq = RetrieveTaskSequence(currentNode.Name);
+                    }
+
+                    // if last node
+                    if (!currentNode.hasNextChildNode)
+                    {
+                        taskSeq.AddList(taskList);
+                        return true;
+                    }
                 }
+
+                return false;
             });
 
             TraverseAllNodes(ref FUNC_RETRIEVE_TASK);
+
+            return taskSeq;
         }
 
         public string test()
@@ -143,12 +193,14 @@ namespace TaskModelReader
             }
         }
 
-        private void recTraverseNode(XmlNode xmlNode, ref dEachNodeAction nodeAction)
+        private bool recTraverseNode(XmlNode xmlNode, ref dEachNodeAction nodeAction)
         {
-            nodeAction(xmlNode);
+            bool isFinished;
 
             if (xmlNode.HasChildNodes)
             {
+                isFinished = nodeAction(xmlNode, false);
+
                 /*if (myNode.Left != null)
                 {
                     recTraverseInorder(myNode.Left, ref myString);
@@ -163,18 +215,26 @@ namespace TaskModelReader
 
                 foreach (XmlNode x in xmlNode.ChildNodes)
                 {
-                    recTraverseNode(x, ref nodeAction);
+                    isFinished = recTraverseNode(x, ref nodeAction);
+
+                    if (isFinished)
+                    {
+                        break;
+                    }
                 }
             }
             else // is leaf
             {
-
+                isFinished = nodeAction(xmlNode, true);
             }
 
+            return isFinished;
+
+            /*
             if (xmlNode.Attributes["name"].InnerText == "FindAvailableHospital")
             {
                 //foundNode = xmlNode;
-            }
+            }*/
         }
 
         public string GetAgentFromRole(string roleName)

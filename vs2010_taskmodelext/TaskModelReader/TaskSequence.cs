@@ -2,31 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml;
 
 namespace TaskModelReader
 {
     class TaskSequence
     {
-        //public void AddTask(
-        private Queue<XmlNode> _primaryQueue;
-        private List<Queue<XmlNode>> _queueList;
+        List<List<string>> _taskLists;
 
         public TaskSequence()
         {
-            _primaryQueue = new Queue<XmlNode>();
-            _queueList = new List<Queue<XmlNode>>();
+            _taskLists = new List<List<string>>();
         }
 
-        public void Enqueue(XmlNode node)
+        public void AddList(List<string> taskList)
         {
-            _primaryQueue.Enqueue(node);
-        }
-
-        public void Duplicate()
-        {
-            _queueList.Add(_primaryQueue);
-
+            _taskLists.Add(taskList);
         }
     }
 }

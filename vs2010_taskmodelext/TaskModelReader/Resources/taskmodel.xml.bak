@@ -10,11 +10,11 @@
         <node name="ProvidePatientCount" type="interaction" />
       </node>
       <node name="Treatment" type="goal" operator="parallel">
-        <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
+        <node name="AssignTreatmentPosition" type="interaction" operation="enable" />
         <node name="MedComm" type="goal">
-          <node name="CoordinateTransport" type="interaction" operator="enable" />
-          <node name="ProvideAmbulanceDestination" type="interation" operator="choice" />
-          <node name="CheckBedAvailability" type="interaction" operator="enable" />
+          <node name="CoordinateTransport" type="interaction" operation="enable" />
+          <node name="ProvideAmbulanceDestination" type="interation" operation="choice" />
+          <node name="CheckBedAvailability" type="interaction" operation="enable" />
           <node name="ProvideBedAvailability" type="interaction" />
         </node>
       </node>

@@ -19,9 +19,10 @@ namespace TaskModelReader
         private void button1_Click(object sender, EventArgs e)
         {
             TaskModel model = new TaskModel("Resources\\taskmodel.xml");
+            TaskSequence seq;
 
             //model.RetrieveGoalList();
-            model.RetrieveTaskSequence("ProcessInfo");
+            seq = model.RetrieveTaskSequence("Treatment");
 
             //MessageBox.Show(model.test());
         }
