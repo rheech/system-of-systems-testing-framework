@@ -22,7 +22,7 @@ namespace TaskModelReader
             TaskSequenceSet seq;
 
             //model.RetrieveGoalList();
-            seq = model.RetrieveTaskSequence("Triage");
+            seq = model.RetrieveTaskSequence("Treatment");
 
             //MessageBox.Show(model.test());
         }

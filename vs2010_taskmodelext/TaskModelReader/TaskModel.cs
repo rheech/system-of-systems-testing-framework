@@ -54,41 +54,39 @@ namespace TaskModelReader
 
             bool bFound = false;
 
-            TaskSequenceSet taskSeq = new TaskSequenceSet();
-            List<string> taskList = new List<string>();
-            //TaskNode previousNode = null;
-
+            TaskSequenceSet taskSeqSet = new TaskSequenceSet();
+            
             // Define task procedure for the node traversal
             FUNC_RETRIEVE_TASK = new dEachNodeAction((xmlNode, isLeaf) =>
             {
-                TaskNode currentNode;
+                TaskNode taskNode;
                 TRAVERSE_OPTION traverseOption;
 
-                currentNode = new TaskNode();
+                taskNode = new TaskNode();
                 traverseOption = TRAVERSE_OPTION.ALL;
 
                 // Parse current task node
-                currentNode.Name = xmlNode.Attributes["name"].InnerText;
+                taskNode.Name = xmlNode.Attributes["name"].InnerText;
 
-                currentNode.Type = NODE_TYPE.NONE;
+                taskNode.Type = NODE_TYPE.NONE;
 
                 if (xmlNode.Attributes["type"] != null)
                 {
-                    currentNode.Type = TaskNode.ParseNodeType(xmlNode.Attributes["type"].InnerText);
+                    taskNode.Type = TaskNode.ParseNodeType(xmlNode.Attributes["type"].InnerText);
                 }
 
-                currentNode.Operator = TASK_OPERATOR.NONE;
+                taskNode.Operator = TASK_OPERATOR.NONE;
 
                 if (xmlNode.Attributes["operator"] != null)
                 {
-                    currentNode.Operator = TaskNode.ParseOperator(xmlNode.Attributes["operator"].InnerText);
+                    taskNode.Operator = TaskNode.ParseOperator(xmlNode.Attributes["operator"].InnerText);
                 }
 
-                currentNode.isLeaf = isLeaf;
-                Console.WriteLine(currentNode.Name);
+                taskNode.isLeaf = isLeaf;
+                Console.WriteLine(taskNode.Name);
 
                 // Found Goal
-                if (currentNode.Name == goalName)
+                if (taskNode.Name == goalName)
                 {
                     bFound = true;
                     //previousNode = null;
@@ -97,10 +95,10 @@ namespace TaskModelReader
                 else if (bFound) // after goal has found
                 {
                     // if a goal node in the goal
-                    if (currentNode.Type == NODE_TYPE.GOAL)
+                    if (taskNode.Type == NODE_TYPE.GOAL)
                     {
                         TaskSequenceSet seq;
-                        seq = RetrieveTaskSequence(currentNode.Name);
+                        seq = RetrieveTaskSequence(taskNode.Name);
 
                         //taskList.Add(currentNode.Name);
 
@@ -108,42 +106,14 @@ namespace TaskModelReader
                     }
                     else // task traversal
                     {
-                        /*
-                        // If first node
-                        if (previousNode == null)
-                        {
-                            previousNode = currentNode;
-                            taskList = new List<string>();
-                            taskList.Add(currentNode.Name);
-                        }
-                        else
-                        {
-                            switch (previousNode.Operator)
-                            {
-                                case TASK_OPERATOR.ENABLE:
-                                    taskList.Add(currentNode.Name);
-                                    break;
-                                case TASK_OPERATOR.CHOICE:
-                                    taskSeq.AddList(taskList);
-                                    taskList = new List<string>();
-                                    taskList.Add(currentNode.Name);
-                                    break;
-                                case TASK_OPERATOR.PARALLEL:
-                                    break;
-                                default:
-                                    taskList.Add(currentNode.Name);
-                                    break;
-                            }
-
-                            previousNode = currentNode;
-                        }*/
-
+                        taskSeqSet.AddNode(taskNode);
                     }
 
                     // if last node
-                    if (!currentNode.hasNextNode)
+                    if (!taskNode.hasNextNode)
                     {
                         //taskSeq.AddList(taskList);
+                        taskSeqSet.Flush();
                         traverseOption = TRAVERSE_OPTION.NONE_FINISH;
                     }
                 }
@@ -153,7 +123,7 @@ namespace TaskModelReader
 
             TraverseAllNodes(ref FUNC_RETRIEVE_TASK);
 
-            return taskSeq;
+            return taskSeqSet;
         }
 
         private void TraverseAllNodes(ref dEachNodeAction nodeAction)

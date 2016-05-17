@@ -11,11 +11,17 @@ namespace TaskModelReader
 
         public TaskSequence()
         {
-
+            _taskList = new List<string>();
         }
 
-        public void AddTask(string taskName, TASK_OPERATOR taskOperator)
+        public void AddTask(string taskName)
         {
+            _taskList.Add(taskName);
+        }
+
+        public void AddTask(TaskNode taskNode)
+        {
+            AddTask(taskNode.Name);
         }
     }
 }
