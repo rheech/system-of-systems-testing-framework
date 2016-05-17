@@ -56,7 +56,7 @@ namespace TaskModelReader
 
             TaskSequenceSet taskSeq = new TaskSequenceSet();
             List<string> taskList = new List<string>();
-            TaskNode previousNode = null;
+            //TaskNode previousNode = null;
 
             // Define task procedure for the node traversal
             FUNC_RETRIEVE_TASK = new dEachNodeAction((xmlNode, isLeaf) =>
@@ -91,7 +91,7 @@ namespace TaskModelReader
                 if (currentNode.Name == goalName)
                 {
                     bFound = true;
-                    previousNode = null;
+                    //previousNode = null;
                     traverseOption = TRAVERSE_OPTION.ALL;
                 }
                 else if (bFound) // after goal has found
@@ -101,15 +101,14 @@ namespace TaskModelReader
                     {
                         TaskSequenceSet seq;
                         seq = RetrieveTaskSequence(currentNode.Name);
-                        
-                        
-                        //taskList.Add(currentNode.Name);
 
+                        //taskList.Add(currentNode.Name);
 
                         traverseOption = TRAVERSE_OPTION.SIBLING_ONLY;
                     }
-                    else
+                    else // task traversal
                     {
+                        /*
                         // If first node
                         if (previousNode == null)
                         {
@@ -137,13 +136,14 @@ namespace TaskModelReader
                             }
 
                             previousNode = currentNode;
-                        }
+                        }*/
+
                     }
 
                     // if last node
                     if (!currentNode.hasNextNode)
                     {
-                        taskSeq.AddList(taskList);
+                        //taskSeq.AddList(taskList);
                         traverseOption = TRAVERSE_OPTION.NONE_FINISH;
                     }
                 }
@@ -155,48 +155,6 @@ namespace TaskModelReader
 
             return taskSeq;
         }
-
-        public string test()
-        {
-            XmlNodeList nodes = RootNodes;
-
-            /*foreach (XmlNode node in nodes)
-            {
-                foreach (XmlNode n in node.SelectNodes("node"))
-                {
-                    if (n.Attributes["type"].InnerText == "goal" && n.Attributes["name"].InnerText == "FindAvailableHospital")
-                    {
-                        return node.Attributes["name"].InnerText;
-                    }
-                }
-
-                //temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
-                //temp = node.SelectSingleNode("arrow").InnerText;
-            }
-
-            return "[Find]";*/
-
-            //return recFindNode(nodes[0]).Attributes["type"].InnerText;
-            bool bFound = false;
-
-            //recFindNode(nodes[0], ref bFound);
-
-            return bFound.ToString();
-        }
-
-        /*public XmlNode GetTaskSequence(string goalName)
-        {
-            XmlNodeList nodes = RootNodes;
-            XmlNode node = null;
-            //_doc.DocumentElement.
-            
-            //recFindNode(nodes, ref node);
-
-            if (node != null)
-            {
-                
-            }
-        }*/
 
         private void TraverseAllNodes(ref dEachNodeAction nodeAction)
         {
@@ -239,27 +197,6 @@ namespace TaskModelReader
             }
 
             return traverseOption;
-        }
-
-        public string GetAgentFromRole(string roleName)
-        {
-            XmlNodeList nodes = RootNodes;
-
-            foreach (XmlNode node in nodes)
-            {
-                foreach (XmlNode n in node.SelectNodes("attribute"))
-                {
-                    if (n.Attributes["type"].InnerText == "plays" && n.Attributes["name"].InnerText == roleName)
-                    {
-                        return node.Attributes["name"].InnerText;
-                    }
-                }
-
-                //temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
-                //temp = node.SelectSingleNode("arrow").InnerText;
-            }
-
-            return String.Format("[{0}]", roleName);
         }
     }
 }

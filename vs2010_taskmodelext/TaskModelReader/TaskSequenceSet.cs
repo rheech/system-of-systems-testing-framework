@@ -7,14 +7,15 @@ namespace TaskModelReader
 {
     class TaskSequenceSet
     {
-        List<List<string>> _taskLists;
+        //List<List<string>> _taskLists;
+        List<TaskSequence> _taskLists;
 
         public TaskSequenceSet()
         {
-            _taskLists = new List<List<string>>();
+            _taskLists = new List<TaskSequence>();
         }
 
-        public void AddList(List<string> taskList)
+        public void AddList(TaskSequence taskList)
         {
             _taskLists.Add(taskList);
         }
@@ -23,5 +24,11 @@ namespace TaskModelReader
         {
 
         }
+
+        public void AddNode(TaskNode node)
+        {
+        }
+
+
     }
 }
