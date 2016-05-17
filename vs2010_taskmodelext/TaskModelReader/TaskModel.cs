@@ -100,6 +100,8 @@ namespace TaskModelReader
                         TaskSequenceSet seq;
                         seq = RetrieveTaskSequence(taskNode.Name);
 
+                        taskSeqSet.AddSequence(seq);
+
                         //taskList.Add(currentNode.Name);
 
                         traverseOption = TRAVERSE_OPTION.SIBLING_ONLY;
@@ -113,7 +115,7 @@ namespace TaskModelReader
                     if (!taskNode.hasNextNode)
                     {
                         //taskSeq.AddList(taskList);
-                        taskSeqSet.Flush();
+                        //taskSeqSet.Flush();
                         traverseOption = TRAVERSE_OPTION.NONE_FINISH;
                     }
                 }

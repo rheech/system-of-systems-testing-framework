@@ -19,52 +19,116 @@ namespace TaskModelReader
             _previousNode = null;
         }
 
-        public void AddList(TaskSequence taskList)
+        private void DuplicateSequence(int numOfDuplicates)
         {
-            _taskSeqList.Add(taskList);
-        }
+            List<TaskSequence> newSequence;
 
-        public void AddSequence(TaskSequenceSet taskSequence, TASK_OPERATOR taskOperator)
-        {
+            newSequence = new List<TaskSequence>();
 
-        }
-
-        public void AddNode(TaskNode taskNode)
-        {
-            /*
-            // If first node
-            if (previousNode == null)
+            foreach (TaskSequence seq in _taskSeqList)
             {
-                previousNode = currentNode;
-                taskList = new List<string>();
-                taskList.Add(currentNode.Name);
+                for (int i = 0; i < numOfDuplicates; i++)
+                {
+                    newSequence.Add(new TaskSequence(seq));
+                }
+            }
+
+            _taskSeqList = newSequence;
+        }
+
+        public TaskSequence[] RetrieveAllTaskSequence()
+        {
+            return _taskSeqList.ToArray();
+        }
+
+        // return true if has next node
+        public void AddSequence(TaskSequenceSet taskSeqSet)
+        {
+            TaskSequence[] seqList = taskSeqSet.RetrieveAllTaskSequence();
+
+            // if first node
+            if (_previousNode == null)
+            {
+                // Just copy everything from the subtask (goal)
+                _taskSeqList = new List<TaskSequence>(seqList);
+                _previousNode = taskSeqSet._previousNode;
+                _taskSequence = taskSeqSet._taskSequence;
             }
             else
             {
-                switch (previousNode.Operator)
+                // Flush all previous nodes
+                Flush();
+
+                // duplicate sequence if necessary
+                if (taskSeqSet.Length > 1)
                 {
-                    case TASK_OPERATOR.ENABLE:
-                        taskList.Add(currentNode.Name);
-                        break;
-                    case TASK_OPERATOR.CHOICE:
-                        taskSeq.AddList(taskList);
-                        taskList = new List<string>();
-                        taskList.Add(currentNode.Name);
-                        break;
-                    case TASK_OPERATOR.PARALLEL:
-                        break;
-                    default:
-                        taskList.Add(currentNode.Name);
-                        break;
+                    DuplicateSequence(taskSeqSet.Length);
                 }
 
-                previousNode = currentNode;
-            }
-             */
-            //_currentSequence.AddTask(nodeName, 
+                switch (_previousNode.Operator)
+                {
+                    case TASK_OPERATOR.ENABLE:
+                        for (int i = 0; i < _taskSeqList.Count; i++)
+                        {
+                            for (int j = 0; j < taskSeqSet.Length; j++)
+                            {
+                                for (int k = 0; k < taskSeqSet[j].Length; k++)
+                                {
+                                    //_taskSequence.AddTask(s[j]);
+                                    _taskSeqList[i].AddTask(taskSeqSet[j][k]);
+                                }
 
+                                i++;
+                            }
+                        }
+                        
+                        break;
+                    case TASK_OPERATOR.CHOICE:
+                        // ** NOT IMPLEMENTED **
+                        //_taskSeqList.Add(_taskSequence);
+                        //_taskSequence = new TaskSequence();
+                        //_taskSequence.AddTask(taskNode);
+                        break;
+                    case TASK_OPERATOR.PARALLEL:
+                        // ** NOT IMPLEMENTED **
+                        /*for (int i = 0; i < _taskSeqList.Count; i++)
+                        {
+                            for (int j = 0; j < taskSeqSet.Length; j++)
+                            {
+                                for (int k = 0; k < taskSeqSet[j].Length; k++)
+                                {
+                                    //_taskSequence.AddTask(s[j]);
+                                    _taskSeqList[i].AddTask(taskSeqSet[j][k]);
+                                }
+
+                                i++;
+                            }
+                        }
+                        */
+                        break;
+                    default:
+                        // ** NOT IMPLEMENTED **
+                        //_taskSequence.AddTask(taskNode);
+                        break;
+                }
+            }
+
+            // Set current node as the previous node
+            //_previousNode = taskNode;
+            _previousNode = taskSeqSet._previousNode;
+        }
+
+        // return true if has next node
+        public void AddNode(TaskNode taskNode)
+        {
+            // if first node
             if (_previousNode == null)
             {
+                if (_taskSequence == null)
+                {
+                    _taskSequence = new TaskSequence();
+                }
+
                 _taskSequence.AddTask(taskNode);
             }
             else
@@ -75,13 +139,9 @@ namespace TaskModelReader
                         _taskSequence.AddTask(taskNode);
                         break;
                     case TASK_OPERATOR.CHOICE:
-                        /*taskSeq.AddList(taskList);
-                        taskList = new List<string>();
-                        taskList.Add(currentNode.Name);*/
                         _taskSeqList.Add(_taskSequence);
                         _taskSequence = new TaskSequence();
                         _taskSequence.AddTask(taskNode);
-
                         break;
                     case TASK_OPERATOR.PARALLEL:
                         break;
@@ -91,14 +151,49 @@ namespace TaskModelReader
                 }
             }
 
+            // if last node
+            if (!taskNode.hasNextNode)
+            {
+                //taskSeq.AddList(taskList);
+                //taskSeqSet.Flush();
+                _taskSeqList.Add(_taskSequence);
+                //traverseOption = TRAVERSE_OPTION.NONE_FINISH;
+            }
+
             // Set current node as the previous node
             _previousNode = taskNode;
+        }
+
+        public int Length
+        {
+            get
+            {
+                if (_taskSeqList != null)
+                {
+                    return _taskSeqList.Count;
+                }
+
+                return 0;
+            }
+        }
+
+        public TaskSequence this[int index]
+        {
+            get
+            {
+                if (_taskSeqList != null)
+                {
+                    return _taskSeqList[index];
+                }
+
+                throw new Exception("Invalid index");
+            }
         }
 
         public void Flush()
         {
             _taskSeqList.Add(_taskSequence);
-            _taskSequence = new TaskSequence();
+            _taskSequence = null;
         }
     }
 }
