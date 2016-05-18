@@ -188,6 +188,15 @@ namespace TestCaseGenerator.Xml
 
                 throw new Exception("Invalid index");
             }
+            set
+            {
+                if (_taskSeqList != null)
+                {
+                    _taskSeqList[index] = value;
+                }
+
+                throw new Exception("Invalid index");
+            }
         }
 
         public void Flush()

@@ -53,6 +53,15 @@ namespace TestCaseGenerator.Xml
 
                 throw new Exception("Invalid index");
             }
+            set
+            {
+                if (_taskList != null)
+                {
+                    _taskList[index] = value;
+                }
+
+                throw new Exception("Invalid index");
+            }
         }
     }
 }

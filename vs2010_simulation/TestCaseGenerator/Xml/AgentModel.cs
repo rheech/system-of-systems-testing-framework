@@ -19,11 +19,12 @@ namespace TestCaseGenerator.Xml
 
             foreach (XmlNode node in nodes)
             {
-                foreach (XmlNode n in node.SelectNodes("attribute"))
+                foreach (XmlNode n in node.SelectNodes("Role"))
                 {
-                    if (n.Attributes["type"].InnerText == "plays" && n.Attributes["name"].InnerText == roleName)
+                    if (n.Attributes["name"].InnerText == roleName)
                     {
-                        return node.Attributes["name"].InnerText;
+                        Console.WriteLine(n.ParentNode.Attributes["name"].InnerText);
+                        return n.ParentNode.Attributes["name"].InnerText;
                     }
                 }
 

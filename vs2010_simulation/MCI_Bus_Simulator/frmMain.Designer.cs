@@ -77,6 +77,7 @@
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSimOutput = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -94,7 +95,6 @@
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnRunTC = new System.Windows.Forms.Button();
             this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
-            this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -132,7 +132,8 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(689, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(804, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -302,19 +303,19 @@
             this.customizeToolStripMenuItem,
             this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -362,9 +363,10 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 421);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 387);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(689, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(804, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -382,7 +384,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(689, 397);
+            this.tabControl1.Size = new System.Drawing.Size(804, 363);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -391,7 +393,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(681, 371);
+            this.tabPage1.Size = new System.Drawing.Size(796, 337);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Simulator";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -414,16 +416,17 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(675, 365);
-            this.splitContainer3.SplitterDistance = 224;
+            this.splitContainer3.Size = new System.Drawing.Size(790, 331);
+            this.splitContainer3.SplitterDistance = 262;
+            this.splitContainer3.SplitterWidth = 5;
             this.splitContainer3.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lstViewGoal);
-            this.groupBox3.Location = new System.Drawing.Point(5, 3);
+            this.groupBox3.Location = new System.Drawing.Point(6, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(216, 238);
+            this.groupBox3.Size = new System.Drawing.Size(252, 220);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Goal";
@@ -434,9 +437,9 @@
             this.columnHeader1,
             this.columnHeader2});
             this.lstViewGoal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstViewGoal.Location = new System.Drawing.Point(3, 16);
+            this.lstViewGoal.Location = new System.Drawing.Point(3, 17);
             this.lstViewGoal.Name = "lstViewGoal";
-            this.lstViewGoal.Size = new System.Drawing.Size(210, 219);
+            this.lstViewGoal.Size = new System.Drawing.Size(246, 200);
             this.lstViewGoal.TabIndex = 0;
             this.lstViewGoal.UseCompatibleStateImageBehavior = false;
             this.lstViewGoal.View = System.Windows.Forms.View.Details;
@@ -454,26 +457,26 @@
             // lblFast
             // 
             this.lblFast.AutoSize = true;
-            this.lblFast.Location = new System.Drawing.Point(174, 295);
+            this.lblFast.Location = new System.Drawing.Point(203, 272);
             this.lblFast.Name = "lblFast";
-            this.lblFast.Size = new System.Drawing.Size(27, 13);
+            this.lblFast.Size = new System.Drawing.Size(29, 12);
             this.lblFast.TabIndex = 11;
             this.lblFast.Text = "Fast";
             // 
             // lblSlow
             // 
             this.lblSlow.AutoSize = true;
-            this.lblSlow.Location = new System.Drawing.Point(11, 295);
+            this.lblSlow.Location = new System.Drawing.Point(13, 272);
             this.lblSlow.Name = "lblSlow";
-            this.lblSlow.Size = new System.Drawing.Size(30, 13);
+            this.lblSlow.Size = new System.Drawing.Size(33, 12);
             this.lblSlow.TabIndex = 10;
             this.lblSlow.Text = "Slow";
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(126, 323);
+            this.btnStart.Location = new System.Drawing.Point(147, 298);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.Size = new System.Drawing.Size(87, 21);
             this.btnStart.TabIndex = 9;
             this.btnStart.Text = "&Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -481,9 +484,9 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(23, 323);
+            this.btnReset.Location = new System.Drawing.Point(27, 298);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.Size = new System.Drawing.Size(87, 21);
             this.btnReset.TabIndex = 8;
             this.btnReset.Text = "&Reset";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -491,11 +494,11 @@
             // 
             // tbChangeSpeed
             // 
-            this.tbChangeSpeed.Location = new System.Drawing.Point(14, 247);
+            this.tbChangeSpeed.Location = new System.Drawing.Point(16, 228);
             this.tbChangeSpeed.Maximum = 7;
             this.tbChangeSpeed.Minimum = 1;
             this.tbChangeSpeed.Name = "tbChangeSpeed";
-            this.tbChangeSpeed.Size = new System.Drawing.Size(187, 45);
+            this.tbChangeSpeed.Size = new System.Drawing.Size(218, 45);
             this.tbChangeSpeed.TabIndex = 7;
             this.tbChangeSpeed.Value = 4;
             this.tbChangeSpeed.Scroll += new System.EventHandler(this.tbChangeSpeed_Scroll);
@@ -514,8 +517,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer4.Size = new System.Drawing.Size(447, 365);
-            this.splitContainer4.SplitterDistance = 179;
+            this.splitContainer4.Size = new System.Drawing.Size(523, 331);
+            this.splitContainer4.SplitterDistance = 162;
             this.splitContainer4.TabIndex = 0;
             // 
             // groupBox1
@@ -525,7 +528,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(447, 179);
+            this.groupBox1.Size = new System.Drawing.Size(523, 162);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Simulator";
@@ -533,11 +536,21 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(6, 25);
+            this.lblStatus.Location = new System.Drawing.Point(7, 23);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(95, 26);
+            this.lblStatus.Size = new System.Drawing.Size(107, 24);
             this.lblStatus.TabIndex = 6;
             this.lblStatus.Text = "Waiting patients: 0\r\nSaved patients: 0";
+            // 
+            // simulationVisualizer1
+            // 
+            this.simulationVisualizer1.AutoSize = true;
+            this.simulationVisualizer1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold);
+            this.simulationVisualizer1.Location = new System.Drawing.Point(5, 64);
+            this.simulationVisualizer1.Name = "simulationVisualizer1";
+            this.simulationVisualizer1.Size = new System.Drawing.Size(306, 27);
+            this.simulationVisualizer1.TabIndex = 5;
+            this.simulationVisualizer1.Text = "|----|----|----|----|";
             // 
             // groupBox2
             // 
@@ -545,7 +558,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(447, 182);
+            this.groupBox2.Size = new System.Drawing.Size(523, 165);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output";
@@ -553,11 +566,11 @@
             // txtSimOutput
             // 
             this.txtSimOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSimOutput.Location = new System.Drawing.Point(3, 16);
+            this.txtSimOutput.Location = new System.Drawing.Point(3, 17);
             this.txtSimOutput.Multiline = true;
             this.txtSimOutput.Name = "txtSimOutput";
             this.txtSimOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSimOutput.Size = new System.Drawing.Size(441, 163);
+            this.txtSimOutput.Size = new System.Drawing.Size(517, 145);
             this.txtSimOutput.TabIndex = 6;
             // 
             // tabPage2
@@ -572,68 +585,68 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(681, 371);
+            this.tabPage2.Size = new System.Drawing.Size(796, 337);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Case Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(377, 271);
+            this.btnGenerate.Location = new System.Drawing.Point(440, 250);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(75, 23);
+            this.btnGenerate.Size = new System.Drawing.Size(87, 21);
             this.btnGenerate.TabIndex = 3;
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
             // 
             // txtAgent
             // 
-            this.txtAgent.Location = new System.Drawing.Point(111, 63);
+            this.txtAgent.Location = new System.Drawing.Point(129, 58);
             this.txtAgent.Name = "txtAgent";
-            this.txtAgent.Size = new System.Drawing.Size(237, 20);
+            this.txtAgent.Size = new System.Drawing.Size(276, 21);
             this.txtAgent.TabIndex = 21;
             this.txtAgent.Text = "03_agent.xml";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 68);
+            this.label5.Location = new System.Drawing.Point(9, 63);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 13);
+            this.label5.Size = new System.Drawing.Size(115, 12);
             this.label5.TabIndex = 20;
             this.label5.Text = "Agent-Class Model";
             // 
             // txtRole
             // 
-            this.txtRole.Location = new System.Drawing.Point(111, 34);
+            this.txtRole.Location = new System.Drawing.Point(129, 31);
             this.txtRole.Name = "txtRole";
-            this.txtRole.Size = new System.Drawing.Size(237, 20);
+            this.txtRole.Size = new System.Drawing.Size(276, 21);
             this.txtRole.TabIndex = 19;
             this.txtRole.Text = "02_role.xml";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 40);
+            this.label4.Location = new System.Drawing.Point(9, 37);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.Size = new System.Drawing.Size(69, 12);
             this.label4.TabIndex = 18;
             this.label4.Text = "Role Model";
             // 
             // txtGoal
             // 
-            this.txtGoal.Location = new System.Drawing.Point(111, 8);
+            this.txtGoal.Location = new System.Drawing.Point(129, 7);
             this.txtGoal.Name = "txtGoal";
-            this.txtGoal.Size = new System.Drawing.Size(237, 20);
+            this.txtGoal.Size = new System.Drawing.Size(276, 21);
             this.txtGoal.TabIndex = 15;
             this.txtGoal.Text = "01_goaltask.xml";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 12);
+            this.label2.Location = new System.Drawing.Point(9, 11);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.Size = new System.Drawing.Size(70, 12);
             this.label2.TabIndex = 14;
             this.label2.Text = "Goal Model";
             // 
@@ -643,7 +656,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(681, 371);
+            this.tabPage3.Size = new System.Drawing.Size(796, 337);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Test Case Result";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -662,8 +675,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.btnRunTC);
-            this.splitContainer1.Size = new System.Drawing.Size(675, 365);
-            this.splitContainer1.SplitterDistance = 317;
+            this.splitContainer1.Size = new System.Drawing.Size(790, 331);
+            this.splitContainer1.SplitterDistance = 287;
             this.splitContainer1.TabIndex = 18;
             // 
             // splitContainer2
@@ -679,25 +692,25 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.txtOutput);
-            this.splitContainer2.Size = new System.Drawing.Size(675, 317);
-            this.splitContainer2.SplitterDistance = 223;
+            this.splitContainer2.Size = new System.Drawing.Size(790, 287);
+            this.splitContainer2.SplitterDistance = 260;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
             // lstGoals
             // 
             this.lstGoals.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstGoals.FormattingEnabled = true;
+            this.lstGoals.ItemHeight = 12;
             this.lstGoals.Items.AddRange(new object[] {
-            "SavePatient",
             "Communicate",
-            "MedicalCare",
-            "ReportIncident",
-            "LocatePatient",
-            "TreatPatient",
-            "TransferPatient"});
+            "Triage",
+            "Treatment",
+            "MedComm",
+            "Transportation"});
             this.lstGoals.Location = new System.Drawing.Point(0, 0);
             this.lstGoals.Name = "lstGoals";
-            this.lstGoals.Size = new System.Drawing.Size(223, 317);
+            this.lstGoals.Size = new System.Drawing.Size(260, 287);
             this.lstGoals.TabIndex = 17;
             this.lstGoals.SelectedIndexChanged += new System.EventHandler(this.lstGoals_SelectedIndexChanged);
             // 
@@ -708,14 +721,14 @@
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(448, 317);
+            this.txtOutput.Size = new System.Drawing.Size(525, 287);
             this.txtOutput.TabIndex = 16;
             // 
             // btnRunTC
             // 
-            this.btnRunTC.Location = new System.Drawing.Point(374, 7);
+            this.btnRunTC.Location = new System.Drawing.Point(436, 6);
             this.btnRunTC.Name = "btnRunTC";
-            this.btnRunTC.Size = new System.Drawing.Size(75, 23);
+            this.btnRunTC.Size = new System.Drawing.Size(87, 21);
             this.btnRunTC.TabIndex = 0;
             this.btnRunTC.Text = "Run";
             this.btnRunTC.UseVisualStyleBackColor = true;
@@ -725,21 +738,11 @@
             this.tmrSimulation.Interval = 1000;
             this.tmrSimulation.Tick += new System.EventHandler(this.tmrSimulation_Tick);
             // 
-            // simulationVisualizer1
-            // 
-            this.simulationVisualizer1.AutoSize = true;
-            this.simulationVisualizer1.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Bold);
-            this.simulationVisualizer1.Location = new System.Drawing.Point(4, 69);
-            this.simulationVisualizer1.Name = "simulationVisualizer1";
-            this.simulationVisualizer1.Size = new System.Drawing.Size(306, 27);
-            this.simulationVisualizer1.TabIndex = 5;
-            this.simulationVisualizer1.Text = "|----|----|----|----|";
-            // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 443);
+            this.ClientSize = new System.Drawing.Size(804, 409);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);

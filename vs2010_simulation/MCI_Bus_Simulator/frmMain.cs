@@ -36,9 +36,9 @@ namespace MCI_Bus_Simulator
         private void updateTCResourceFile()
         {
             // SavePatient, Communicate, MedicalCare, ReportIncident, LocatePatient, TreatPatient, TransferPatient
-            _tcGenerator.GoalModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
-            _tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
+            _tcGenerator.TaskModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
             _tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
+            _tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
             //_tcGenerator.ProtocolModel = String.Format("{0}{1}", BASE_PATH, txtProtocol.Text);
         }
 

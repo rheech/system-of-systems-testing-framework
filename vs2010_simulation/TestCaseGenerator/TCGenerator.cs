@@ -64,10 +64,9 @@ namespace TestCaseGenerator
 
     public class TCGenerator
     {
-        private string _goalPath;
-        private string _protocolPath;
         private string _rolePath;
         private string _agentPath;
+        private string _taskPath;
 
         public TCGenerator()
         {
@@ -77,15 +76,25 @@ namespace TestCaseGenerator
         public TestInfo GenerateTestCase(string goalName)
         {
             RoleModel role = new RoleModel(RoleModel);
-            ProtocolModel protocol = new ProtocolModel(ProtocolModel);
             AgentModel agent = new AgentModel(AgentModel);
+            TaskModel task = new TaskModel(TaskModel);
 
             TestInfo info = new TestInfo();
             info.goalName = goalName;
-            info.foundRole = role.GetRoleFromGoal(goalName);
+            /*info.foundRole = role.GetRoleFromGoal(goalName);
             info.foundCaps = role.GetCapabilityFromRole(info.foundRole);
-            info.sequence = protocol.TrackSequence(info.foundRole, agent);
+            info.sequence = protocol.TrackSequence(info.foundRole, agent);*/
 
+            TaskSequenceSet tSet;
+            tSet = task.RetrieveTaskSequence(goalName);
+
+            agent.GetAgentFromRole("BaseAmbulance");
+
+            role.GetTestSequenceFromTask(tSet);
+
+            
+
+            
             return info;
 
             /*StringBuilder sb = new StringBuilder();
@@ -116,18 +125,6 @@ namespace TestCaseGenerator
             return sb.ToString();*/
         }
 
-        public string GoalModel
-        {
-            set
-            {
-                _goalPath = value;
-            }
-            get
-            {
-                return _goalPath;
-            }
-        }
-
         public string RoleModel
         {
             set
@@ -152,15 +149,15 @@ namespace TestCaseGenerator
             }
         }
 
-        public string ProtocolModel
+        public string TaskModel
         {
             set
             {
-                _protocolPath = value;
+                _taskPath = value;
             }
             get
             {
-                return _protocolPath;
+                return _taskPath;
             }
         }
     }
