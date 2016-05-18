@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Task">
+  <node name="MCI_Response" type="goal">
+    <node name="Communicate" type="goal" operator="enable">
+      <node name="DeclareMCI" type="interaction" />
+    </node>
+    <node name="SavePatient" type="goal">
+      <node name="Triage" type="goal" operator="parallel">
+        <node name="AssignTriagePosition" type="interaction" operator="enable" />
+        <node name="ProvidePatientCount" type="interaction" />
+      </node>
+      <node name="Treatment" type="goal" operator="parallel">
+        <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
+        <node name="MedComm" type="goal">
+          <node name="CoordinateTransport" type="interaction" operator="enable" />
+          <node name="ProvideAmbulanceDestination" type="interation" operator="choice" />
+          <node name="CheckBedAvailability" type="interaction" operator="enable" />
+          <node name="ProvideBedAvailability" type="interaction" />
+        </node>
+      </node>
+      <node name="Transportation" type="goal" operator="choice">
+        <node name="AssignTransportationPosition" type="interaction" operator="enable" />
+        <node name="RequestAmbulance" type="interaction" operator="enable" />
+        <node name="CallAmbulance" type="interaction" operator="enable" />
+        <node name="HospitalArrival" type="interaction" />
+      </node>
+    </node>
+  </node>
+</Diagram>

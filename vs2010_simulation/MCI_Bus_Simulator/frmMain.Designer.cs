@@ -80,19 +80,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSimOutput = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnGenerate = new System.Windows.Forms.Button();
-            this.txtProtocol = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtAgent = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtRole = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtGoal = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -103,7 +95,6 @@
             this.btnRunTC = new System.Windows.Forms.Button();
             this.tmrSimulation = new System.Windows.Forms.Timer(this.components);
             this.simulationVisualizer1 = new MCI_Bus_Simulator.Visualizer.SimulationVisualizer();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -387,7 +378,6 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
@@ -572,19 +562,11 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox1);
-            this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.btnGenerate);
-            this.tabPage2.Controls.Add(this.txtProtocol);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.textBox5);
-            this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.txtAgent);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.txtRole);
             this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.textBox2);
-            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.txtGoal);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -595,23 +577,6 @@
             this.tabPage2.Text = "Test Case Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(111, 180);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(237, 20);
-            this.textBox1.TabIndex = 27;
-            this.textBox1.Text = "06_mci_task.xml";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 184);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "Task Model";
-            // 
             // btnGenerate
             // 
             this.btnGenerate.Location = new System.Drawing.Point(377, 271);
@@ -621,43 +586,9 @@
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
             // 
-            // txtProtocol
-            // 
-            this.txtProtocol.Location = new System.Drawing.Point(111, 154);
-            this.txtProtocol.Name = "txtProtocol";
-            this.txtProtocol.Size = new System.Drawing.Size(237, 20);
-            this.txtProtocol.TabIndex = 25;
-            this.txtProtocol.Text = "05_protocol.xml";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 158);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 13);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "Protocol Model";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(111, 125);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(237, 20);
-            this.textBox5.TabIndex = 23;
-            this.textBox5.Text = "04_capability.xml";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 129);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 13);
-            this.label6.TabIndex = 22;
-            this.label6.Text = "Capability Model";
-            // 
             // txtAgent
             // 
-            this.txtAgent.Location = new System.Drawing.Point(111, 95);
+            this.txtAgent.Location = new System.Drawing.Point(111, 63);
             this.txtAgent.Name = "txtAgent";
             this.txtAgent.Size = new System.Drawing.Size(237, 20);
             this.txtAgent.TabIndex = 21;
@@ -666,7 +597,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 100);
+            this.label5.Location = new System.Drawing.Point(8, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(95, 13);
             this.label5.TabIndex = 20;
@@ -674,7 +605,7 @@
             // 
             // txtRole
             // 
-            this.txtRole.Location = new System.Drawing.Point(111, 66);
+            this.txtRole.Location = new System.Drawing.Point(111, 34);
             this.txtRole.Name = "txtRole";
             this.txtRole.Size = new System.Drawing.Size(237, 20);
             this.txtRole.TabIndex = 19;
@@ -683,27 +614,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 72);
+            this.label4.Location = new System.Drawing.Point(8, 40);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 18;
             this.label4.Text = "Role Model";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(111, 37);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(237, 20);
-            this.textBox2.TabIndex = 17;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Organization Model";
             // 
             // txtGoal
             // 
@@ -711,7 +626,7 @@
             this.txtGoal.Name = "txtGoal";
             this.txtGoal.Size = new System.Drawing.Size(237, 20);
             this.txtGoal.TabIndex = 15;
-            this.txtGoal.Text = "01_goal.xml";
+            this.txtGoal.Text = "01_goaltask.xml";
             // 
             // label2
             // 
@@ -820,16 +735,6 @@
             this.simulationVisualizer1.TabIndex = 5;
             this.simulationVisualizer1.Text = "|----|----|----|----|";
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(681, 371);
-            this.tabPage4.TabIndex = 5;
-            this.tabPage4.Text = "Test Case Result 2";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -917,16 +822,10 @@
         private System.Windows.Forms.ToolStripStatusLabel tsLabel;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox txtProtocol;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtAgent;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtRole;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtGoal;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tabPage3;
@@ -954,9 +853,6 @@
         private System.Windows.Forms.ListView lstViewGoal;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabPage tabPage4;
     }
 }
 

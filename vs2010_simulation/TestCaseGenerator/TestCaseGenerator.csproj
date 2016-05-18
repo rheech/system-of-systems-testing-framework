@@ -44,33 +44,26 @@
     <Compile Include="TCGenerator.cs" />
     <Compile Include="Xml\AgentModel.cs" />
     <Compile Include="Xml\GoalModel.cs" />
+    <Compile Include="Xml\TaskModel.cs" />
+    <Compile Include="Xml\TaskNode.cs" />
+    <Compile Include="Xml\TaskSequence.cs" />
+    <Compile Include="Xml\TaskSequenceSet.cs" />
     <Compile Include="Xml\XmlParser.cs" />
     <Compile Include="Xml\ProtocolModel.cs" />
     <Compile Include="Xml\RoleModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\01_goal.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\02_role.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\03_agent.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\04_capability.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\05_protocol.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\06_mci_task.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Debugger\Debugger.csproj">
       <Project>{B451A7F8-C342-432F-8AB3-B8C53B9A0B2B}</Project>
       <Name>Debugger</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\01_goaltask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\02_role.xml" />
+    <Content Include="Resources\03_agent.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
