@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestCaseGenerator.Xml
+namespace TestOracleGenerator.Xml
 {
     public enum TASK_OPERATOR
     {
@@ -20,7 +20,7 @@ namespace TestCaseGenerator.Xml
         TASK
     }
 
-    class TaskNode
+    public class TaskNode
     {
         public string Name;
         public NODE_TYPE Type;

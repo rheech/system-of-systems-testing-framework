@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Oracle\MessageUnit.cs" />
     <Compile Include="Oracle\TaskAgentMapper.cs" />
     <Compile Include="Oracle\TaskOracleGenerator.cs" />
+    <Compile Include="Oracle\TestOracle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TOGenerator.cs" />
     <Compile Include="Xml\AgentModel.cs" />

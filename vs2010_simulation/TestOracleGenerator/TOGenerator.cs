@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TestCaseGenerator.Xml;
+using TestOracleGenerator.Xml;
+using TestOracleGenerator.Oracle;
 
-namespace TestCaseGenerator
+namespace TestOracleGenerator
 {
     public struct Arrow
     {
@@ -25,6 +26,7 @@ namespace TestCaseGenerator
         public string foundRole;
         public string[] foundCaps;
         public Arrow[] sequence;
+        public TestOracle[] oracle;
 
         public override string ToString()
         {
@@ -32,21 +34,28 @@ namespace TestCaseGenerator
             StringBuilder sb = new StringBuilder();
 
             sb.AppendFormat("Goal: {0}\r\n", goalName);
-            sb.AppendFormat("Role to achieve goal: {0}\r\n", foundRole);
-            sb.AppendFormat("Capability:\r\n");
+            //sb.AppendFormat("Role to achieve goal: {0}\r\n", foundRole);
+            //sb.AppendFormat("Capability:\r\n");
 
-            foreach (string s in foundCaps)
+            /*foreach (string s in foundCaps)
             {
                 sb.AppendFormat("{0}\r\n", s);
             }
 
-            sb.AppendFormat("\r\n");
+            sb.AppendFormat("\r\n");*/
 
-            sb.AppendFormat("Sequence:\r\n");
+            /*sb.AppendFormat("Sequence:\r\n");
 
             for (int i = 0; i < sequence.Length; i++)
             {
                 sb.AppendFormat("{0}: {1}.{2}\r\n", sequence[i].index, sequence[i].agent_to, sequence[i].message);
+            }*/
+
+            sb.AppendFormat("Sequence:\r\n");
+
+            foreach (TestOracle o in oracle)
+            {
+                sb.AppendFormat("{0}\r\n", o);
             }
 
             try
@@ -64,18 +73,40 @@ namespace TestCaseGenerator
 
     public class TOGenerator
     {
-        private string _rolePath;
-        private string _agentPath;
-        private string _taskPath;
+        string _taskPath;
+        string _rolePath;
+        string _agentPath;
 
-        public TOGenerator()
+        TaskAgentMapper _tAgentMapper;
+        TaskOracleGenerator _tOracleGenerator;
+
+        public TOGenerator(string taskPath, string rolePath, string agentPath)
         {
+            _taskPath = taskPath;
+            _rolePath = rolePath;
+            _agentPath = agentPath;
 
+            _tAgentMapper = new TaskAgentMapper(_rolePath, _agentPath);
+            _tOracleGenerator = new TaskOracleGenerator(_taskPath);
         }
 
-        public TestInfo GenerateTestCase(string goalName)
+        public TestInfo GenerateTestOracle(string goalName)
         {
-            RoleModel role = new RoleModel(RoleModel);
+            TestOracle[] to;
+            TestInfo info;
+
+            info = new TestInfo();
+
+            info.goalName = goalName;
+
+            to = _tOracleGenerator.GenerateTaskSequence(goalName);
+            to = _tAgentMapper.GenerateTestOracle(to);
+
+            info.oracle = to;
+
+            return info;
+
+            /*RoleModel role = new RoleModel(RoleModel);
             AgentModel agent = new AgentModel(AgentModel);
             TaskModel task = new TaskModel(TaskModel);
 
@@ -83,7 +114,7 @@ namespace TestCaseGenerator
             info.goalName = goalName;
             /*info.foundRole = role.GetRoleFromGoal(goalName);
             info.foundCaps = role.GetCapabilityFromRole(info.foundRole);
-            info.sequence = protocol.TrackSequence(info.foundRole, agent);*/
+            info.sequence = protocol.TrackSequence(info.foundRole, agent);* /
 
             TaskSequenceSet tSet;
             tSet = task.RetrieveTaskSequence(goalName);

@@ -4,7 +4,7 @@
     <attribute type="executes" name="EstablishCommand" />
     <attribute type="executes" name="AssignICSPositions" />
     <attribute type="executes" name="IssuePositionToolkits" />
-    <arrow name="DeclareMCI" to="BaseEmergencyCommander" />
+    <arrow name="DeclareMCI" to="BaseEmergencyCallCenter" />
     <arrow name="AssignTriagePosition" to="TriageUnitLeader" />
     <arrow name="AssignTreatmentPosition" to="TreatmentUnitLeader" />
     <arrow name="AssignTransportationPosition" to="TransportationUnitLeader" />

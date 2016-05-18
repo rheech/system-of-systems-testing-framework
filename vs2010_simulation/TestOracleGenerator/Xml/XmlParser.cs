@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace TestCaseGenerator.Xml
+namespace TestOracleGenerator.Xml
 {
     public abstract class XmlParser
     {

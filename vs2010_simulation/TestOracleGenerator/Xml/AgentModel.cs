@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace TestCaseGenerator.Xml
+namespace TestOracleGenerator.Xml
 {
-    class AgentModel : XmlParser
+    public class AgentModel : XmlParser
     {
         public AgentModel(string file) : base(file, "/Diagram/Agent")
         {
@@ -23,7 +23,7 @@ namespace TestCaseGenerator.Xml
                 {
                     if (n.Attributes["name"].InnerText == roleName)
                     {
-                        Console.WriteLine(n.ParentNode.Attributes["name"].InnerText);
+                        //Console.WriteLine(n.ParentNode.Attributes["name"].InnerText);
                         return n.ParentNode.Attributes["name"].InnerText;
                     }
                 }

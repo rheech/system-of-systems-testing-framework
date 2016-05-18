@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace TestCaseGenerator.Xml
+namespace TestOracleGenerator.Xml
 {
     public enum TRAVERSE_OPTION
     {
@@ -13,7 +13,7 @@ namespace TestCaseGenerator.Xml
         NONE_FINISH
     }
 
-    class TaskModel : XmlParser
+    public class TaskModel : XmlParser
     {
         private List<XmlNode> testCase;
         public delegate TRAVERSE_OPTION dEachNodeAction(XmlNode xmlNode, bool isLeaf);
@@ -83,7 +83,7 @@ namespace TestCaseGenerator.Xml
                 }
 
                 taskNode.isLeaf = isLeaf;
-                Console.WriteLine(taskNode.Name);
+                //Console.WriteLine(taskNode.Name);
 
                 // Found Goal
                 if (taskNode.Name == goalName)

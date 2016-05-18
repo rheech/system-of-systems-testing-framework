@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using TestCaseGenerator;
+using TestOracleGenerator;
 using MCI_Bus_Simulator.Agents;
-using TestCaseGenerator.Xml;
+using TestOracleGenerator.Xml;
 
 namespace MCI_Bus_Simulator
 {
@@ -23,7 +23,6 @@ namespace MCI_Bus_Simulator
         {
             InitializeComponent();
             lstViewGoal.FullRowSelect = true;
-            _tcGenerator = new TOGenerator();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -35,11 +34,15 @@ namespace MCI_Bus_Simulator
 
         private void updateTCResourceFile()
         {
+            _tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, txtGoal.Text),
+                                    String.Format("{0}{1}", BASE_PATH, txtRole.Text),
+                                    String.Format("{0}{1}", BASE_PATH, txtAgent.Text));
             // SavePatient, Communicate, MedicalCare, ReportIncident, LocatePatient, TreatPatient, TransferPatient
-            _tcGenerator.TaskModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
-            _tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
-            _tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
+            //_tcGenerator.TaskModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
+            //_tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
+            //_tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
             //_tcGenerator.ProtocolModel = String.Format("{0}{1}", BASE_PATH, txtProtocol.Text);
+            
         }
 
         private void lstGoals_SelectedIndexChanged(object sender, EventArgs e)
@@ -49,7 +52,7 @@ namespace MCI_Bus_Simulator
                 updateTCResourceFile();
 
                 // Update visualization
-                txtOutput.Text = _tcGenerator.GenerateTestCase(lstGoals.SelectedItem.ToString()).ToString();
+                txtOutput.Text = _tcGenerator.GenerateTestOracle(lstGoals.SelectedItem.ToString()).ToString();
             }
         }
 
@@ -87,7 +90,7 @@ namespace MCI_Bus_Simulator
 
             foreach (ListViewItem item in lstViewGoal.Items)
             {
-                info = _tcGenerator.GenerateTestCase(item.Text);
+                info = _tcGenerator.GenerateTestOracle(item.Text);
 
                 if (s.CompareResult(info))
                 {

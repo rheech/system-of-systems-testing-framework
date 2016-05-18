@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MCI_Bus_Simulator.Agents;
 using MCI_Bus_Simulator.Objects;
-using TestCaseGenerator;
+using TestOracleGenerator;
 
 namespace MCI_Bus_Simulator
 {

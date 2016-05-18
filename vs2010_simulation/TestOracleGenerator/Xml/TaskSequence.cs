@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestCaseGenerator.Xml
+namespace TestOracleGenerator.Xml
 {
-    class TaskSequence
+    public class TaskSequence
     {
         List<string> _taskList;
 

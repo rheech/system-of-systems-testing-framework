@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace TestCaseGenerator.Xml
+namespace TestOracleGenerator.Xml
 {
-    class RoleModel : XmlParser
+    public class RoleModel : XmlParser
     {
         // XML Parsing Reference: http://www.doublecloud.org/2013/08/parsing-xml-in-c-a-quick-working-sample/
 
@@ -57,7 +57,7 @@ namespace TestCaseGenerator.Xml
             return capabilities.ToArray();
         }
 
-        public string GetRoleFromMessage(string messageName)
+        public bool GetRoleFromMessage(string messageName, ref string RoleFrom, ref string RoleTo)
         {
             XmlNodeList nodes = RootNodes;
 
@@ -69,13 +69,18 @@ namespace TestCaseGenerator.Xml
                     {
                         return node.Attributes["name"].InnerText;
                     }*/
-                    Console.WriteLine(n.Attributes["name"].InnerText);
+                    //Console.WriteLine(n.Attributes["name"].InnerText);
 
+                    // if message found
                     if (n.Attributes["name"].InnerText == messageName)
                     {
-                        Console.WriteLine(n.ParentNode.Attributes["name"].InnerText);
+                        //Console.WriteLine(n.ParentNode.Attributes["name"].InnerText);
 
-                        return n.ParentNode.Attributes["name"].InnerText;
+                        RoleFrom = n.ParentNode.Attributes["name"].InnerText;
+                        RoleTo = n.Attributes["to"].InnerText;
+
+                        //return n.ParentNode.Attributes["name"].InnerText;
+                        return true;
                     }
                 }
 
@@ -83,7 +88,7 @@ namespace TestCaseGenerator.Xml
                 //temp = node.SelectSingleNode("arrow").InnerText;
             }
 
-            return "";
+            return false;
         }
 
         private XmlNode FindRole(string roleName)
