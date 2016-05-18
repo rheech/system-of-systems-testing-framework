@@ -16,14 +16,14 @@ namespace MCI_Bus_Simulator
     {
         private const string BASE_PATH = "Resources\\";
 
-        TCGenerator _tcGenerator;
+        TOGenerator _tcGenerator;
         Simulator s = new Simulator();
 
         public frmMain()
         {
             InitializeComponent();
             lstViewGoal.FullRowSelect = true;
-            _tcGenerator = new TCGenerator();
+            _tcGenerator = new TOGenerator();
         }
 
         private void frmMain_Load(object sender, EventArgs e)

@@ -62,13 +62,13 @@ namespace TestCaseGenerator
         }
     }
 
-    public class TCGenerator
+    public class TOGenerator
     {
         private string _rolePath;
         private string _agentPath;
         private string _taskPath;
 
-        public TCGenerator()
+        public TOGenerator()
         {
 
         }
@@ -90,7 +90,7 @@ namespace TestCaseGenerator
 
             //agent.GetAgentFromRole("BaseAmbulance");
 
-            role.GetTestSequenceFromTask(tSet);
+            //role.GetTestSequenceFromTask(tSet);
             
             return info;
 

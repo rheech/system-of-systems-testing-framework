@@ -15,23 +15,6 @@ namespace TestCaseGenerator.Xml
 
         }
 
-        public TaskSequenceSet GetTestSequenceFromTask(TaskSequenceSet taskSequenceSet)
-        {
-            TaskSequenceSet tSet = new TaskSequenceSet();
-
-            for (int i = 0; i < taskSequenceSet.Length; i++)
-            {
-                for (int j = 0; j < taskSequenceSet[i].Length; j++)
-                {
-                    //_taskSequence.AddTask(s[j]);
-                    //_taskSeqList[i].AddTask(taskSequenceSet[j][k]);
-                    //taskSequenceSet[i][j] = "ASDF";
-                    FindRoleFromMessage(taskSequenceSet[i][j]);
-                }
-            }
-            return null;
-        }
-
         // Depreciated
         public string GetRoleFromGoal(string goalName)
         {
@@ -74,7 +57,7 @@ namespace TestCaseGenerator.Xml
             return capabilities.ToArray();
         }
 
-        private string FindRoleFromMessage(string messageName)
+        public string GetRoleFromMessage(string messageName)
         {
             XmlNodeList nodes = RootNodes;
 
