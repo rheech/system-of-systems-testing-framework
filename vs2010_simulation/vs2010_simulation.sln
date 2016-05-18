@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI_Bus_Simulator", "MCI_Bus_Simulator\MCI_Bus_Simulator.csproj", "{0C8D7006-EFC8-4ED0-AFC5-272E5C70D1B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseGenerator", "TestCaseGenerator\TestCaseGenerator.csproj", "{6F89FC9D-0A21-4852-8758-5E14216D37CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestOracleGenerator", "TestOracleGenerator\TestOracleGenerator.csproj", "{6F89FC9D-0A21-4852-8758-5E14216D37CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesterAgent", "TesterAgent\TesterAgent.csproj", "{43BD5E3B-6869-483D-87CF-8B98DB90FD6D}"
 EndProject

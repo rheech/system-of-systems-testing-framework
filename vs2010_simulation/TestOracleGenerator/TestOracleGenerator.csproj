@@ -8,8 +8,8 @@
     <ProjectGuid>{6F89FC9D-0A21-4852-8758-5E14216D37CA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestCaseGenerator</RootNamespace>
-    <AssemblyName>TestCaseGenerator</AssemblyName>
+    <RootNamespace>TestOracleGenerator</RootNamespace>
+    <AssemblyName>TestOracleGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,16 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Oracle\TaskAgentMapper.cs" />
+    <Compile Include="Oracle\TaskOracleGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCGenerator.cs" />
+    <Compile Include="TOGenerator.cs" />
     <Compile Include="Xml\AgentModel.cs" />
-    <Compile Include="Xml\GoalModel.cs" />
     <Compile Include="Xml\TaskModel.cs" />
     <Compile Include="Xml\TaskNode.cs" />
     <Compile Include="Xml\TaskSequence.cs" />
     <Compile Include="Xml\TaskSequenceSet.cs" />
     <Compile Include="Xml\XmlParser.cs" />
-    <Compile Include="Xml\ProtocolModel.cs" />
     <Compile Include="Xml\RoleModel.cs" />
   </ItemGroup>
   <ItemGroup>

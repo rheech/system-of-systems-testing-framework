@@ -88,12 +88,9 @@ namespace TestCaseGenerator
             TaskSequenceSet tSet;
             tSet = task.RetrieveTaskSequence(goalName);
 
-            agent.GetAgentFromRole("BaseAmbulance");
+            //agent.GetAgentFromRole("BaseAmbulance");
 
             role.GetTestSequenceFromTask(tSet);
-
-            
-
             
             return info;
 
