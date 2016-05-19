@@ -51,6 +51,7 @@
     <Compile Include="Agents\EmergencyCallCenter.cs" />
     <Compile Include="Agents\EMSVehicle.cs" />
     <Compile Include="Agents\MonitorAgent.cs" />
+    <Compile Include="Agents\RescueVehicle.cs" />
     <Compile Include="Objects\Disaster.cs" />
     <Compile Include="Objects\MCI_Object.cs" />
     <Compile Include="Objects\IPosition.cs" />

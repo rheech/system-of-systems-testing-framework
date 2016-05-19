@@ -27,6 +27,8 @@ namespace MCI_Bus_Simulator
         Hospital _hospital;
         EmergencyCallCenter _callCenter;
         Disaster _disaster;
+        EMSVehicle _emsVehicle;
+        RescueVehicle _rescueVehicle;
 
         public Simulator()
         {
@@ -47,6 +49,9 @@ namespace MCI_Bus_Simulator
             _ambulance = new Ambulance(15);
             _callCenter = new EmergencyCallCenter();
             _disaster = new Disaster(5);
+            _emsVehicle = new EMSVehicle();
+            _rescueVehicle = new RescueVehicle();
+
             SetPatients(10);
             savedPatients = new List<Patient>();
         }

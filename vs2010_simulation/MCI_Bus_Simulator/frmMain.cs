@@ -149,7 +149,7 @@ namespace MCI_Bus_Simulator
 
             // Update goal listview (test pass/fail)
             updateTCResourceFile();
-            UpdateGoalList();
+            //UpdateGoalList(); // Test Oracle
         }
 
         private void tbChangeSpeed_Scroll(object sender, EventArgs e)
