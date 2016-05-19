@@ -51,6 +51,7 @@ namespace TestOracleGenerator
                 sb.AppendFormat("{0}: {1}.{2}\r\n", sequence[i].index, sequence[i].agent_to, sequence[i].message);
             }*/
 
+            sb.AppendFormat("\r\n");
             sb.AppendFormat("Sequence:\r\n");
 
             foreach (TestOracle o in oracle)

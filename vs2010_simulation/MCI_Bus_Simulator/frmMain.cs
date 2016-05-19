@@ -71,7 +71,7 @@ namespace MCI_Bus_Simulator
             // Reset listvies
             lstViewGoal.Items.Clear();
 
-            string[] goalList = { "SavePatient", "Communicate", "MedicalCare", "ReportIncident", "LocatePatient", "TreatPatient", "TransferPatient" };
+            string[] goalList = { "Communicate", "Triage", "MedicalCare", "Treatment", "MedComm", "Transportation" };
             ListViewItem item;
 
             foreach (string ss in goalList)
