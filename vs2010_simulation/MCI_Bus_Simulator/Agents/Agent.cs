@@ -10,6 +10,23 @@ namespace MCI_Bus_Simulator.Agents
 {
     public enum MESSAGE_TYPE
     {
+        ReportDisaster,
+        Command,
+        DeclareMCI,
+        AssignTriagePosition,
+        ProvidePatientCount,
+        AssignTreatmentPosition,
+        AssignTransportationPosition,
+        ProvidePatientTransportStatus,
+        CoordinateTransport,
+        ProvideAmbulanceDestination,
+        RequestAmbulance,
+        CallAmbulance,
+        HospitalArrival,
+        CheckBedAvailability,
+        ProvideBedAvailability,
+
+
         NOTIFY,
         INCIDENT_REPORT,
         ASSIGN_AMBULANCE,
