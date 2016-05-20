@@ -6,7 +6,7 @@ using Debugger;
 using TestOracleGenerator;
 using TestOracleGenerator.Oracle;
 
-namespace MCI_Bus_Simulator.Agents
+namespace SoS_Simulator.Agents
 {
     public struct SimulationEntry
     {

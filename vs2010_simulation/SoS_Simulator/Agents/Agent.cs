@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MCI_Bus_Simulator.Objects;
+using SoS_Simulator.Objects;
 using System.Windows.Forms;
 using TesterAgent;
 
-namespace MCI_Bus_Simulator.Agents
+namespace SoS_Simulator.Agents
 {
     public enum MESSAGE_TYPE
     {

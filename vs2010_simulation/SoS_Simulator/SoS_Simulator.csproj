@@ -8,8 +8,8 @@
     <ProjectGuid>{0C8D7006-EFC8-4ED0-AFC5-272E5C70D1B2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MCI_Bus_Simulator</RootNamespace>
-    <AssemblyName>MCI_Bus_Simulator</AssemblyName>
+    <RootNamespace>SoS_Simulator</RootNamespace>
+    <AssemblyName>SoS_Simulator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

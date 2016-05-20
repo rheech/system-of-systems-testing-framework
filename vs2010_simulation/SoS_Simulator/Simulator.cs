@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MCI_Bus_Simulator.Agents;
-using MCI_Bus_Simulator.Objects;
+using SoS_Simulator.Agents;
+using SoS_Simulator.Objects;
 using TestOracleGenerator;
 using TestOracleGenerator.Oracle;
 
-namespace MCI_Bus_Simulator
+namespace SoS_Simulator
 {
     public class Simulator
     {

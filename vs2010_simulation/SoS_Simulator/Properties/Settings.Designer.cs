@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MCI_Bus_Simulator.Properties
+namespace SoS_Simulator.Properties
 {
 
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MCI_Bus_Simulator.Objects;
+using SoS_Simulator.Objects;
 
-namespace MCI_Bus_Simulator.Agents
+namespace SoS_Simulator.Agents
 {
     public class Hospital : Agent, IPosition
     {

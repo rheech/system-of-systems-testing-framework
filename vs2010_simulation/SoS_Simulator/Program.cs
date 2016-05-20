@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace MCI_Bus_Simulator
+namespace SoS_Simulator
 {
     static class Program
     {

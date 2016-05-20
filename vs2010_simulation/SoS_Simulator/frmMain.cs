@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TestOracleGenerator;
-using MCI_Bus_Simulator.Agents;
+using SoS_Simulator.Agents;
 using TestOracleGenerator.Xml;
 
-namespace MCI_Bus_Simulator
+namespace SoS_Simulator
 {
     public partial class frmMain : Form
     {

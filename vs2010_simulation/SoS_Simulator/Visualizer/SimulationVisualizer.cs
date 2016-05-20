@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using MCI_Bus_Simulator.Objects;
+using SoS_Simulator.Objects;
 
-namespace MCI_Bus_Simulator.Visualizer
+namespace SoS_Simulator.Visualizer
 {
     public partial class SimulationVisualizer : Label
     {

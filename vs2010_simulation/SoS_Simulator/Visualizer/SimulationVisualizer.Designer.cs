@@ -1,4 +1,4 @@
-﻿namespace MCI_Bus_Simulator.Visualizer
+﻿namespace SoS_Simulator.Visualizer
 {
     partial class SimulationVisualizer
     {
