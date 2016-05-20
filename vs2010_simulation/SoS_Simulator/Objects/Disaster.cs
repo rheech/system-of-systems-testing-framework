@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SoS_Simulator.Objects
 {
-    public class Disaster : MCI_Object, IPosition
+    public class Disaster : SoS_Object, IPosition
     {
         int _x;
 

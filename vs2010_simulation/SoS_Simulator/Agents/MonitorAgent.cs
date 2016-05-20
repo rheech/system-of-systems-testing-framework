@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Debugger;
 using TestOracleGenerator;
 using TestOracleGenerator.Oracle;
 
@@ -38,7 +37,7 @@ namespace SoS_Simulator.Agents
             entry = new MessageUnit();
 
             // print debug log
-            Debug.Print(msgType.ToString());
+            //Debug.Print(msgType.ToString());
 
             entry.From = from.GetType().Name.ToString();
             entry.To = target.Name.ToString();

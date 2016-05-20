@@ -39,7 +39,7 @@ namespace SoS_Simulator
         public void InitializeSimulation()
         {
             Agent.ResetEventHandler();
-            MCI_Object.ResetEventHandler();
+            SoS_Object.ResetEventHandler();
 
             // simulation input
             _monitorAgent = new MonitorAgent();
@@ -75,7 +75,7 @@ namespace SoS_Simulator
 
         public void Tick()
         {
-            MCI_Object.RaiseTick();
+            SoS_Object.RaiseTick();
         }
 
         public string GetNumbers()

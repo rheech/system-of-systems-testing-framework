@@ -5,22 +5,22 @@ using System.Text;
 
 namespace SoS_Simulator.Objects
 {
-    public abstract class MCI_Object
+    public abstract class SoS_Object
     {
         private delegate void TickEventHandler();
         private static event TickEventHandler Tick;
 
-        public MCI_Object()
+        public SoS_Object()
         {
-            MCI_Object.Tick += this.OnTickInternal;
+            SoS_Object.Tick += this.OnTickInternal;
         }
 
-        ~MCI_Object()
+        ~SoS_Object()
         {
-            MCI_Object.Tick -= this.OnTickInternal;
+            SoS_Object.Tick -= this.OnTickInternal;
         }
 
-        public MCI_Object(int positionX)
+        public SoS_Object(int positionX)
         {
             
         }

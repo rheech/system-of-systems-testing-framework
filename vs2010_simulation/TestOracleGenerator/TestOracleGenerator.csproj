@@ -55,12 +55,6 @@
     <Compile Include="Xml\RoleModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Debugger\Debugger.csproj">
-      <Project>{B451A7F8-C342-432F-8AB3-B8C53B9A0B2B}</Project>
-      <Name>Debugger</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\01_goaltask.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

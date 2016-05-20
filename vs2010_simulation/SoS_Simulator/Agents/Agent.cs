@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using SoS_Simulator.Objects;
 using System.Windows.Forms;
-using TesterAgent;
 
 namespace SoS_Simulator.Agents
 {
@@ -46,7 +45,7 @@ namespace SoS_Simulator.Agents
         public object[] info;
     }
 
-    public abstract class Agent : MCI_Object
+    public abstract class Agent : SoS_Object
     {
         private delegate void MessageEventHandler(object from, Type target, MESSAGE_TYPE msgType, params object[] info);
         private static event MessageEventHandler MessageReceived;
@@ -69,7 +68,7 @@ namespace SoS_Simulator.Agents
         public static new void ResetEventHandler()
         {
             MessageReceived = null;
-            MCI_Object.ResetEventHandler();
+            SoS_Object.ResetEventHandler();
         }
 
         private static void SendMessageInternal(object from, Type target, MESSAGE_TYPE msgType, params object[] info)

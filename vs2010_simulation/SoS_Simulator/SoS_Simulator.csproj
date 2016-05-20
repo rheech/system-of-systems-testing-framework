@@ -53,7 +53,7 @@
     <Compile Include="Agents\MonitorAgent.cs" />
     <Compile Include="Agents\RescueVehicle.cs" />
     <Compile Include="Objects\Disaster.cs" />
-    <Compile Include="Objects\MCI_Object.cs" />
+    <Compile Include="Objects\SoS_Object.cs" />
     <Compile Include="Objects\IPosition.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -96,17 +96,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Debugger\Debugger.csproj">
-      <Project>{B451A7F8-C342-432F-8AB3-B8C53B9A0B2B}</Project>
-      <Name>Debugger</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestOracleGenerator\TestOracleGenerator.csproj">
       <Project>{6F89FC9D-0A21-4852-8758-5E14216D37CA}</Project>
       <Name>TestOracleGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TesterAgent\TesterAgent.csproj">
-      <Project>{43BD5E3B-6869-483D-87CF-8B98DB90FD6D}</Project>
-      <Name>TesterAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

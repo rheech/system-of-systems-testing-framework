@@ -13,7 +13,7 @@ namespace SoS_Simulator.Objects
         Dead
     }
 
-    public class Patient : MCI_Object
+    public class Patient : SoS_Object
     {
         private int _delayed;
         private PATIENT_STATUS _patientStatus;
