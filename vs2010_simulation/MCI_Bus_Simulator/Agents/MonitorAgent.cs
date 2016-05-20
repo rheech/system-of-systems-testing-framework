@@ -40,7 +40,7 @@ namespace MCI_Bus_Simulator.Agents
             // print debug log
             Debug.Print(msgType.ToString());
 
-            entry.From = from.GetType().ToString();
+            entry.From = from.GetType().Name.ToString();
             entry.To = target.Name.ToString();
             entry.Message = msgType.ToString();
 
@@ -62,7 +62,8 @@ namespace MCI_Bus_Simulator.Agents
             // update visual text
             if (OnTextUpdate != null)
             {
-                OnTextUpdate(from.GetType().Name.ToString() + "->" + target.Name.ToString() + "." + msgType.ToString());
+                //OnTextUpdate(from.GetType().Name.ToString() + "->" + target.Name.ToString() + "." + msgType.ToString());
+                OnTextUpdate(entry.ToString());
             }
         }
 
