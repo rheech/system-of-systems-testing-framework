@@ -7,19 +7,19 @@ namespace SoS_Simulator.Agents
 {
     public class RescueVehicle : Agent
     {
-        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.DispatchCommand:
-                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.DeclareMCI);
+                case "DispatchCommand":
+                    SendMessage(typeof(EmergencyCallCenter), "DeclareMCI");
 
-                    SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.AssignTriagePosition);
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.AssignTreatmentPosition);
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.AssignTransportationPosition);
+                    SendMessage(typeof(RescueVehicle), "AssignTriagePosition");
+                    SendMessage(typeof(EMSVehicle), "AssignTreatmentPosition");
+                    SendMessage(typeof(EMSVehicle), "AssignTransportationPosition");
                     break;
-                case MESSAGE_TYPE.AssignTriagePosition:
-                    SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.ProvidePatientCount);
+                case "AssignTriagePosition":
+                    SendMessage(typeof(RescueVehicle), "ProvidePatientCount");
                     break;
                 default:
                     break;

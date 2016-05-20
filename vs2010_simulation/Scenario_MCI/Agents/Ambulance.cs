@@ -40,12 +40,12 @@ namespace SoS_Simulator.Agents
             return rtnPatient;
         }
 
-        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.RequestAmbulance:
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.TransportComplete);
+                case "RequestAmbulance":
+                    SendMessage(typeof(EMSVehicle), "TransportComplete");
                     break;
                 default:
                     break;

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SoS_Simulator.Agents
 {
-    public enum MESSAGE_TYPE
+    /*public enum MESSAGE_TYPE
     {
         ReportDisaster,
         DispatchCommand,
@@ -36,18 +36,18 @@ namespace SoS_Simulator.Agents
         CHECK_MORE_PATIENTS,
         RESCUE_COMPLETE,
         SIMULATION_COMPLETE
-    }
+    }*/
 
     public struct AgentMessage
     {
         public Type target;
-        public MESSAGE_TYPE msgType;
+        public string msgType;
         public object[] info;
     }
 
     public abstract class Agent : SoS_Object
     {
-        private delegate void MessageEventHandler(object from, Type target, MESSAGE_TYPE msgType, params object[] info);
+        private delegate void MessageEventHandler(object from, Type target, string msgType, params object[] info);
         private static event MessageEventHandler MessageReceived;
         private Queue<AgentMessage> _messageQueue;
         Random r;
@@ -71,7 +71,7 @@ namespace SoS_Simulator.Agents
             SoS_Object.ResetEventHandler();
         }
 
-        private static void SendMessageInternal(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        private static void SendMessageInternal(object from, Type target, string msgType, params object[] info)
         {
             if (MessageReceived != null)
             {
@@ -79,7 +79,7 @@ namespace SoS_Simulator.Agents
             }
         }
 
-        public void SendMessage(Type target, MESSAGE_TYPE msgType, params object[] info)
+        public void SendMessage(Type target, string msgType, params object[] info)
         {
             AgentMessage msg;
 
@@ -91,7 +91,7 @@ namespace SoS_Simulator.Agents
             _messageQueue.Enqueue(msg);
         }
 
-        private void OnMessageReceivedInternal(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        private void OnMessageReceivedInternal(object from, Type target, string msgType, params object[] info)
         {
             if (target == this.GetType() ||
                     target.Name == "Agent" ||
@@ -119,13 +119,13 @@ namespace SoS_Simulator.Agents
             }
         }
 
-        protected virtual void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        protected virtual void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
         }
 
         protected void SimulationComplete(bool error)
         {
-            SendMessage(typeof(Agent), MESSAGE_TYPE.SIMULATION_COMPLETE);
+            SendMessage(typeof(Agent), "SIMULATION_COMPLETE");
         }
     }
 }

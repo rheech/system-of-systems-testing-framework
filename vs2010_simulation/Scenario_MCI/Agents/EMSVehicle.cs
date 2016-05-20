@@ -7,32 +7,32 @@ namespace SoS_Simulator.Agents
 {
     public class EMSVehicle : Agent
     {
-        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.AssignTreatmentPosition:
-                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ProvidePatientTransportStatus);
+                case "AssignTreatmentPosition":
+                    SendMessage(typeof(EmergencyCallCenter), "ProvidePatientTransportStatus");
                     break;
                 /*case MESSAGE_TYPE.AssignTreatmentPosition:
 
                     break;*/
-                case MESSAGE_TYPE.AssignTransportationPosition:
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.CoordinateTransport);
+                case "AssignTransportationPosition":
+                    SendMessage(typeof(EMSVehicle), "CoordinateTransport");
 
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvidePatientTransportStatus);
+                    SendMessage(typeof(EMSVehicle), "ProvidePatientTransportStatus");
                     break;
-                case MESSAGE_TYPE.CoordinateTransport:
-                    SendMessage(typeof(Hospital), MESSAGE_TYPE.CheckBedAvailability);
+                case "CoordinateTransport":
+                    SendMessage(typeof(Hospital), "CheckBedAvailability");
                     break;//SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvideAmbulanceDestination);
-                case MESSAGE_TYPE.ProvideBedAvailability:
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvideAmbulanceDestination);
+                case "ProvideBedAvailability":
+                    SendMessage(typeof(EMSVehicle), "ProvideAmbulanceDestination");
                     break;
-                case MESSAGE_TYPE.ProvideAmbulanceDestination:
-                    SendMessage(typeof(Ambulance), MESSAGE_TYPE.RequestAmbulance);
+                case "ProvideAmbulanceDestination":
+                    SendMessage(typeof(Ambulance), "RequestAmbulance");
                     break;
-                case MESSAGE_TYPE.TransportComplete:
-                    SendMessage(typeof(Agent), MESSAGE_TYPE.SIMULATION_COMPLETE);
+                case "TransportComplete":
+                    SendMessage(typeof(Agent), "SIMULATION_COMPLETE");
                     break;
                 default:
                     break;

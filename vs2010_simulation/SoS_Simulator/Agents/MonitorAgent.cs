@@ -31,7 +31,7 @@ namespace SoS_Simulator.Agents
             _simLog = new List<MessageUnit>();
         }
 
-        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             MessageUnit entry;
             entry = new MessageUnit();
@@ -48,7 +48,7 @@ namespace SoS_Simulator.Agents
             // get msg type
             switch (msgType)
             {
-                case MESSAGE_TYPE.SIMULATION_COMPLETE:
+                case "SIMULATION_COMPLETE":
                     if (OnSimulationFinished != null)
                     {
                         OnSimulationFinished();

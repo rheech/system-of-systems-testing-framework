@@ -16,15 +16,15 @@ namespace SoS_Simulator.Agents
         {
         }
 
-        protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.ReportDisaster:
+                case "ReportDisaster":
                     //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
-                    SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.DispatchCommand);
+                    SendMessage(typeof(RescueVehicle), "DispatchCommand");
                     break;
-                case MESSAGE_TYPE.RESCUE_COMPLETE:
+                case "RESCUE_COMPLETE":
                     SimulationComplete(false);
                     break;
                 default:
@@ -41,7 +41,7 @@ namespace SoS_Simulator.Agents
         public void ReportDisaster(Disaster disaster)
         {
             _disaster = disaster;
-            SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster, _disaster.X);
+            SendMessage(typeof(EmergencyCallCenter), "ReportDisaster", _disaster.X);
         }
     }
 }
