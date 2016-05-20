@@ -11,7 +11,7 @@ namespace MCI_Bus_Simulator.Agents
     public enum MESSAGE_TYPE
     {
         ReportDisaster,
-        Command,
+        DispatchCommand,
         DeclareMCI,
         AssignTriagePosition,
         ProvidePatientCount,
@@ -21,8 +21,7 @@ namespace MCI_Bus_Simulator.Agents
         CoordinateTransport,
         ProvideAmbulanceDestination,
         RequestAmbulance,
-        CallAmbulance,
-        HospitalArrival,
+        TransportComplete,
         CheckBedAvailability,
         ProvideBedAvailability,
 
@@ -40,15 +39,24 @@ namespace MCI_Bus_Simulator.Agents
         SIMULATION_COMPLETE
     }
 
+    public struct AgentMessage
+    {
+        public Type target;
+        public MESSAGE_TYPE msgType;
+        public object[] info;
+    }
+
     public abstract class Agent : MCI_Object
     {
         private delegate void MessageEventHandler(object from, Type target, MESSAGE_TYPE msgType, params object[] info);
         private static event MessageEventHandler MessageReceived;
+        private Queue<AgentMessage> _messageQueue;
         Random r;
 
         public Agent()
         {
             r = new Random();
+            _messageQueue = new Queue<AgentMessage>();
             Agent.MessageReceived += this.OnMessageReceivedInternal;
         }
 
@@ -74,7 +82,14 @@ namespace MCI_Bus_Simulator.Agents
 
         public void SendMessage(Type target, MESSAGE_TYPE msgType, params object[] info)
         {
-            SendMessageInternal(this, target, msgType, info);
+            AgentMessage msg;
+
+            msg = new AgentMessage();
+            msg.target = target;
+            msg.msgType = msgType;
+            msg.info = info;
+
+            _messageQueue.Enqueue(msg);
         }
 
         private void OnMessageReceivedInternal(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
@@ -91,6 +106,17 @@ namespace MCI_Bus_Simulator.Agents
                 {
                     //SimulationComplete(true);
                 }
+            }
+        }
+
+        protected override void OnTick()
+        {
+            AgentMessage msg;
+
+            if (_messageQueue.Count > 0)
+            {
+                msg = _messageQueue.Dequeue();
+                SendMessageInternal(this, msg.target, msg.msgType, msg.info);
             }
         }
 

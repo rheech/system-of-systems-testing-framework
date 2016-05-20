@@ -5,6 +5,7 @@ using System.Text;
 using MCI_Bus_Simulator.Agents;
 using MCI_Bus_Simulator.Objects;
 using TestOracleGenerator;
+using TestOracleGenerator.Oracle;
 
 namespace MCI_Bus_Simulator
 {
@@ -101,7 +102,7 @@ namespace MCI_Bus_Simulator
 
         public bool CompareResult(TestInfo tcResult)
         {
-            SimulationEntry[] simResult;
+            MessageUnit[] simResult;
             string output;
             StringBuilder sb = new StringBuilder();
             bool bExists = true;
@@ -115,10 +116,19 @@ namespace MCI_Bus_Simulator
 
             output = sb.ToString();
 
-            foreach (Arrow arrow in tcResult.sequence)
+            for (int i = 0; i < tcResult.oracle.Length; i++)
+            {
+                for (int j = 0; j < tcResult.oracle[i].Length; j++)
+                {
+                    Console.WriteLine(tcResult.oracle[i][j].ToString());
+                    bExists &= (output.IndexOf(tcResult.oracle[i][j].ToString()) != -1);
+                }
+            }
+
+            /*foreach (Arrow arrow in tcResult.sequence)
             {
                 bExists &= (output.IndexOf(arrow.ToString()) != -1);
-            }
+            }*/
 
             return bExists;
         }

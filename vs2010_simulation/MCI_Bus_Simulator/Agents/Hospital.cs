@@ -21,6 +21,9 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
+                case MESSAGE_TYPE.CheckBedAvailability:
+                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvideBedAvailability);
+                    break;
                 case MESSAGE_TYPE.PATIENT_ARRIVAL:
                     SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.CHECK_MORE_PATIENTS);
                     break;
@@ -30,6 +33,11 @@ namespace MCI_Bus_Simulator.Agents
                 default:
                     break;
             }
+        }
+
+        protected override void OnTick()
+        {
+            base.OnTick();
         }
 
         public int X

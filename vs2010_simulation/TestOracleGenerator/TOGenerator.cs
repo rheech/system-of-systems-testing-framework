@@ -23,9 +23,9 @@ namespace TestOracleGenerator
     public struct TestInfo
     {
         public string goalName;
-        public string foundRole;
-        public string[] foundCaps;
-        public Arrow[] sequence;
+        //public string foundRole;
+        //public string[] foundCaps;
+        //public Arrow[] sequence;
         public TestOracle[] oracle;
 
         public override string ToString()

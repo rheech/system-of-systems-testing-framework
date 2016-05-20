@@ -21,8 +21,7 @@
       <node name="Transportation" type="goal" operator="choice">
         <node name="AssignTransportationPosition" type="interaction" operator="enable" />
         <node name="RequestAmbulance" type="interaction" operator="enable" />
-        <node name="CallAmbulance" type="interaction" operator="enable" />
-        <node name="HospitalArrival" type="interaction" />
+        <node name="TransportComplete" type="interaction" />
       </node>
     </node>
   </node>

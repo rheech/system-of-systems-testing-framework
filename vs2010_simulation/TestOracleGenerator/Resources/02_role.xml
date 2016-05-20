@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Diagram type="Role">
+  <Role name="BaseEmergencyCallCenter"></Role>
   <Role name="IncidentCommander">
     <attribute type="executes" name="EstablishCommand" />
     <attribute type="executes" name="AssignICSPositions" />
@@ -9,7 +10,6 @@
     <arrow name="AssignTreatmentPosition" to="TreatmentUnitLeader" />
     <arrow name="AssignTransportationPosition" to="TransportationUnitLeader" />
   </Role>
-  <Role name="BaseEmergencyCallCenter"></Role>
   <Role name="TriageUnitLeader">
     <attribute type="executes" name="RunTriage" />
     <attribute type="executes" name="ObtainPatientCount" />
@@ -37,11 +37,7 @@
     <attribute type="executes" name="SetAmbulanceStagingArea" />
     <attribute type="executes" name="AssureRoute" />
     <attribute type="executes" name="TrackAmbulances" />
-    <arrow name="CallAmbulance" to="BaseAmbulance" />
-  </Role>
-  <Role name="BaseAmbulance">
-    <attribute type="executes" name="GetPatientInfo" />
-    <arrow name="HospitalArrival" to="BaseHospital" />
+    <arrow name="TransportComplete" to="TransportationUnitLeader" />
   </Role>
   <Role name="BaseHospital">
     <attribute type="executes" name="UpdateBedAvailability" />

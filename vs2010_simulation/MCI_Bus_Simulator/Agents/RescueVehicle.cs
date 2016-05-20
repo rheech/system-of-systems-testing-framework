@@ -11,8 +11,9 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.Command:
+                case MESSAGE_TYPE.DispatchCommand:
                     SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.DeclareMCI);
+
                     SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.AssignTriagePosition);
                     SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.AssignTreatmentPosition);
                     SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.AssignTransportationPosition);
@@ -23,6 +24,11 @@ namespace MCI_Bus_Simulator.Agents
                 default:
                     break;
             }
+        }
+
+        protected override void OnTick()
+        {
+            base.OnTick();
         }
     }
 }

@@ -21,7 +21,8 @@ namespace MCI_Bus_Simulator.Agents
             switch (msgType)
             {
                 case MESSAGE_TYPE.ReportDisaster:
-                    SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.Command);
+                    //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
+                    SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.DispatchCommand);
                     break;
                 case MESSAGE_TYPE.RESCUE_COMPLETE:
                     SimulationComplete(false);
@@ -29,6 +30,11 @@ namespace MCI_Bus_Simulator.Agents
                 default:
                     break;
             }
+        }
+
+        protected override void OnTick()
+        {
+            base.OnTick();
         }
 
         // Received disaster report (beginning of MCI)

@@ -11,18 +11,37 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
-                case MESSAGE_TYPE.Command:
-                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.DeclareMCI);
-                    SendMessage(typeof(RescueVehicle), MESSAGE_TYPE.AssignTriagePosition);
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.AssignTreatmentPosition);
-                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.AssignTransportationPosition);
-                    break;
                 case MESSAGE_TYPE.AssignTreatmentPosition:
+                    SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ProvidePatientTransportStatus);
+                    break;
+                /*case MESSAGE_TYPE.AssignTreatmentPosition:
 
+                    break;*/
+                case MESSAGE_TYPE.AssignTransportationPosition:
+                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.CoordinateTransport);
+
+                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvidePatientTransportStatus);
+                    break;
+                case MESSAGE_TYPE.CoordinateTransport:
+                    SendMessage(typeof(Hospital), MESSAGE_TYPE.CheckBedAvailability);
+                    break;//SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvideAmbulanceDestination);
+                case MESSAGE_TYPE.ProvideBedAvailability:
+                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvideAmbulanceDestination);
+                    break;
+                case MESSAGE_TYPE.ProvideAmbulanceDestination:
+                    SendMessage(typeof(Ambulance), MESSAGE_TYPE.RequestAmbulance);
+                    break;
+                case MESSAGE_TYPE.TransportComplete:
+                    SendMessage(typeof(Agent), MESSAGE_TYPE.SIMULATION_COMPLETE);
                     break;
                 default:
                     break;
             }
+        }
+
+        protected override void OnTick()
+        {
+            base.OnTick();
         }
     }
 }

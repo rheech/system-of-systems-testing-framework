@@ -8,13 +8,12 @@
     <Role name="TreatmentUnitLeader" />
     <Role name="TransportationUnitLeader" />
     <Role name="MedComm" />
-    <Role name="AmbulanceCoordinator" />
   </Agent>
   <Agent name="EmergencyCallCenter">
     <Role name="BaseEmergencyCallCenter" />
   </Agent>
   <Agent name="Ambulance">
-    <Role name="BaseAmbulance" />
+    <Role name="AmbulanceCoordinator" />
   </Agent>
   <Agent name="Hospital">
     <Role name="BaseHospital" />

@@ -149,12 +149,19 @@ namespace MCI_Bus_Simulator
 
             // Update goal listview (test pass/fail)
             updateTCResourceFile();
-            //UpdateGoalList(); // Test Oracle
+            UpdateGoalList(); // Test Oracle
         }
 
         private void tbChangeSpeed_Scroll(object sender, EventArgs e)
         {
-            tmrSimulation.Interval = ((tbChangeSpeed.Maximum + 1) - tbChangeSpeed.Value) * 50;
+            if (tbChangeSpeed.Value == 4)
+            {
+                tmrSimulation.Interval = 1000;
+            }
+            else
+            {
+                tmrSimulation.Interval = ((tbChangeSpeed.Maximum + 1) - tbChangeSpeed.Value) * 50;
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)

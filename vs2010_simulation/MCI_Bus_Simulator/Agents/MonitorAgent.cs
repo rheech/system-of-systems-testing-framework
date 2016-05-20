@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Debugger;
 using TestOracleGenerator;
+using TestOracleGenerator.Oracle;
 
 namespace MCI_Bus_Simulator.Agents
 {
@@ -24,23 +25,25 @@ namespace MCI_Bus_Simulator.Agents
         public event TextUpdateHandler OnTextUpdate;
         public delegate void SimulationFinished();
         public event SimulationFinished OnSimulationFinished;
-        private List<SimulationEntry> _simLog;
+        private List<MessageUnit> _simLog;
 
         public MonitorAgent()
         {
-            _simLog = new List<SimulationEntry>();
+            _simLog = new List<MessageUnit>();
         }
 
         protected override void OnMessageReceived(object from, Type target, MESSAGE_TYPE msgType, params object[] info)
         {
-            SimulationEntry entry;
-            entry = new SimulationEntry();
+            MessageUnit entry;
+            entry = new MessageUnit();
 
             // print debug log
             Debug.Print(msgType.ToString());
 
-            entry.agent = target.Name.ToString();
-            entry.arrow = msgType.ToString();
+            entry.From = from.GetType().ToString();
+            entry.To = target.Name.ToString();
+            entry.Message = msgType.ToString();
+
             _simLog.Add(entry);
 
             // get msg type
@@ -63,7 +66,7 @@ namespace MCI_Bus_Simulator.Agents
             }
         }
 
-        public SimulationEntry[] GetSimulationLog()
+        public MessageUnit[] GetSimulationLog()
         {
             return _simLog.ToArray();
         }

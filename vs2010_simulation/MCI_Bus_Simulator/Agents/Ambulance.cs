@@ -44,6 +44,9 @@ namespace MCI_Bus_Simulator.Agents
         {
             switch (msgType)
             {
+                case MESSAGE_TYPE.RequestAmbulance:
+                    SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.TransportComplete);
+                    break;
                 default:
                     break;
             }
@@ -59,6 +62,8 @@ namespace MCI_Bus_Simulator.Agents
         {
             int diff;
             int unit;
+
+            base.OnTick();
 
             if (_currentPosition != _destination)
             {
