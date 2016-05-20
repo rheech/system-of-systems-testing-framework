@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using TestOracleGenerator;
 using SoS_Simulator.Agents;
 using TestOracleGenerator.Xml;
+using System.Reflection;
 
 namespace SoS_Simulator
 {
@@ -17,12 +18,15 @@ namespace SoS_Simulator
         private const string BASE_PATH = "Resources\\";
 
         TOGenerator _tcGenerator;
-        Simulator s = new Simulator();
+        Simulator s;
 
         public frmMain()
         {
             InitializeComponent();
             lstViewGoal.FullRowSelect = true;
+
+            Assembly assembly = Assembly.LoadFrom("Scenario_MCI.dll");
+            s = (Simulator)assembly.CreateInstance("SoS_Simulator.ScenarioMain");
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -34,9 +38,10 @@ namespace SoS_Simulator
 
         private void updateTCResourceFile()
         {
-            _tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, txtGoal.Text),
+            /*_tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, txtGoal.Text),
                                     String.Format("{0}{1}", BASE_PATH, txtRole.Text),
-                                    String.Format("{0}{1}", BASE_PATH, txtAgent.Text));
+                                    String.Format("{0}{1}", BASE_PATH, txtAgent.Text));*/
+            _tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml"));
             // SavePatient, Communicate, MedicalCare, ReportIncident, LocatePatient, TreatPatient, TransferPatient
             //_tcGenerator.TaskModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
             //_tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
@@ -60,7 +65,7 @@ namespace SoS_Simulator
         {
             /*simulationVisualizer1.StartVisualization();
             simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());*/
-            lblStatus.Text = s.GetNumbers();
+            //lblStatus.Text = s.GetNumbers();
 
             // Reset listview
             SetupGoalList();
@@ -140,7 +145,7 @@ namespace SoS_Simulator
         {
             s.Tick();
             //simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());
-            lblStatus.Text = s.GetNumbers();
+            //lblStatus.Text = s.GetNumbers();
 
             /*if (Simulator.patients.Count == 0 && Simulator.savedPatients.Count == 10)
             {
@@ -174,7 +179,7 @@ namespace SoS_Simulator
         private void btnReset_Click(object sender, EventArgs e)
         {
             tmrSimulation.Enabled = false;
-            s.InitializeSimulation();
+            s.InitializeSimulator();
             InitializeSimulator();
             txtSimOutput.Text = "";
         }

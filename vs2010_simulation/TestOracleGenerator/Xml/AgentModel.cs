@@ -8,7 +8,7 @@ namespace TestOracleGenerator.Xml
 {
     public class AgentModel : XmlParser
     {
-        public AgentModel(string file) : base(file, "/Diagram/Agent")
+        public AgentModel(string file) : base(file, "/SoS/AgentModel/Agent")
         {
 
         }

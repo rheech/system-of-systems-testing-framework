@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("tcgenerator")]
+[assembly: AssemblyTitle("Scenario_MCI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("tcgenerator")]
+[assembly: AssemblyProduct("Scenario_MCI")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fbe94e3b-ed73-4f1a-bfc3-5fead310e097")]
+[assembly: Guid("56c7a9ea-1510-4c2d-a914-0e9b6cf5f836")]
 
 // Version information for an assembly consists of the following four values:
 //

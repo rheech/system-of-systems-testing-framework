@@ -11,10 +11,10 @@ namespace TestOracleGenerator.Oracle
         private RoleModel _roleModel;
         private AgentModel _agentModel;
 
-        public TaskAgentMapper(string roleModelPath, string agentModelPath)
+        public TaskAgentMapper(string oracleXMLPath)
         {
-            _roleModel = new RoleModel(roleModelPath);
-            _agentModel = new AgentModel(agentModelPath);
+            _roleModel = new RoleModel(oracleXMLPath);
+            _agentModel = new AgentModel(oracleXMLPath);
         }
 
         /*public TaskSequenceSet GetTestSequenceFromTask(TaskSequenceSet taskSequenceSet)

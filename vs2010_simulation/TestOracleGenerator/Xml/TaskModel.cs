@@ -19,7 +19,7 @@ namespace TestOracleGenerator.Xml
         public delegate TRAVERSE_OPTION dEachNodeAction(XmlNode xmlNode, bool isLeaf);
 
         public TaskModel(string file)
-            : base(file, "/Diagram/node")
+            : base(file, "/SoS/TaskModel/node")
         {
             testCase = new List<XmlNode>();
         }

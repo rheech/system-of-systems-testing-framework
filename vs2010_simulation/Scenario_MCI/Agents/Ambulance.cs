@@ -65,7 +65,7 @@ namespace SoS_Simulator.Agents
 
             base.OnTick();
 
-            if (_currentPosition != _destination)
+            /*if (_currentPosition != _destination)
             {
                 diff = _destination - _currentPosition;
                 unit = diff / Math.Abs(diff);
@@ -94,8 +94,8 @@ namespace SoS_Simulator.Agents
                 /*if (_currentPosition == _destination && MCI_Environment.patients.Count > 0)
                 {
                     _currentPatient = MCI_Environment.patients.Dequeue();
-                }*/
-            }
+                }* /
+            }*/
         }
 
         public int X

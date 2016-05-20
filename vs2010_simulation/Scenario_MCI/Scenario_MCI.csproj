@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F191AA96-CE5F-4231-BDDF-F26F2501EF20}</ProjectGuid>
+    <ProjectGuid>{FED1E05B-B155-434B-BF65-A13CBED562E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>tcgenerator</RootNamespace>
-    <AssemblyName>tcgenerator</AssemblyName>
+    <RootNamespace>Scenario_MCI</RootNamespace>
+    <AssemblyName>Scenario_MCI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,11 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Agents\Ambulance.cs" />
+    <Compile Include="Agents\EmergencyCallCenter.cs" />
+    <Compile Include="Agents\EMSVehicle.cs" />
+    <Compile Include="Agents\Hospital.cs" />
+    <Compile Include="Agents\RescueVehicle.cs" />
+    <Compile Include="ScenarioMain.cs" />
+    <Compile Include="Objects\Disaster.cs" />
+    <Compile Include="Objects\IPosition.cs" />
+    <Compile Include="Objects\Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <ProjectReference Include="..\SoS_Simulator\SoS_Simulator.csproj">
+      <Project>{0C8D7006-EFC8-4ED0-AFC5-272E5C70D1B2}</Project>
+      <Name>SoS_Simulator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\01_goaltask.xml" />
+    <Content Include="Resources\02_role.xml" />
+    <Content Include="Resources\03_agent.xml" />
+    <Content Include="Resources\Scenario_MCI.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

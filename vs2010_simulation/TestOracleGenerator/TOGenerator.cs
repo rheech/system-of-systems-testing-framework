@@ -74,21 +74,17 @@ namespace TestOracleGenerator
 
     public class TOGenerator
     {
-        string _taskPath;
-        string _rolePath;
-        string _agentPath;
+        string _oracleXMLPath;
 
         TaskAgentMapper _tAgentMapper;
         TaskOracleGenerator _tOracleGenerator;
 
-        public TOGenerator(string taskPath, string rolePath, string agentPath)
+        public TOGenerator(string oracleXMLPath)
         {
-            _taskPath = taskPath;
-            _rolePath = rolePath;
-            _agentPath = agentPath;
+            _oracleXMLPath = oracleXMLPath;
 
-            _tAgentMapper = new TaskAgentMapper(_rolePath, _agentPath);
-            _tOracleGenerator = new TaskOracleGenerator(_taskPath);
+            _tAgentMapper = new TaskAgentMapper(oracleXMLPath);
+            _tOracleGenerator = new TaskOracleGenerator(oracleXMLPath);
         }
 
         public TestInfo GenerateTestOracle(string goalName)
@@ -152,42 +148,6 @@ namespace TestOracleGenerator
             }
 
             return sb.ToString();*/
-        }
-
-        public string RoleModel
-        {
-            set
-            {
-                _rolePath = value;
-            }
-            get
-            {
-                return _rolePath;
-            }
-        }
-
-        public string AgentModel
-        {
-            set
-            {
-                _agentPath = value;
-            }
-            get
-            {
-                return _agentPath;
-            }
-        }
-
-        public string TaskModel
-        {
-            set
-            {
-                _taskPath = value;
-            }
-            get
-            {
-                return _taskPath;
-            }
         }
     }
 }
