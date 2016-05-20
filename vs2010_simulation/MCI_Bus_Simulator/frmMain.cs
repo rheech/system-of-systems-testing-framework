@@ -58,8 +58,8 @@ namespace MCI_Bus_Simulator
 
         private void InitializeSimulator()
         {
-            simulationVisualizer1.StartVisualization();
-            simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());
+            /*simulationVisualizer1.StartVisualization();
+            simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());*/
             lblStatus.Text = s.GetNumbers();
 
             // Reset listview
@@ -139,7 +139,7 @@ namespace MCI_Bus_Simulator
         private void tmrSimulation_Tick(object sender, EventArgs e)
         {
             s.Tick();
-            simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());
+            //simulationVisualizer1.UpdateGraphics(s.UpdateVisualComponent());
             lblStatus.Text = s.GetNumbers();
 
             /*if (Simulator.patients.Count == 0 && Simulator.savedPatients.Count == 10)

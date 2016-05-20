@@ -120,7 +120,7 @@ namespace MCI_Bus_Simulator
             {
                 for (int j = 0; j < tcResult.oracle[i].Length; j++)
                 {
-                    Console.WriteLine(tcResult.oracle[i][j].ToString());
+                    //Console.WriteLine(tcResult.oracle[i][j].ToString());
                     bExists &= (output.IndexOf(tcResult.oracle[i][j].ToString()) != -1);
                 }
             }
