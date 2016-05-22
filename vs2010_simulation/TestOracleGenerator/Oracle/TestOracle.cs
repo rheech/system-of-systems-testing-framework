@@ -42,7 +42,7 @@ namespace TestOracleGenerator.Oracle
                 for (int j = 0; j < tSet[i].Length; j++)
                 {
                     msgUnit = new MessageUnit();
-                    msgUnit.Message = tSet[i][j];
+                    msgUnit.Message = tSet[i][j].ToString();
 
                     msgList.Add(msgUnit);
                 }
@@ -64,6 +64,11 @@ namespace TestOracleGenerator.Oracle
 
                 return 0;
             }
+        }
+
+        public MessageUnit[] ToMessageList()
+        {
+            return _messageList.ToArray();
         }
 
         public MessageUnit this[int index]

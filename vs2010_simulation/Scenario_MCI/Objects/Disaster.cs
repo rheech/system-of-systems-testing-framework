@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SoS_Simulator.Objects;
 
-namespace SoS_Simulator.Objects
+namespace Scenario_MCI.Objects
 {
     public class Disaster : SoS_Object, IPosition
     {

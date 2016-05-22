@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TestOracleGenerator.Xml
 {
-    public class TaskSequenceSet
+    public class TaskSequenceSet : TaskInterface
     {
         //List<List<string>> _taskLists;
         TaskNode _previousNode;
@@ -121,6 +121,28 @@ namespace TestOracleGenerator.Xml
         // return true if has next node
         public void AddNode(TaskNode taskNode)
         {
+            _taskSequence.AddTask(taskNode);
+
+            switch (taskNode.Operator)
+            {
+                case TASK_OPERATOR.ENABLE:
+                    //_taskSequence.AddTask(taskNode);
+                    break;
+                case TASK_OPERATOR.CHOICE:
+                    _taskSeqList.Add(_taskSequence);
+                    _taskSequence = new TaskSequence();
+                    //_taskSequence.AddTask(taskNode);
+                    break;
+                case TASK_OPERATOR.PARALLEL:
+                    break;
+                default:
+                    //_taskSequence.AddTask(taskNode);
+                    break;
+            }
+        }
+
+        public void AddNode2(TaskNode taskNode)
+        {
             // if first node
             if (_previousNode == null)
             {
@@ -201,8 +223,34 @@ namespace TestOracleGenerator.Xml
 
         public void Flush()
         {
-            _taskSeqList.Add(_taskSequence);
+            if (_taskSequence != null && 
+                    _taskSequence.Length > 0 &&
+                    _taskSequence[0].Name != null)
+            {
+                _taskSeqList.Add(_taskSequence);
+            }
+
             _taskSequence = null;
+        }
+
+        public TASK_OPERATOR Operator
+        {
+            get
+            {
+                if (_taskSequence != null)
+                {
+                    return _taskSequence[_taskSequence.Length - 1].Operator;
+                }
+                else if (_taskSeqList != null)
+                {
+                    TaskSequence seq;
+                    seq = _taskSeqList[_taskSeqList.Count - 1];
+
+                    return seq[seq.Length - 1].Operator;
+                }
+
+                return TASK_OPERATOR.NONE;
+            }
         }
     }
 }

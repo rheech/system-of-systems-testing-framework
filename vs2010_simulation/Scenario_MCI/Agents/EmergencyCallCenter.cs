@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Objects;
+using SoS_Simulator.Agents;
+using Scenario_MCI.Objects;
 
-namespace SoS_Simulator.Agents
+namespace Scenario_MCI.Agents
 {
     public class EmergencyCallCenter : Agent
     {

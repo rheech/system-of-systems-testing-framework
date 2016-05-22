@@ -15,5 +15,31 @@ namespace TestOracleGenerator.Oracle
         {
             return String.Format("{0}.{1}->{2}", From, Message, To);
         }
+
+        public static bool operator ==(MessageUnit a, MessageUnit b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(MessageUnit a, MessageUnit b)
+        {
+            return !a.Equals(b);
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool bEquals;
+            MessageUnit msg;
+
+            if (obj is MessageUnit)
+            {
+                msg = (MessageUnit)obj;
+                bEquals = (Message == msg.Message && From == msg.From && To == msg.To);
+
+                return bEquals;
+            }
+
+            return base.Equals(obj);
+        }
     }
 }

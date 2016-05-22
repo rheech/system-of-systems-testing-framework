@@ -10,6 +10,7 @@ using TestOracleGenerator;
 using SoS_Simulator.Agents;
 using TestOracleGenerator.Xml;
 using System.Reflection;
+using System.IO;
 
 namespace SoS_Simulator
 {
@@ -24,16 +25,90 @@ namespace SoS_Simulator
         {
             InitializeComponent();
             lstViewGoal.FullRowSelect = true;
-
-            Assembly assembly = Assembly.LoadFrom("Scenario_MCI.dll");
-            s = (Simulator)assembly.CreateInstance("SoS_Simulator.ScenarioMain");
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
             InitializeSimulator();
-            s.OnLogUpdate += Simulator_OnLogUpdate;
-            s.OnSimulationComplete += Simulator_OnSimulationComplete;
+
+            EnableSimulator(false);
+            LoadDefault();
+        }
+
+        private void LoadDefault()
+        {
+            LoadSimulator("Scenario_MCI.dll");
+            LoadTestOracle(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml"));
+        }
+
+        private void EnableSimulator(bool bEnable)
+        {
+            lstViewGoal.Enabled = bEnable;
+            btnOracleBrowse.Enabled = bEnable;
+            tbChangeSpeed.Enabled = bEnable;
+            btnReset.Enabled = bEnable;
+            btnStart.Enabled = bEnable;
+            lstGoals.Enabled = bEnable;
+            lstViewGoal.Enabled = bEnable;
+        }
+
+        private void LoadSimulator(string simulatorFile)
+        {
+            bool isValidFile;
+            Assembly simFile;
+
+            isValidFile = false;
+
+            try
+            {
+                simFile = Assembly.LoadFrom(simulatorFile);
+
+                //Type[] mod = simFile.GetTypes();
+                Type mainType;
+
+                foreach (Type t in simFile.GetTypes())
+                {
+                    if (t.Name == "ScenarioMain")
+                    {
+                        mainType = t;
+
+                        s = (Simulator)simFile.CreateInstance(mainType.FullName);
+                        s.OnLogUpdate += Simulator_OnLogUpdate;
+                        s.OnSimulationComplete += Simulator_OnSimulationComplete;
+                        tsLabel.Text = "Ready";
+
+                        isValidFile = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error loading simulator file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (isValidFile)
+            {
+                EnableSimulator(true);
+            }
+            else
+            {
+                MessageBox.Show("Error loading simulator file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadTestOracle(string oracleFile)
+        {
+            string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
+            //string[] goalList = { "SavePatient" };
+            _tcGenerator = new TOGenerator(oracleFile);
+
+            foreach (string s in goalList)
+            {
+                lstGoals.Items.Add(s);
+            }
+            //goalList = _tcGenerator.RetrieveGoalList();
+
+            SetupGoalList(goalList);
         }
 
         private void updateTCResourceFile()
@@ -41,7 +116,7 @@ namespace SoS_Simulator
             /*_tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, txtGoal.Text),
                                     String.Format("{0}{1}", BASE_PATH, txtRole.Text),
                                     String.Format("{0}{1}", BASE_PATH, txtAgent.Text));*/
-            _tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml"));
+            //_tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml"));
             // SavePatient, Communicate, MedicalCare, ReportIncident, LocatePatient, TreatPatient, TransferPatient
             //_tcGenerator.TaskModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
             //_tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
@@ -68,15 +143,15 @@ namespace SoS_Simulator
             //lblStatus.Text = s.GetNumbers();
 
             // Reset listview
-            SetupGoalList();
+            //SetupGoalList();
         }
 
-        private void SetupGoalList()
+        private void SetupGoalList(string[] goalList)
         {
             // Reset listvies
             lstViewGoal.Items.Clear();
 
-            string[] goalList = { "Communicate", "Triage", "MedicalCare", "Treatment", "MedComm", "Transportation" };
+            //string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
             ListViewItem item;
 
             foreach (string ss in goalList)
@@ -182,6 +257,37 @@ namespace SoS_Simulator
             s.InitializeSimulator();
             InitializeSimulator();
             txtSimOutput.Text = "";
+        }
+
+        private void tsBtnOpen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofdOpenFile = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            ofdOpenFile.Filter = "DLL Files (*.dll)|*.dll|All Files (*.*)|*.*";
+            ofdOpenFile.FilterIndex = 1;
+            ofdOpenFile.RestoreDirectory = true;
+
+            if (ofdOpenFile.ShowDialog() == DialogResult.OK)
+            {
+                LoadSimulator(ofdOpenFile.FileName);
+            }
+        }
+
+        private void btnOracleBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofdOpenFile = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            ofdOpenFile.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
+            ofdOpenFile.FilterIndex = 1;
+            ofdOpenFile.RestoreDirectory = true;
+
+            if (ofdOpenFile.ShowDialog() == DialogResult.OK)
+            {
+                txtOraclePath.Text = ofdOpenFile.FileName;
+                LoadTestOracle(ofdOpenFile.FileName);
+            }
         }
     }
 }

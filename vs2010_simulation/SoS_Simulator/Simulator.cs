@@ -51,7 +51,7 @@ namespace SoS_Simulator
             SoS_Object.RaiseTick();
         }
 
-        public bool CompareResult(TestInfo tcResult)
+        public bool CompareResult(TestInfo testOracle)
         {
             MessageUnit[] simResult;
             string output;
@@ -67,14 +67,16 @@ namespace SoS_Simulator
 
             output = sb.ToString();
 
-            for (int i = 0; i < tcResult.oracle.Length; i++)
+            bExists = CompareSequence(simResult, testOracle);
+
+            /*for (int i = 0; i < testOracle.oracle.Length; i++)
             {
-                for (int j = 0; j < tcResult.oracle[i].Length; j++)
+                for (int j = 0; j < testOracle.oracle[i].Length; j++)
                 {
                     //Console.WriteLine(tcResult.oracle[i][j].ToString());
-                    bExists &= (output.IndexOf(tcResult.oracle[i][j].ToString()) != -1);
+                    bExists &= (output.IndexOf(testOracle.oracle[i][j].ToString()) != -1);
                 }
-            }
+            }*/
 
             /*foreach (Arrow arrow in tcResult.sequence)
             {
@@ -83,6 +85,66 @@ namespace SoS_Simulator
 
             return bExists;
         }
+
+        private static bool CompareSequence(MessageUnit[] simOutput, TestInfo testOracle)
+        {
+            bool bEquals;
+
+            bEquals = true;
+
+            for (int i = 0; i < testOracle.oracle.Length; i++)
+            {
+                //testOracle.oracle[i]
+                bEquals &= CompareSequence(simOutput, testOracle.oracle[i].ToMessageList());
+            }
+
+            return bEquals;
+        }
+
+        private static bool CompareSequence(MessageUnit[] simOutput, MessageUnit[] testOracle)
+        {
+            bool bResult;
+            int lastIndex = 0;
+
+            /*for (int i = 0; i < testOracle.Length; i++)
+            {
+                for (int j = lastIndex; j < simOutput.Length; j++)
+                {
+                    if (simOutput[j] == testOracle[i])
+                    {
+                        lastIndex = j;
+                    }
+                }
+            }*/
+
+            int i = 0;
+
+            // Compare result with oracle in order
+            while (true)
+            {
+                for (int j = lastIndex; j < simOutput.Length; j++)
+                {
+                    if (simOutput[j] == testOracle[i])
+                    {
+                        lastIndex = j;
+                        i++;
+
+                        if (i == testOracle.Length)
+                        {
+                            return true;
+                        }
+
+                        break;
+                    }
+
+                    if (j + 1 == simOutput.Length)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
 
         private void MonitorAgent_OnTextUpdate(string text)
         {

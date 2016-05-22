@@ -94,6 +94,7 @@ namespace TestOracleGenerator
 
             info = new TestInfo();
 
+            Console.WriteLine(goalName);
             info.goalName = goalName;
 
             to = _tOracleGenerator.GenerateTaskSequence(goalName);
@@ -148,6 +149,11 @@ namespace TestOracleGenerator
             }
 
             return sb.ToString();*/
+        }
+
+        public string[] RetrieveGoalList()
+        {
+            return _tOracleGenerator.RetrieveGoalList();
         }
     }
 }

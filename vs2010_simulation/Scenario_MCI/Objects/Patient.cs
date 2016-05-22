@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SoS_Simulator.Objects;
 
-namespace SoS_Simulator.Objects
+namespace Scenario_MCI.Objects
 {
     public enum PATIENT_STATUS
     {
         Minor,
         Delayed,
-        Immidiate,
+        Immediate,
         Dead
     }
 

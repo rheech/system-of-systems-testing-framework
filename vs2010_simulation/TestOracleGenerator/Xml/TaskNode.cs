@@ -20,11 +20,11 @@ namespace TestOracleGenerator.Xml
         TASK
     }
 
-    public class TaskNode
+    public class TaskNode : TaskInterface
     {
         public string Name;
         public NODE_TYPE Type;
-        public TASK_OPERATOR Operator;
+        private TASK_OPERATOR _operator;
         public bool isLeaf;
 
         public static TASK_OPERATOR ParseOperator(string operatorName)
@@ -91,6 +91,23 @@ namespace TestOracleGenerator.Xml
             get
             {
                 return !(isLeaf && (Operator == TASK_OPERATOR.NONE));
+            }
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public TASK_OPERATOR Operator
+        {
+            get
+            {
+                return _operator;
+            }
+            set
+            {
+                _operator = value;
             }
         }
     }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SoS_Simulator.Agents;
 
-namespace SoS_Simulator.Agents
+namespace Scenario_MCI.Agents
 {
     public class EMSVehicle : Agent
     {

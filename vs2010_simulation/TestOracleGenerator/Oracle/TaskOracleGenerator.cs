@@ -23,5 +23,10 @@ namespace TestOracleGenerator.Oracle
 
             return TestOracle.FromTaskSequenceSet(tSet);
         }
+
+        public string[] RetrieveGoalList()
+        {
+            return _taskModel.RetrieveGoalList();
+        }
     }
 }

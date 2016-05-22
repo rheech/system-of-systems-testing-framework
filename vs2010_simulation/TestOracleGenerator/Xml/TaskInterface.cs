@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Scenario_MCI.Objects
+namespace TestOracleGenerator.Xml
 {
-    public interface IPosition
+    interface TaskInterface
     {
-        int X
+        TASK_OPERATOR Operator
         {
             get;
-            set;
         }
     }
 }

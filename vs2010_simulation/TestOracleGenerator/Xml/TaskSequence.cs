@@ -5,28 +5,42 @@ using System.Text;
 
 namespace TestOracleGenerator.Xml
 {
-    public class TaskSequence
+    public class TaskSequence : TaskInterface
     {
-        List<string> _taskList;
+        List<TaskNode> _taskList;
 
         public TaskSequence()
         {
-            _taskList = new List<string>();
+            _taskList = new List<TaskNode>();
         }
 
         public TaskSequence(TaskSequence seq)
         {
-            _taskList = new List<string>(seq._taskList);
+            _taskList = new List<TaskNode>(seq._taskList);
         }
 
-        public void AddTask(string taskName)
+        /*private void AddTask(string taskName)
         {
             _taskList.Add(taskName);
-        }
+        }*/
 
         public void AddTask(TaskNode taskNode)
         {
-            AddTask(taskNode.Name);
+            _taskList.Add(taskNode);
+            //AddTask(taskNode.Name);
+        }
+
+        public TASK_OPERATOR Operator
+        {
+            get
+            {
+                if (_taskList != null)
+                {
+                    return _taskList[_taskList.Count - 1].Operator;
+                }
+
+                return TASK_OPERATOR.NONE;
+            }
         }
 
         public int Length
@@ -42,7 +56,7 @@ namespace TestOracleGenerator.Xml
             }
         }
 
-        public string this[int index]
+        public TaskNode this[int index]
         {
             get
             {

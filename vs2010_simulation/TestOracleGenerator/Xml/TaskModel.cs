@@ -125,6 +125,8 @@ namespace TestOracleGenerator.Xml
 
             TraverseAllNodes(ref FUNC_RETRIEVE_TASK);
 
+            taskSeqSet.Flush();
+
             return taskSeqSet;
         }
 
