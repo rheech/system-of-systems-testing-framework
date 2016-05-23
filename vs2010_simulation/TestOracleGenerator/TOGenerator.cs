@@ -72,6 +72,12 @@ namespace TestOracleGenerator
         }
     }
 
+    public struct COMPARISON_INFO
+    {
+        public bool Result;
+        public int CurrentIndex;
+    }
+
     public class TOGenerator
     {
         string _oracleXMLPath;
@@ -89,15 +95,13 @@ namespace TestOracleGenerator
             _tModel = new TaskModel(oracleXMLPath);
         }
 
-        public bool CompareOutput(string goalName, MessageUnit[] actualOutput)
+        public COMPARISON_INFO CompareOutput(string goalName, MessageUnit[] actualOutput, COMPARISON_INFO comparisonInfo)
         {
             TaskNodeTraversalCallback nodeAction;
             bool bCompareResult;
-            int iPointer;
 
             nodeAction = null;
-            bCompareResult = true;
-            iPointer = 0;
+            comparisonInfo.Result = true;
 
             // Define lambda callback
             nodeAction = new TaskNodeTraversalCallback((taskNode) =>
@@ -105,7 +109,7 @@ namespace TestOracleGenerator
                 // Found the target goal
                 if (taskNode.Name == goalName)
                 {
-                    bCompareResult &= CompareOutputInternal(actualOutput, taskNode.ChildNodes, nodeAction);
+                    comparisonInfo = CompareOutputInternal(actualOutput, taskNode.ChildNodes, comparisonInfo);
 
                     // Terminate node traversing
                     return false;
@@ -117,20 +121,19 @@ namespace TestOracleGenerator
 
             _tModel.TraverseTaskNodes(ref nodeAction);
 
-            return bCompareResult;
+            return comparisonInfo;
         }
 
         // Analyze single-level tasks in a goal
-        private bool CompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskOracleNodes, TaskNodeTraversalCallback cbNodeTraversal)
+        private COMPARISON_INFO CompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskOracleNodes, COMPARISON_INFO comparisonInfo)
         {
             bool bSubResult;
-            bool bCompareResult;
+            //bool bCompareResult;
             MessageUnit msgOracle;
-            int currentIndex;
+            //int currentIndex;
 
             bSubResult = false;
-            bCompareResult = true;
-            currentIndex = 0;
+            //currentIndex = 0;
 
             // Traverse child nodes
             foreach (TaskNode node in taskOracleNodes)
@@ -140,39 +143,38 @@ namespace TestOracleGenerator
                 // if there is a nested goal in the sequence
                 //bFoundEntry = CompareOutputFromMessage(actualOutput, msgOracle, iPointer);
                 // Compare output with oracle
-                for (int i = currentIndex; i < actualOutput.Length; i++)
+                for (int i = comparisonInfo.CurrentIndex; i < actualOutput.Length; i++)
                 {
                     bSubResult = false;
 
                     if (node.Type == NODE_TYPE.GOAL)
                     {
                         // Traverse one more time
-                        bool temp;
-                        temp = CompareOutput(node.Name, actualOutput);
+                        comparisonInfo = CompareOutput(node.Name, actualOutput, comparisonInfo);
 
                         // Define next index by checking the operator
                         switch (node.Operator)
                         {
                             case TASK_OPERATOR.ENABLE:
-                                currentIndex = i;
+                                comparisonInfo.CurrentIndex = i;
                                 break;
                             case TASK_OPERATOR.CHOICE:
-                                currentIndex = actualOutput.Length; // Exit for
+                                comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
 
-                                if (bCompareResult)
+                                if (comparisonInfo.Result)
                                 {
-                                    return bCompareResult;
+                                    return comparisonInfo;
                                 }
                                 else
                                 {
                                     // reset for the next optional comparison
-                                    bCompareResult = true;
+                                    comparisonInfo.Result = true;
                                 }
 
                                 break;
                             case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
                             default:
-                                currentIndex = i;
+                                comparisonInfo.CurrentIndex = i;
                                 break;
                         }
                     }
@@ -186,25 +188,25 @@ namespace TestOracleGenerator
                             switch (node.Operator)
                             {
                                 case TASK_OPERATOR.ENABLE:
-                                    currentIndex = i;
+                                    comparisonInfo.CurrentIndex = i;
                                     break;
                                 case TASK_OPERATOR.CHOICE:
-                                    currentIndex = actualOutput.Length; // Exit for
+                                    comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
 
-                                    if (bCompareResult)
+                                    if (comparisonInfo.Result)
                                     {
-                                        return bCompareResult;
+                                        return comparisonInfo;
                                     }
                                     else
                                     {
                                         // reset for the next optional comparison
-                                        bCompareResult = true;
+                                        comparisonInfo.Result = true;
                                     }
 
                                     break;
                                 case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
                                 default:
-                                    currentIndex = i;
+                                    comparisonInfo.CurrentIndex = i;
                                     break;
                             }
 
@@ -217,12 +219,12 @@ namespace TestOracleGenerator
                     }
                 }
 
-                bCompareResult &= bSubResult;
+                comparisonInfo.Result &= bSubResult;
             }
 
-            bCompareResult &= bSubResult;
+            comparisonInfo.Result &= bSubResult;
 
-            return bCompareResult;
+            return comparisonInfo;
         }
 
         /*public bool CompareOutput(string goalName, MessageUnit[] actualOutput, int currentIndex)
