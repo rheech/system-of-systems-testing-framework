@@ -98,9 +98,11 @@ namespace TestOracleGenerator
         public COMPARISON_INFO CompareOutput(string goalName, MessageUnit[] actualOutput, COMPARISON_INFO comparisonInfo)
         {
             TaskNodeTraversalCallback nodeAction;
+            bool bFoundGoal;
             bool bCompareResult;
 
             nodeAction = null;
+            bFoundGoal = false;
             comparisonInfo.Result = true;
 
             // Define lambda callback
@@ -109,6 +111,7 @@ namespace TestOracleGenerator
                 // Found the target goal
                 if (taskNode.Name == goalName)
                 {
+                    bFoundGoal = true;
                     comparisonInfo = CompareOutputInternal(actualOutput, taskNode.ChildNodes, comparisonInfo);
 
                     // Terminate node traversing
@@ -121,6 +124,12 @@ namespace TestOracleGenerator
 
             _tModel.TraverseTaskNodes(ref nodeAction);
 
+            // if goal is not found, throw exception
+            if (!bFoundGoal)
+            {
+                throw new ApplicationException(String.Format("Goal ({0}) is not found.", goalName));
+            }
+
             return comparisonInfo;
         }
 
@@ -130,9 +139,11 @@ namespace TestOracleGenerator
             bool bSubResult;
             //bool bCompareResult;
             MessageUnit msgOracle;
+            COMPARISON_INFO tempInfo;
             //int currentIndex;
 
             bSubResult = false;
+            tempInfo = new COMPARISON_INFO();
             //currentIndex = 0;
 
             // Traverse child nodes
@@ -150,13 +161,13 @@ namespace TestOracleGenerator
                     if (node.Type == NODE_TYPE.GOAL)
                     {
                         // Traverse one more time
-                        comparisonInfo = CompareOutput(node.Name, actualOutput, comparisonInfo);
 
                         // Define next index by checking the operator
                         switch (node.Operator)
                         {
                             case TASK_OPERATOR.ENABLE:
-                                comparisonInfo.CurrentIndex = i;
+                                //comparisonInfo.CurrentIndex = i;
+                                tempInfo = CompareOutput(node.Name, actualOutput, comparisonInfo);
                                 break;
                             case TASK_OPERATOR.CHOICE:
                                 comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
@@ -174,9 +185,13 @@ namespace TestOracleGenerator
                                 break;
                             case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
                             default:
-                                comparisonInfo.CurrentIndex = i;
+                                //comparisonInfo.CurrentIndex = i;
+                                tempInfo = CompareOutput(node.Name, actualOutput, comparisonInfo);
                                 break;
                         }
+
+                        comparisonInfo.Result &= tempInfo.Result;
+                        comparisonInfo.CurrentIndex = tempInfo.CurrentIndex;
                     }
                     else if (node.Type == NODE_TYPE.TASK)
                     {

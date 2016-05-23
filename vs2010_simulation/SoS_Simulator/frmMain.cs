@@ -17,15 +17,26 @@ namespace SoS_Simulator
 {
     public partial class frmMain : Form
     {
+        private enum SIMULATION_STATUS
+        {
+            READY,
+            RUNNING,
+            PAUSED,
+            FINISHED
+        }
+
         private const string BASE_PATH = "Resources\\";
 
         TOGenerator _toGenerator;
         Simulator s;
+        SIMULATION_STATUS simulationStatus;
+        FileInfo fSimulator, fOracle;
 
         public frmMain()
         {
             InitializeComponent();
             lstViewGoal.FullRowSelect = true;
+            simulationStatus = SIMULATION_STATUS.READY;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -84,6 +95,7 @@ namespace SoS_Simulator
                         s.OnSimulationComplete += Simulator_OnSimulationComplete;
                         tsLabel.Text = "Ready";
 
+                        fSimulator = new FileInfo(simulatorFile);
                         EnableSimulator(true);
 
                         return true;
@@ -114,7 +126,8 @@ namespace SoS_Simulator
                 }
                 //goalList = _tcGenerator.RetrieveGoalList();
 
-                txtOraclePath.Text = new FileInfo(oracleFile).FullName;
+                fOracle = new FileInfo(oracleFile);
+                txtOraclePath.Text = fOracle.FullName;
                 SetupGoalList(goalList);
 
                 return true;
@@ -239,6 +252,7 @@ namespace SoS_Simulator
         {
             tmrSimulation.Enabled = false;
             tsLabel.Text = "Simulation complete.";
+            simulationStatus = SIMULATION_STATUS.FINISHED;
         }
 
         private void simulationVisualizer1_Click(object sender, EventArgs e)
@@ -276,16 +290,48 @@ namespace SoS_Simulator
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            s.RunSimulator();
-            tmrSimulation.Enabled = true;
-            tsLabel.Text = "Simulating...";
+            switch (simulationStatus)
+            {
+                case SIMULATION_STATUS.READY:
+                    s.RunSimulator();
+                    tmrSimulation.Enabled = true;
+                    tsLabel.Text = "Simulating...";
+                    btnStart.Text = "Pau&se";
+                    simulationStatus = SIMULATION_STATUS.RUNNING;
+                    break;
+                case SIMULATION_STATUS.RUNNING:
+                    tmrSimulation.Enabled = false;
+                    tsLabel.Text = "Paused";
+                    btnStart.Text = "Re&sume";
+                    simulationStatus = SIMULATION_STATUS.PAUSED;
+                    break;
+                case SIMULATION_STATUS.PAUSED:
+                    tmrSimulation.Enabled = true;
+                    tsLabel.Text = "Simulating...";
+                    btnStart.Text = "Pau&se";
+                    simulationStatus = SIMULATION_STATUS.RUNNING;
+                    break;
+                case SIMULATION_STATUS.FINISHED:
+                    s.RunSimulator();
+                    tsLabel.Text = "Simulating...";
+                    btnStart.Text = "Pau&se";
+                    simulationStatus = SIMULATION_STATUS.RUNNING;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
             tmrSimulation.Enabled = false;
+            simulationStatus = SIMULATION_STATUS.READY;
+            btnStart.Text = "&Start";
+            lstGoals.Items.Clear();
             s.InitializeSimulator();
             InitializeSimulator();
+            LoadSimulator(fSimulator.FullName);
+            LoadTestOracle(fOracle.FullName);
             txtSimOutput.Text = "";
         }
 
