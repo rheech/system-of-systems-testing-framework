@@ -28,7 +28,7 @@ namespace SoS_Simulator
 
         private const string BASE_PATH = "Resources\\";
 
-        TOGenerator _toGenerator;
+        OracleGenerator _toGenerator;
         Simulator s;
         SIMULATION_STATUS _simulationStatus;
         FileInfo _fSimulator, _fOracle;
@@ -236,7 +236,7 @@ namespace SoS_Simulator
 
             try
             {
-                _toGenerator = new TOGenerator(oracleFile.FullName);
+                _toGenerator = new OracleGenerator(oracleFile.FullName);
                 goalList = _toGenerator.RetrieveGoalList();
 
                 foreach (string s in goalList)

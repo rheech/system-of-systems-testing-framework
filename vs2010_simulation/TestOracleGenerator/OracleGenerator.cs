@@ -34,23 +34,6 @@ namespace TestOracleGenerator
             StringBuilder sb = new StringBuilder();
 
             sb.AppendFormat("Goal: {0}\r\n", goalName);
-            //sb.AppendFormat("Role to achieve goal: {0}\r\n", foundRole);
-            //sb.AppendFormat("Capability:\r\n");
-
-            /*foreach (string s in foundCaps)
-            {
-                sb.AppendFormat("{0}\r\n", s);
-            }
-
-            sb.AppendFormat("\r\n");*/
-
-            /*sb.AppendFormat("Sequence:\r\n");
-
-            for (int i = 0; i < sequence.Length; i++)
-            {
-                sb.AppendFormat("{0}: {1}.{2}\r\n", sequence[i].index, sequence[i].agent_to, sequence[i].message);
-            }*/
-
             sb.AppendFormat("\r\n");
             sb.AppendFormat("Sequence:\r\n");
 
@@ -79,20 +62,18 @@ namespace TestOracleGenerator
         public int CurrentIndex;
     }
 
-    public class TOGenerator
+    public class OracleGenerator
     {
         string _oracleXMLPath;
 
         TaskAgentMapper _tAgentMapper;
-        TaskOracleGenerator _tOracleGenerator;
         TaskModel _tModel;
 
-        public TOGenerator(string oracleXMLPath)
+        public OracleGenerator(string oracleXMLPath)
         {
             _oracleXMLPath = oracleXMLPath;
 
             _tAgentMapper = new TaskAgentMapper(oracleXMLPath);
-            _tOracleGenerator = new TaskOracleGenerator(oracleXMLPath);
             _tModel = new TaskModel(oracleXMLPath);
         }
 
@@ -244,86 +225,6 @@ namespace TestOracleGenerator
             return comparisonInfo;
         }
 
-        /*public bool CompareOutput(string goalName, MessageUnit[] actualOutput, int currentIndex)
-        {
-            //TreeLogic tl = new TreeLogic(RootNodes[0]);
-            TaskModel.EachNodeCallback FUNC_RETRIEVE_TASK;
-
-            bool bFound = false;
-
-            TaskSequenceSet taskSeqSet = new TaskSequenceSet();
-            currentIndex = 0;
-
-            // Define task procedure for the node traversal
-            FUNC_RETRIEVE_TASK = new TaskModel.EachNodeCallback((xmlNode, isLeaf) =>
-            {
-                TaskNode taskNode;
-                TRAVERSE_OPTION traverseOption;
-
-                taskNode = new TaskNode();
-                traverseOption = TRAVERSE_OPTION.ALL;
-
-                // Parse current task node
-                taskNode.Name = xmlNode.Attributes["name"].InnerText;
-
-                taskNode.Type = NODE_TYPE.NONE;
-
-                if (xmlNode.Attributes["type"] != null)
-                {
-                    taskNode.Type = TaskNode.ParseNodeType(xmlNode.Attributes["type"].InnerText);
-                }
-
-                taskNode.Operator = TASK_OPERATOR.NONE;
-
-                if (xmlNode.Attributes["operator"] != null)
-                {
-                    taskNode.Operator = TaskNode.ParseOperator(xmlNode.Attributes["operator"].InnerText);
-                }
-
-                taskNode.isLeaf = isLeaf;
-                //Console.WriteLine(taskNode.Name);
-
-                // Found Goal
-                if (taskNode.Name == goalName)
-                {
-                    bFound = true;
-                    //previousNode = null;
-                    traverseOption = TRAVERSE_OPTION.ALL;
-                }
-                else if (bFound) // after goal has found
-                {
-                    // if a goal node in the goal
-                    if (taskNode.Type == NODE_TYPE.GOAL)
-                    {
-                        TaskSequenceSet seq;
-                        seq = RetrieveTaskSequence(taskNode.Name);
-
-                        taskSeqSet.AddSequence(seq);
-
-                        //taskList.Add(currentNode.Name);
-
-                        traverseOption = TRAVERSE_OPTION.SIBLING_ONLY;
-                    }
-                    else // task traversal
-                    {
-                        taskSeqSet.AddNode(taskNode);
-                    }
-
-                    // if last node
-                    if (!taskNode.hasNextNode)
-                    {
-                        //taskSeq.AddList(taskList);
-                        //taskSeqSet.Flush();
-                        traverseOption = TRAVERSE_OPTION.NONE_FINISH;
-                    }
-                }
-
-                return traverseOption;
-            });
-
-            return true;
-        }*/
-
         public TestInfo GenerateTestOracle(string goalName)
         {
             TestOracle[] to;
@@ -334,10 +235,10 @@ namespace TestOracleGenerator
             //Console.WriteLine(goalName);
             info.goalName = goalName;
 
-            to = _tOracleGenerator.GenerateTaskSequence(goalName);
+            to = TestOracle.FromTaskSequenceSet(_tModel.RetrieveTaskSequence(goalName));
             to = _tAgentMapper.GenerateTestOracle(to);
 
-            info.oracle = to;
+            //info.oracle = to;
 
             return info;
 
@@ -399,7 +300,28 @@ namespace TestOracleGenerator
                 return goalList;
             }*/
 
-            return _tOracleGenerator.RetrieveGoalList();
+            TaskNodeTraversalCallback nodeAction;
+            List<string> goalList;
+
+            nodeAction = null;
+            goalList = new List<string>();
+
+            // Define lambda callback
+            nodeAction = new TaskNodeTraversalCallback((taskNode) =>
+            {
+                // Found a goal
+                if (taskNode.Type == NODE_TYPE.GOAL)
+                {
+                    goalList.Add(taskNode.Name);
+                }
+
+                // Continue traversing
+                return true;
+            });
+
+            _tModel.TraverseTaskNodes(ref nodeAction);
+
+            return goalList.ToArray();
         }
     }
 }

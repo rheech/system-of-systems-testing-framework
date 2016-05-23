@@ -7,6 +7,21 @@ using TestOracleGenerator.Oracle;
 
 namespace TestOracleGenerator.Xml
 {
+    public enum TASK_OPERATOR
+    {
+        NONE,
+        ENABLE,
+        CHOICE,
+        PARALLEL
+    }
+
+    public enum NODE_TYPE
+    {
+        NONE,
+        GOAL,
+        TASK
+    }
+
     public class TaskNode : TaskInterface
     {
         private XmlNode _xmlNode;
