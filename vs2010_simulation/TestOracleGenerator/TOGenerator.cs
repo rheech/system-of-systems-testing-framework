@@ -121,7 +121,7 @@ namespace TestOracleGenerator
         }
 
         // Analyze single-level tasks in a goal
-        private bool CompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskNodes, TaskNodeTraversalCallback cbNodeTraversal)
+        private bool CompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskOracleNodes, TaskNodeTraversalCallback cbNodeTraversal)
         {
             bool bSubResult;
             bool bCompareResult;
@@ -133,24 +133,51 @@ namespace TestOracleGenerator
             currentIndex = 0;
 
             // Traverse child nodes
-            foreach (TaskNode node in taskNodes)
+            foreach (TaskNode node in taskOracleNodes)
             {
                 msgOracle = _tAgentMapper.GetMessageUnitFromTask(node.Name);
 
                 // if there is a nested goal in the sequence
-                if (node.Type == NODE_TYPE.GOAL)
+                //bFoundEntry = CompareOutputFromMessage(actualOutput, msgOracle, iPointer);
+                // Compare output with oracle
+                for (int i = currentIndex; i < actualOutput.Length; i++)
                 {
-                    // Traverse one more time
-                    bSubResult = CompareOutput(node.Name, actualOutput);
-                }
-                else
-                {
-                    //bFoundEntry = CompareOutputFromMessage(actualOutput, msgOracle, iPointer);
-                    // Compare output with oracle
-                    for (int i = currentIndex; i < actualOutput.Length; i++)
-                    {
-                        bSubResult = false;
+                    bSubResult = false;
 
+                    if (node.Type == NODE_TYPE.GOAL)
+                    {
+                        // Traverse one more time
+                        bool temp;
+                        temp = CompareOutput(node.Name, actualOutput);
+
+                        // Define next index by checking the operator
+                        switch (node.Operator)
+                        {
+                            case TASK_OPERATOR.ENABLE:
+                                currentIndex = i;
+                                break;
+                            case TASK_OPERATOR.CHOICE:
+                                currentIndex = actualOutput.Length; // Exit for
+
+                                if (bCompareResult)
+                                {
+                                    return bCompareResult;
+                                }
+                                else
+                                {
+                                    // reset for the next optional comparison
+                                    bCompareResult = true;
+                                }
+
+                                break;
+                            case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
+                            default:
+                                currentIndex = i;
+                                break;
+                        }
+                    }
+                    else if (node.Type == NODE_TYPE.TASK)
+                    {
                         if (actualOutput[i] == msgOracle)
                         {
                             bSubResult = true;
@@ -183,6 +210,10 @@ namespace TestOracleGenerator
 
                             break;
                         }
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Undefined node type detected.");
                     }
                 }
 
@@ -340,13 +371,14 @@ namespace TestOracleGenerator
 
         public string[] RetrieveGoalList()
         {
-            string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
+            //string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
+            /*string[] goalList = { "SavePatient" };
 
             // Special treatment for MCI Scenario (Temporary)
             if (_oracleXMLPath.Contains("Scenario_MCI.xml"))
             {
                 return goalList;
-            }
+            }*/
 
             return _tOracleGenerator.RetrieveGoalList();
         }

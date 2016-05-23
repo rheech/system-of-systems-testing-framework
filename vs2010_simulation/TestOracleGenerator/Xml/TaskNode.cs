@@ -47,7 +47,7 @@ namespace TestOracleGenerator.Xml
                 case "goal":
                     nType = NODE_TYPE.GOAL;
                     break;
-                case "task":
+                case "interaction":
                     nType = NODE_TYPE.TASK;
                     break;
                 default:

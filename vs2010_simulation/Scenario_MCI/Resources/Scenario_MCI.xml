@@ -14,7 +14,7 @@
           <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
           <node name="MedComm" type="goal">
             <node name="CoordinateTransport" type="interaction" operator="enable" />
-            <node name="ProvideAmbulanceDestination" type="interation" operator="choice" />
+            <node name="ProvideAmbulanceDestination" type="interaction" operator="choice" />
             <node name="CheckBedAvailability" type="interaction" operator="enable" />
             <node name="ProvideBedAvailability" type="interaction" />
           </node>
