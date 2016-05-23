@@ -2,30 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace TestOracleGenerator.Xml
 {
-    public enum TASK_OPERATOR
-    {
-        NONE,
-        ENABLE,
-        CHOICE,
-        PARALLEL
-    }
-
-    public enum NODE_TYPE
-    {
-        NONE,
-        GOAL,
-        TASK
-    }
-
     public class TaskNode : TaskInterface
     {
-        public string Name;
-        public NODE_TYPE Type;
-        private TASK_OPERATOR _operator;
-        public bool isLeaf;
+        private XmlNode _xmlNode;
+
+        public TaskNode(XmlNode xmlNode)
+        {
+            _xmlNode = xmlNode;
+        }
 
         public static TASK_OPERATOR ParseOperator(string operatorName)
         {
@@ -53,7 +41,7 @@ namespace TestOracleGenerator.Xml
         public static NODE_TYPE ParseNodeType(string typeName)
         {
             NODE_TYPE nType;
-
+            
             switch (typeName.ToLower())
             {
                 case "goal":
@@ -70,27 +58,135 @@ namespace TestOracleGenerator.Xml
             return nType;
         }
 
-        public bool hasChildNode
+        public void TraverseChildNodes(ref TaskNodeTraversalCallback nodeAction)
         {
-            get
+            XmlNodeList nodes;
+            //TRAVERSE_OPTION traverseOption;
+            TaskNode taskNode;
+
+            nodes = _xmlNode.ChildNodes;
+            //traverseOption = TRAVERSE_OPTION.ALL;
+
+            foreach (XmlNode node in nodes)
             {
-                return !isLeaf;
+                // Convert to TaskNode
+                taskNode = new TaskNode(node);
+
+                TraverseChildNodesInternal(taskNode, ref nodeAction);
+
+                /*if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
+                {
+                    break;
+                }*/
             }
         }
 
-        public bool hasNextNode
+        private void TraverseChildNodesInternal(TaskNode taskNode, ref TaskNodeTraversalCallback nodeAction)
+        {
+            // If goal model, callback
+            if (taskNode.Type == NODE_TYPE.GOAL)
+            {
+                nodeAction(taskNode);
+
+                // traverse children
+                if (taskNode.HasChildNodes)
+                {
+                    foreach (TaskNode node in taskNode.ChildNodes)
+                    {
+                        TraverseChildNodesInternal(node, ref nodeAction);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Task model definition error. Goal node must have children.");
+                }
+            }
+
+
+            /*
+            if (taskNode.HasChildNodes && (traverseOption == TRAVERSE_OPTION.ALL))
+            {
+                foreach (XmlNode x in taskNode.ChildNodes)
+                {
+                    traverseOption = recTraverseXmlNode(x, ref nodeAction);
+
+                    if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
+                    {
+                        break;
+                    }
+                }
+            }*/
+        }
+
+        public string Name
         {
             get
             {
-                return Operator != TASK_OPERATOR.NONE;
+                string name;
+
+                name = "";
+
+                if (_xmlNode.Attributes["name"] != null)
+                {
+                    name = _xmlNode.Attributes["name"].InnerText;
+                }
+
+                return name;
             }
         }
 
-        public bool hasNextChildNode
+        public TaskNodeList ChildNodes
         {
             get
             {
-                return !(isLeaf && (Operator == TASK_OPERATOR.NONE));
+                List<TaskNode> taskNodeList;
+
+                taskNodeList = new List<TaskNode>();
+
+                if (_xmlNode.HasChildNodes)
+                {
+                    foreach (XmlNode n in _xmlNode.ChildNodes)
+                    {
+                        taskNodeList.Add(new TaskNode(n));
+                    }
+
+                    return new TaskNodeList(taskNodeList);
+                }
+
+                return null;
+            }
+        }
+
+        public NODE_TYPE Type
+        {
+            get
+            {
+                NODE_TYPE nodeType;
+
+                nodeType = NODE_TYPE.NONE;
+
+                if (_xmlNode.Attributes["type"] != null)
+                {
+                    nodeType = TaskNode.ParseNodeType(_xmlNode.Attributes["type"].InnerText);
+                }
+
+                return nodeType;
+            }
+        }
+
+        public bool HasChildNodes
+        {
+            get
+            {
+                return _xmlNode.HasChildNodes;
+            }
+        }
+
+        public XmlNode Markup
+        {
+            get
+            {
+                return _xmlNode;
             }
         }
 
@@ -103,11 +199,16 @@ namespace TestOracleGenerator.Xml
         {
             get
             {
-                return _operator;
-            }
-            set
-            {
-                _operator = value;
+                TASK_OPERATOR taskOperator;
+
+                taskOperator = TASK_OPERATOR.NONE;
+
+                if (_xmlNode.Attributes["operator"] != null)
+                {
+                    taskOperator = TaskNode.ParseOperator(_xmlNode.Attributes["operator"].InnerText);
+                }
+
+                return taskOperator;
             }
         }
     }

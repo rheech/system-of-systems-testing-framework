@@ -7,16 +7,16 @@ namespace TestOracleGenerator.Xml
 {
     public class TaskSequence : TaskInterface
     {
-        List<TaskNode> _taskList;
+        List<TaskNode2> _taskList;
 
         public TaskSequence()
         {
-            _taskList = new List<TaskNode>();
+            _taskList = new List<TaskNode2>();
         }
 
         public TaskSequence(TaskSequence seq)
         {
-            _taskList = new List<TaskNode>(seq._taskList);
+            _taskList = new List<TaskNode2>(seq._taskList);
         }
 
         /*private void AddTask(string taskName)
@@ -24,7 +24,7 @@ namespace TestOracleGenerator.Xml
             _taskList.Add(taskName);
         }*/
 
-        public void AddTask(TaskNode taskNode)
+        public void AddTask(TaskNode2 taskNode)
         {
             _taskList.Add(taskNode);
             //AddTask(taskNode.Name);
@@ -56,7 +56,7 @@ namespace TestOracleGenerator.Xml
             }
         }
 
-        public TaskNode this[int index]
+        public TaskNode2 this[int index]
         {
             get
             {

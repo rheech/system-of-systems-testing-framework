@@ -11,6 +11,7 @@ using SoS_Simulator.Agents;
 using TestOracleGenerator.Xml;
 using System.Reflection;
 using System.IO;
+using TestOracleGenerator.Oracle;
 
 namespace SoS_Simulator
 {
@@ -18,7 +19,7 @@ namespace SoS_Simulator
     {
         private const string BASE_PATH = "Resources\\";
 
-        TOGenerator _tcGenerator;
+        TOGenerator _toGenerator;
         Simulator s;
 
         public frmMain()
@@ -98,9 +99,10 @@ namespace SoS_Simulator
 
         private void LoadTestOracle(string oracleFile)
         {
-            string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
-            //string[] goalList = { "SavePatient" };
-            _tcGenerator = new TOGenerator(oracleFile);
+            //string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
+            string[] goalList;
+            _toGenerator = new TOGenerator(oracleFile);
+            goalList = _toGenerator.RetrieveGoalList();
 
             foreach (string s in goalList)
             {
@@ -108,6 +110,7 @@ namespace SoS_Simulator
             }
             //goalList = _tcGenerator.RetrieveGoalList();
 
+            txtOraclePath.Text = new FileInfo(oracleFile).FullName;
             SetupGoalList(goalList);
         }
 
@@ -132,7 +135,7 @@ namespace SoS_Simulator
                 updateTCResourceFile();
 
                 // Update visualization
-                txtOutput.Text = _tcGenerator.GenerateTestOracle(lstGoals.SelectedItem.ToString()).ToString();
+                txtOutput.Text = _toGenerator.GenerateTestOracle(lstGoals.SelectedItem.ToString()).ToString();
             }
         }
 
@@ -168,9 +171,12 @@ namespace SoS_Simulator
             updateTCResourceFile();
             TestInfo info;
 
+            MessageUnit[] unit = s.GetSimulationMessages();
+            _toGenerator.CompareOutput("MedComm", unit, 0);
+
             foreach (ListViewItem item in lstViewGoal.Items)
             {
-                info = _tcGenerator.GenerateTestOracle(item.Text);
+                info = _toGenerator.GenerateTestOracle(item.Text);
 
                 if (s.CompareResult(info))
                 {
@@ -285,7 +291,6 @@ namespace SoS_Simulator
 
             if (ofdOpenFile.ShowDialog() == DialogResult.OK)
             {
-                txtOraclePath.Text = ofdOpenFile.FileName;
                 LoadTestOracle(ofdOpenFile.FileName);
             }
         }

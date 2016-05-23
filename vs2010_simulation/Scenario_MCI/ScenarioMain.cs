@@ -5,6 +5,8 @@ using System.Text;
 using SoS_Simulator;
 using SoS_Simulator.Objects;
 using SoS_Simulator.Agents;
+using Scenario_MCI.Agents;
+using Scenario_MCI.Objects;
 
 namespace SoS_Simulator
 {

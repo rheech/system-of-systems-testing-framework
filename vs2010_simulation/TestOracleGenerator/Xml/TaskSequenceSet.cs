@@ -8,7 +8,7 @@ namespace TestOracleGenerator.Xml
     public class TaskSequenceSet : TaskInterface
     {
         //List<List<string>> _taskLists;
-        TaskNode _previousNode;
+        TaskNode2 _previousNode;
         TaskSequence _taskSequence;
         List<TaskSequence> _taskSeqList;
 
@@ -119,7 +119,7 @@ namespace TestOracleGenerator.Xml
         }
 
         // return true if has next node
-        public void AddNode(TaskNode taskNode)
+        public void AddNode(TaskNode2 taskNode)
         {
             _taskSequence.AddTask(taskNode);
 
@@ -141,7 +141,7 @@ namespace TestOracleGenerator.Xml
             }
         }
 
-        public void AddNode2(TaskNode taskNode)
+        public void AddNode2(TaskNode2 taskNode)
         {
             // if first node
             if (_previousNode == null)

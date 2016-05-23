@@ -51,6 +51,11 @@ namespace SoS_Simulator
             SoS_Object.RaiseTick();
         }
 
+        public MessageUnit[] GetSimulationMessages()
+        {
+            return _monitorAgent.GetSimulationLog();
+        }
+
         public bool CompareResult(TestInfo testOracle)
         {
             MessageUnit[] simResult;

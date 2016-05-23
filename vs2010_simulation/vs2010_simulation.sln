@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Main", "01_Main", "{129A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Scenario", "02_Scenario", "{982FE90F-C824-4085-B8AD-0DD3BA01387A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenario_E_Commerce", "Scenario_E_Commerce\Scenario_E_Commerce.csproj", "{52A2F5F7-A7AA-4229-A125-F83BC8229A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,18 @@ Global
 		{FED1E05B-B155-434B-BF65-A13CBED562E3}.Release|x64.ActiveCfg = Release|x64
 		{FED1E05B-B155-434B-BF65-A13CBED562E3}.Release|x64.Build.0 = Release|x64
 		{FED1E05B-B155-434B-BF65-A13CBED562E3}.Release|x86.ActiveCfg = Release|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Release|x64.ActiveCfg = Release|Any CPU
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +86,6 @@ Global
 		{6F89FC9D-0A21-4852-8758-5E14216D37CA} = {129ADB43-95BF-46F5-9DE5-39DFB07ABF59}
 		{0C8D7006-EFC8-4ED0-AFC5-272E5C70D1B2} = {129ADB43-95BF-46F5-9DE5-39DFB07ABF59}
 		{FED1E05B-B155-434B-BF65-A13CBED562E3} = {982FE90F-C824-4085-B8AD-0DD3BA01387A}
+		{52A2F5F7-A7AA-4229-A125-F83BC8229A44} = {982FE90F-C824-4085-B8AD-0DD3BA01387A}
 	EndGlobalSection
 EndGlobal

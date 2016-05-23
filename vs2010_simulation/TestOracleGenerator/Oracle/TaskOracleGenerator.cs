@@ -8,11 +8,11 @@ namespace TestOracleGenerator.Oracle
 {
     public class TaskOracleGenerator
     {
-        private TaskModel _taskModel;
+        private TaskModel2 _taskModel;
 
         public TaskOracleGenerator(string taskModelPath)
         {
-            _taskModel = new TaskModel(taskModelPath);
+            _taskModel = new TaskModel2(taskModelPath);
         }
 
         public TestOracle[] GenerateTaskSequence(string goalName)
@@ -27,6 +27,14 @@ namespace TestOracleGenerator.Oracle
         public string[] RetrieveGoalList()
         {
             return _taskModel.RetrieveGoalList();
+        }
+
+        public TaskModel2 Model
+        {
+            get
+            {
+                return _taskModel;
+            }
         }
     }
 }

@@ -78,6 +78,7 @@ namespace TestOracleGenerator
 
         TaskAgentMapper _tAgentMapper;
         TaskOracleGenerator _tOracleGenerator;
+        TaskModel _tModel;
 
         public TOGenerator(string oracleXMLPath)
         {
@@ -85,7 +86,109 @@ namespace TestOracleGenerator
 
             _tAgentMapper = new TaskAgentMapper(oracleXMLPath);
             _tOracleGenerator = new TaskOracleGenerator(oracleXMLPath);
+            _tModel = new TaskModel(oracleXMLPath);
         }
+
+        public bool CompareOutput(string goalName, MessageUnit[] actualOutput, int currentIndex)
+        {
+            TaskNodeTraversalCallback nodeAction = null;
+
+            nodeAction = new TaskNodeTraversalCallback((taskNode) =>
+            {
+                if (taskNode.Type == NODE_TYPE.GOAL)
+                {
+                    taskNode.TraverseChildNodes(ref nodeAction);
+                }
+                else if (taskNode.Type == NODE_TYPE.TASK)
+                {
+                    
+                }
+            });
+
+            _tModel.TraverseTaskNodes(ref nodeAction);
+
+            return true;
+        }
+
+        /*public bool CompareOutput(string goalName, MessageUnit[] actualOutput, int currentIndex)
+        {
+            //TreeLogic tl = new TreeLogic(RootNodes[0]);
+            TaskModel.EachNodeCallback FUNC_RETRIEVE_TASK;
+
+            bool bFound = false;
+
+            TaskSequenceSet taskSeqSet = new TaskSequenceSet();
+            currentIndex = 0;
+
+            // Define task procedure for the node traversal
+            FUNC_RETRIEVE_TASK = new TaskModel.EachNodeCallback((xmlNode, isLeaf) =>
+            {
+                TaskNode taskNode;
+                TRAVERSE_OPTION traverseOption;
+
+                taskNode = new TaskNode();
+                traverseOption = TRAVERSE_OPTION.ALL;
+
+                // Parse current task node
+                taskNode.Name = xmlNode.Attributes["name"].InnerText;
+
+                taskNode.Type = NODE_TYPE.NONE;
+
+                if (xmlNode.Attributes["type"] != null)
+                {
+                    taskNode.Type = TaskNode.ParseNodeType(xmlNode.Attributes["type"].InnerText);
+                }
+
+                taskNode.Operator = TASK_OPERATOR.NONE;
+
+                if (xmlNode.Attributes["operator"] != null)
+                {
+                    taskNode.Operator = TaskNode.ParseOperator(xmlNode.Attributes["operator"].InnerText);
+                }
+
+                taskNode.isLeaf = isLeaf;
+                //Console.WriteLine(taskNode.Name);
+
+                // Found Goal
+                if (taskNode.Name == goalName)
+                {
+                    bFound = true;
+                    //previousNode = null;
+                    traverseOption = TRAVERSE_OPTION.ALL;
+                }
+                else if (bFound) // after goal has found
+                {
+                    // if a goal node in the goal
+                    if (taskNode.Type == NODE_TYPE.GOAL)
+                    {
+                        TaskSequenceSet seq;
+                        seq = RetrieveTaskSequence(taskNode.Name);
+
+                        taskSeqSet.AddSequence(seq);
+
+                        //taskList.Add(currentNode.Name);
+
+                        traverseOption = TRAVERSE_OPTION.SIBLING_ONLY;
+                    }
+                    else // task traversal
+                    {
+                        taskSeqSet.AddNode(taskNode);
+                    }
+
+                    // if last node
+                    if (!taskNode.hasNextNode)
+                    {
+                        //taskSeq.AddList(taskList);
+                        //taskSeqSet.Flush();
+                        traverseOption = TRAVERSE_OPTION.NONE_FINISH;
+                    }
+                }
+
+                return traverseOption;
+            });
+
+            return true;
+        }*/
 
         public TestInfo GenerateTestOracle(string goalName)
         {
@@ -153,6 +256,14 @@ namespace TestOracleGenerator
 
         public string[] RetrieveGoalList()
         {
+            string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
+
+            // Special treatment for MCI Scenario (Temporary)
+            if (_oracleXMLPath.Contains("Scenario_MCI.xml"))
+            {
+                return goalList;
+            }
+
             return _tOracleGenerator.RetrieveGoalList();
         }
     }
