@@ -69,7 +69,7 @@ namespace SoS_Simulator
 
         private void tbChangeSpeed_Scroll(object sender, EventArgs e)
         {
-            int[] speed = { 50, 100, 500, 1000, 1200, 1500, 2000 };
+            int[] speed = { 2000, 1500, 1200, 1000, 500, 100, 50 };
 
             tmrSimulation.Interval = speed[tbChangeSpeed.Value - 1];
         }
@@ -282,13 +282,15 @@ namespace SoS_Simulator
         private void InitializeSimulator()
         {
             tmrSimulation.Enabled = false;
+            lstGoalsResult.Items.Clear();
+            txtSimOutput.Text = "";
+
             LoadSimulator();
             LoadTestOracle();
 
             tsLabel.Text = "Ready";
             btnStart.Text = "&Start";
-            lstGoalsResult.Items.Clear();
-            txtSimOutput.Text = "";
+
             _simulationStatus = SIMULATION_STATUS.READY;
         }
 
