@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using TestOracleGenerator.Oracle;
 
 namespace TestOracleGenerator.Xml
 {
@@ -52,7 +53,7 @@ namespace TestOracleGenerator.Xml
                     return _taskNodes[i];
                 }
 
-                throw new Exception("Invalid index");
+                throw new ApplicationException("Invalid index");
             }
         }
 
@@ -84,7 +85,7 @@ namespace TestOracleGenerator.Xml
                 return _taskNodes[index];
             }
 
-            throw new Exception("Invalid index");
+            throw new ApplicationException("Invalid index");
         }*/
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

@@ -85,6 +85,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExceptionHandler\ExceptionHandler.csproj">
+      <Project>{34F278A3-6284-49C3-A3D2-92C8B9425062}</Project>
+      <Name>ExceptionHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SoS_Simulator\SoS_Simulator.csproj">
       <Project>{0C8D7006-EFC8-4ED0-AFC5-272E5C70D1B2}</Project>
       <Name>SoS_Simulator</Name>

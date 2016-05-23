@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TestOracleGenerator.Oracle;
 
 namespace TestOracleGenerator.Xml
 {
@@ -208,7 +209,7 @@ namespace TestOracleGenerator.Xml
                     return _taskSeqList[index];
                 }
 
-                throw new Exception("Invalid index");
+                throw new ApplicationException("Invalid index");
             }
             set
             {
@@ -217,7 +218,7 @@ namespace TestOracleGenerator.Xml
                     _taskSeqList[index] = value;
                 }
 
-                throw new Exception("Invalid index");
+                throw new ApplicationException("Invalid index");
             }
         }
 

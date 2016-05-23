@@ -80,7 +80,7 @@ namespace TestOracleGenerator.Oracle
                     return _messageList[index];
                 }
 
-                throw new Exception("Invalid index");
+                throw new ApplicationException("Invalid index");
             }
             set
             {
@@ -89,7 +89,7 @@ namespace TestOracleGenerator.Oracle
                     _messageList[index] = value;
                 }
 
-                throw new Exception("Invalid index");
+                throw new ApplicationException("Invalid index");
             }
         }
 

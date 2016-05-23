@@ -88,6 +88,12 @@
     <Compile Include="Xml\XmlParser.cs" />
     <Compile Include="Xml\RoleModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExceptionHandler\ExceptionHandler.csproj">
+      <Project>{34F278A3-6284-49C3-A3D2-92C8B9425062}</Project>
+      <Name>ExceptionHandler</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

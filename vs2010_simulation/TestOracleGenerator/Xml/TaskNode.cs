@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using TestOracleGenerator.Oracle;
 
 namespace TestOracleGenerator.Xml
 {
@@ -112,7 +113,7 @@ namespace TestOracleGenerator.Xml
                     }
                     else
                     {
-                        throw new Exception("Task model definition error. Goal node must have children.");
+                        throw new ApplicationException("Task model definition error. Goal node must have children.");
                     }
                 }
             }
