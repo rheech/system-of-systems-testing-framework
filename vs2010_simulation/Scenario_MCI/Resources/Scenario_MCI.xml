@@ -6,11 +6,11 @@
         <node name="DeclareMCI" type="interaction" />
       </node>
       <node name="SavePatient" type="goal">
-        <node name="Triage" type="goal" operator="parallel">
+        <node name="Triage" type="goal" operator="enable">
           <node name="AssignTriagePosition" type="interaction" operator="enable" />
           <node name="ProvidePatientCount" type="interaction" />
         </node>
-        <node name="Treatment" type="goal" operator="parallel">
+        <node name="Treatment" type="goal" operator="enable">
           <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
           <node name="MedComm" type="goal">
             <node name="CoordinateTransport" type="interaction" operator="enable" />
@@ -19,7 +19,7 @@
             <node name="ProvideBedAvailability" type="interaction" />
           </node>
         </node>
-        <node name="Transportation" type="goal" operator="choice">
+        <node name="Transportation" type="goal">
           <node name="AssignTransportationPosition" type="interaction" operator="enable" />
           <node name="RequestAmbulance" type="interaction" operator="enable" />
           <node name="TransportComplete" type="interaction" />

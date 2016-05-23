@@ -74,6 +74,7 @@ namespace TestOracleGenerator
 
     public struct COMPARISON_INFO
     {
+        public string GoalName;
         public bool Result;
         public int CurrentIndex;
     }
@@ -95,11 +96,23 @@ namespace TestOracleGenerator
             _tModel = new TaskModel(oracleXMLPath);
         }
 
-        public COMPARISON_INFO CompareOutput(string goalName, MessageUnit[] actualOutput, COMPARISON_INFO comparisonInfo)
+        public bool CompareOutput(string goalName, MessageUnit[] actualOutput)
+        {
+            COMPARISON_INFO comparisonInfo;
+            comparisonInfo = new COMPARISON_INFO();
+            comparisonInfo.GoalName = goalName;
+            comparisonInfo.Result = true;
+            comparisonInfo.CurrentIndex = 0;
+
+            comparisonInfo = CompareOutputInternal(goalName, actualOutput, comparisonInfo);
+
+            return comparisonInfo.Result;
+        }
+
+        private COMPARISON_INFO CompareOutputInternal(string goalName, MessageUnit[] actualOutput, COMPARISON_INFO comparisonInfo)
         {
             TaskNodeTraversalCallback nodeAction;
             bool bFoundGoal;
-            bool bCompareResult;
 
             nodeAction = null;
             bFoundGoal = false;
@@ -112,7 +125,7 @@ namespace TestOracleGenerator
                 if (taskNode.Name == goalName)
                 {
                     bFoundGoal = true;
-                    comparisonInfo = CompareOutputInternal(actualOutput, taskNode.ChildNodes, comparisonInfo);
+                    comparisonInfo = recCompareOutputInternal(actualOutput, taskNode.ChildNodes, comparisonInfo);
 
                     // Terminate node traversing
                     return false;
@@ -134,15 +147,17 @@ namespace TestOracleGenerator
         }
 
         // Analyze single-level tasks in a goal
-        private COMPARISON_INFO CompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskOracleNodes, COMPARISON_INFO comparisonInfo)
+        private COMPARISON_INFO recCompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskOracleNodes, COMPARISON_INFO comparisonInfo)
         {
             bool bSubResult;
+            bool bBreakLoop;
             //bool bCompareResult;
             MessageUnit msgOracle;
             COMPARISON_INFO tempInfo;
             //int currentIndex;
 
             bSubResult = false;
+            bBreakLoop = false;
             tempInfo = new COMPARISON_INFO();
             //currentIndex = 0;
 
@@ -158,16 +173,34 @@ namespace TestOracleGenerator
                 {
                     bSubResult = false;
 
-                    if (node.Type == NODE_TYPE.GOAL)
+                    // Undefined node type exception
+                    if (node.Type == NODE_TYPE.NONE)
                     {
-                        // Traverse one more time
+                        throw new ApplicationException("Undefined node type detected.");
+                    }
 
+                    // If oracle matches with a task name
+                    if (actualOutput[i] == msgOracle)
+                    {
+                        bSubResult = true;
+                    }
+                    else if (node.Type == NODE_TYPE.GOAL) // abstract task
+                    {
+                        tempInfo = CompareOutputInternal(node.Name, actualOutput, comparisonInfo);
+
+                        bSubResult = tempInfo.Result;
+                        // comparisonInfo.Result &= tempInfo.Result;
+                        // comparisonInfo.CurrentIndex = tempInfo.CurrentIndex;
+                    }
+
+                    // Setup next task
+                    if (bSubResult)
+                    {
                         // Define next index by checking the operator
                         switch (node.Operator)
                         {
                             case TASK_OPERATOR.ENABLE:
-                                //comparisonInfo.CurrentIndex = i;
-                                tempInfo = CompareOutput(node.Name, actualOutput, comparisonInfo);
+                                comparisonInfo.CurrentIndex = i;
                                 break;
                             case TASK_OPERATOR.CHOICE:
                                 comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
@@ -184,57 +217,26 @@ namespace TestOracleGenerator
 
                                 break;
                             case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
-                            default:
-                                //comparisonInfo.CurrentIndex = i;
-                                tempInfo = CompareOutput(node.Name, actualOutput, comparisonInfo);
+                                comparisonInfo.CurrentIndex = i;
                                 break;
+                            case TASK_OPERATOR.NONE:
+                                bBreakLoop = true;
+                                break;
+                            default:
+                                throw new ApplicationException("Undefined operator detected.");
                         }
 
-                        comparisonInfo.Result &= tempInfo.Result;
-                        comparisonInfo.CurrentIndex = tempInfo.CurrentIndex;
-                    }
-                    else if (node.Type == NODE_TYPE.TASK)
-                    {
-                        if (actualOutput[i] == msgOracle)
-                        {
-                            bSubResult = true;
-
-                            // Define next index by checking the operator
-                            switch (node.Operator)
-                            {
-                                case TASK_OPERATOR.ENABLE:
-                                    comparisonInfo.CurrentIndex = i;
-                                    break;
-                                case TASK_OPERATOR.CHOICE:
-                                    comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
-
-                                    if (comparisonInfo.Result)
-                                    {
-                                        return comparisonInfo;
-                                    }
-                                    else
-                                    {
-                                        // reset for the next optional comparison
-                                        comparisonInfo.Result = true;
-                                    }
-
-                                    break;
-                                case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
-                                default:
-                                    comparisonInfo.CurrentIndex = i;
-                                    break;
-                            }
-
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        throw new ApplicationException("Undefined node type detected.");
+                        // exit for-loop
+                        break;
                     }
                 }
 
                 comparisonInfo.Result &= bSubResult;
+
+                if (bBreakLoop)
+                {
+                    break;
+                }
             }
 
             comparisonInfo.Result &= bSubResult;

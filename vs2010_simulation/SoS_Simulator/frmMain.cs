@@ -398,16 +398,10 @@ namespace SoS_Simulator
 
             foreach (ListViewItem item in lstViewGoal.Items)
             {
-                comparisonInfo = new COMPARISON_INFO();
-                comparisonInfo.Result = true;
-                comparisonInfo.CurrentIndex = 0;
-
                 info = _toGenerator.GenerateTestOracle(item.Text);
 
                 //if (s.CompareResult(info))
-                comparisonInfo = _toGenerator.CompareOutput(item.Text, msgUnit, comparisonInfo);
-
-                if (comparisonInfo.Result)
+                if (_toGenerator.CompareOutput(item.Text, msgUnit))
                 {
                     item.SubItems[1].Text = "Pass";
                     item.ForeColor = Color.Green;
