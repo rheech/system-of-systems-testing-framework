@@ -38,8 +38,17 @@ namespace SoS_Simulator
 
         private void LoadDefault()
         {
-            LoadSimulator("Scenario_MCI.dll");
-            LoadTestOracle(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml"));
+            if (LoadSimulator("Scenario_MCI.dll"))
+            {
+                if (!LoadTestOracle(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml")))
+                {
+                    MessageBox.Show("Error loading test oracles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error loading simulation library.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void EnableSimulator(bool bEnable)
@@ -53,12 +62,9 @@ namespace SoS_Simulator
             lstViewGoal.Enabled = bEnable;
         }
 
-        private void LoadSimulator(string simulatorFile)
+        private bool LoadSimulator(string simulatorFile)
         {
-            bool isValidFile;
             Assembly simFile;
-
-            isValidFile = false;
 
             try
             {
@@ -78,40 +84,47 @@ namespace SoS_Simulator
                         s.OnSimulationComplete += Simulator_OnSimulationComplete;
                         tsLabel.Text = "Ready";
 
-                        isValidFile = true;
+                        EnableSimulator(true);
+
+                        return true;
                     }
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Error loading simulator file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Error loading simulator file
             }
 
-            if (isValidFile)
-            {
-                EnableSimulator(true);
-            }
-            else
-            {
-                MessageBox.Show("Error loading simulator file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            return false;
         }
 
-        private void LoadTestOracle(string oracleFile)
+        private bool LoadTestOracle(string oracleFile)
         {
             //string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
             string[] goalList;
-            _toGenerator = new TOGenerator(oracleFile);
-            goalList = _toGenerator.RetrieveGoalList();
 
-            foreach (string s in goalList)
+            try
             {
-                lstGoals.Items.Add(s);
-            }
-            //goalList = _tcGenerator.RetrieveGoalList();
+                _toGenerator = new TOGenerator(oracleFile);
+                goalList = _toGenerator.RetrieveGoalList();
 
-            txtOraclePath.Text = new FileInfo(oracleFile).FullName;
-            SetupGoalList(goalList);
+                foreach (string s in goalList)
+                {
+                    lstGoals.Items.Add(s);
+                }
+                //goalList = _tcGenerator.RetrieveGoalList();
+
+                txtOraclePath.Text = new FileInfo(oracleFile).FullName;
+                SetupGoalList(goalList);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                // Error loading xml file
+            }
+
+            return false;
         }
 
         private void updateTCResourceFile()
@@ -172,7 +185,8 @@ namespace SoS_Simulator
             TestInfo info;
 
             MessageUnit[] unit = s.GetSimulationMessages();
-            _toGenerator.CompareOutput("MedComm", unit, 0);
+            
+            //Console.WriteLine(_toGenerator.CompareOutput("Transportation", unit, 0));
 
             foreach (ListViewItem item in lstViewGoal.Items)
             {
@@ -269,14 +283,17 @@ namespace SoS_Simulator
         {
             OpenFileDialog ofdOpenFile = new OpenFileDialog();
 
-            //openFileDialog1.InitialDirectory = "c:\\";
+            ofdOpenFile.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             ofdOpenFile.Filter = "DLL Files (*.dll)|*.dll|All Files (*.*)|*.*";
             ofdOpenFile.FilterIndex = 1;
             ofdOpenFile.RestoreDirectory = true;
 
             if (ofdOpenFile.ShowDialog() == DialogResult.OK)
             {
-                LoadSimulator(ofdOpenFile.FileName);
+                if (!LoadSimulator(ofdOpenFile.FileName))
+                {
+                    MessageBox.Show("Error loading simulation library.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -284,14 +301,17 @@ namespace SoS_Simulator
         {
             OpenFileDialog ofdOpenFile = new OpenFileDialog();
 
-            //openFileDialog1.InitialDirectory = "c:\\";
+            ofdOpenFile.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             ofdOpenFile.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
             ofdOpenFile.FilterIndex = 1;
             ofdOpenFile.RestoreDirectory = true;
 
             if (ofdOpenFile.ShowDialog() == DialogResult.OK)
             {
-                LoadTestOracle(ofdOpenFile.FileName);
+                if (!LoadTestOracle(ofdOpenFile.FileName))
+                {
+                    MessageBox.Show("Error loading test oracles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

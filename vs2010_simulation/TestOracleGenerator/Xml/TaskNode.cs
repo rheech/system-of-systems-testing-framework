@@ -72,7 +72,10 @@ namespace TestOracleGenerator.Xml
                 // Convert to TaskNode
                 taskNode = new TaskNode(node);
 
-                TraverseChildNodesInternal(taskNode, ref nodeAction);
+                if (!TraverseChildNodesInternal(taskNode, ref nodeAction))
+                {
+                    break;
+                }
 
                 /*if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
                 {
@@ -81,26 +84,40 @@ namespace TestOracleGenerator.Xml
             }
         }
 
-        private void TraverseChildNodesInternal(TaskNode taskNode, ref TaskNodeTraversalCallback nodeAction)
+        private bool TraverseChildNodesInternal(TaskNode taskNode, ref TaskNodeTraversalCallback nodeAction)
         {
+            bool bContinueTraversing;
+
+            bContinueTraversing = true;
+
             // If goal model, callback
             if (taskNode.Type == NODE_TYPE.GOAL)
             {
-                nodeAction(taskNode);
+                bContinueTraversing = nodeAction(taskNode);
 
-                // traverse children
-                if (taskNode.HasChildNodes)
+                if (bContinueTraversing)
                 {
-                    foreach (TaskNode node in taskNode.ChildNodes)
+                    // traverse children
+                    if (taskNode.HasChildNodes)
                     {
-                        TraverseChildNodesInternal(node, ref nodeAction);
+                        foreach (TaskNode node in taskNode.ChildNodes)
+                        {
+                            bContinueTraversing = TraverseChildNodesInternal(node, ref nodeAction);
+
+                            if (!bContinueTraversing)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Task model definition error. Goal node must have children.");
                     }
                 }
-                else
-                {
-                    throw new Exception("Task model definition error. Goal node must have children.");
-                }
             }
+
+            return bContinueTraversing;
 
 
             /*

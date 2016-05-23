@@ -38,6 +38,21 @@ namespace TestOracleGenerator.Oracle
             return null;
         }*/
 
+        public MessageUnit GetMessageUnitFromTask(string messageTask)
+        {
+            MessageUnit msgUnit;
+
+            msgUnit = new MessageUnit();
+            msgUnit.Message = messageTask;
+
+            _roleModel.GetRoleFromMessage(msgUnit.Message, ref msgUnit.From, ref msgUnit.To);
+
+            msgUnit.From = _agentModel.GetAgentFromRole(msgUnit.From);
+            msgUnit.To = _agentModel.GetAgentFromRole(msgUnit.To);
+
+            return msgUnit;
+        }
+
         public TestOracle[] GenerateTestOracle(TestOracle[] abstractOracle)
         {
             List<TestOracle> tOracleList;

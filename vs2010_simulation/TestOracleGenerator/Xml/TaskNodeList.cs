@@ -43,18 +43,18 @@ namespace TestOracleGenerator.Xml
         // Returns:
         //     The System.Xml.XmlNode in the collection. If index is greater than or equal
         //     to the number of nodes in the list, this returns null.
-        /*public TaskNode this[int i]
+        public TaskNode this[int i]
         {
             get
             {
-                if (taskNodes != null)
+                if (_taskNodes != null)
                 {
-                    return taskNodes[i];
+                    return _taskNodes[i];
                 }
 
                 throw new Exception("Invalid index");
             }
-        }*/
+        }
 
         // Summary:
         //     Provides a simple "foreach" style iteration over the collection of nodes
@@ -77,7 +77,7 @@ namespace TestOracleGenerator.Xml
         // Returns:
         //     The System.Xml.XmlNode in the collection. If index is greater than or equal
         //     to the number of nodes in the list, this returns null.
-        public TaskNode Item(int index)
+        /*public TaskNode Item(int index)
         {
             if (_taskNodes != null)
             {
@@ -85,7 +85,7 @@ namespace TestOracleGenerator.Xml
             }
 
             throw new Exception("Invalid index");
-        }
+        }*/
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {

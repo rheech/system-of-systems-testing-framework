@@ -93,21 +93,60 @@ namespace TestOracleGenerator
         {
             TaskNodeTraversalCallback nodeAction = null;
 
+            bool bCompareResult;
+            bool bFoundGoal;
+            int iPointer;
+
+            bCompareResult = false;
+            bFoundGoal = false;
+            iPointer = 0;
+
             nodeAction = new TaskNodeTraversalCallback((taskNode) =>
             {
-                if (taskNode.Type == NODE_TYPE.GOAL)
+                bool bFoundEntry;
+                TaskNodeList tList = taskNode.ChildNodes;
+                MessageUnit msgUnit;
+
+                if (taskNode.Name == goalName)
                 {
-                    taskNode.TraverseChildNodes(ref nodeAction);
+                    bFoundGoal = true;
+
+                    bCompareResult = true;
+                    bFoundEntry = false;
+
+                    // Traverse child nodes
+                    foreach (TaskNode node in tList)
+                    {
+                        msgUnit = _tAgentMapper.GetMessageUnitFromTask(node.Name);
+
+                        for (int i = iPointer; i < actualOutput.Length; i++)
+                        {
+                            bFoundEntry = false;
+
+                            if (actualOutput[i] == msgUnit)
+                            {
+                                bFoundEntry = true;
+                                iPointer = i;
+                                break;
+                            }
+                        }
+
+                        bCompareResult &= bFoundEntry;
+                    }
+
+                    bCompareResult &= bFoundEntry;
+
+                    // Terminate node traversing
+                    return false;
                 }
-                else if (taskNode.Type == NODE_TYPE.TASK)
-                {
-                    
-                }
+
+                // Continue traversing
+                return true;
             });
 
             _tModel.TraverseTaskNodes(ref nodeAction);
 
-            return true;
+            return bCompareResult;
         }
 
         /*public bool CompareOutput(string goalName, MessageUnit[] actualOutput, int currentIndex)

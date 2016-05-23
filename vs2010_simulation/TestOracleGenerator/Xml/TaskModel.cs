@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace TestOracleGenerator.Xml
 {
-    public delegate void TaskNodeTraversalCallback(TaskNode taskNode);
+    public delegate bool TaskNodeTraversalCallback(TaskNode taskNode);
 
     public class TaskModel : XmlParser
     {
