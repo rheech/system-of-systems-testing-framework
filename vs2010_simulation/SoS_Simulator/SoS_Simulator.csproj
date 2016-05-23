@@ -114,6 +114,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExceptionHandler\ExceptionHandler.csproj">
+      <Project>{34F278A3-6284-49C3-A3D2-92C8B9425062}</Project>
+      <Name>ExceptionHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestOracleGenerator\TestOracleGenerator.csproj">
       <Project>{6F89FC9D-0A21-4852-8758-5E14216D37CA}</Project>
       <Name>TestOracleGenerator</Name>

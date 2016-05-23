@@ -73,7 +73,7 @@ namespace TestOracleGenerator.Oracle
                     }
                     else
                     {
-                        throw new Exception("Error occurred while processing role model.");
+                        throw new ApplicationException("Error occurred while processing role model.");
                     }
                 }
             }

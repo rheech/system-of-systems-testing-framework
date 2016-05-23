@@ -31,12 +31,5 @@ namespace Scenario_E_Commerce.Agents
         {
             base.OnTick();
         }
-
-        // Received disaster report (beginning of MCI)
-        public void ReportDisaster(Disaster disaster)
-        {
-            _disaster = disaster;
-            SendMessage(typeof(EmergencyCallCenter), "ReportDisaster", _disaster.X);
-        }
     }
 }
