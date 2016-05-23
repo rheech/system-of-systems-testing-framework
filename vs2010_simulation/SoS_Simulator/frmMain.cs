@@ -184,7 +184,7 @@ namespace SoS_Simulator
             updateTCResourceFile();
             TestInfo info;
 
-            MessageUnit[] unit = s.GetSimulationMessages();
+            MessageUnit[] msgUnit = s.GetSimulationMessages();
             
             //Console.WriteLine(_toGenerator.CompareOutput("Transportation", unit, 0));
 
@@ -192,7 +192,8 @@ namespace SoS_Simulator
             {
                 info = _toGenerator.GenerateTestOracle(item.Text);
 
-                if (s.CompareResult(info))
+                //if (s.CompareResult(info))
+                if (_toGenerator.CompareOutput(item.Text, msgUnit))
                 {
                     item.SubItems[1].Text = "Pass";
                     item.ForeColor = Color.Green;

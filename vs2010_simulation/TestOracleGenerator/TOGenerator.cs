@@ -89,52 +89,23 @@ namespace TestOracleGenerator
             _tModel = new TaskModel(oracleXMLPath);
         }
 
-        public bool CompareOutput(string goalName, MessageUnit[] actualOutput, int currentIndex)
+        public bool CompareOutput(string goalName, MessageUnit[] actualOutput)
         {
-            TaskNodeTraversalCallback nodeAction = null;
-
+            TaskNodeTraversalCallback nodeAction;
             bool bCompareResult;
-            bool bFoundGoal;
             int iPointer;
 
-            bCompareResult = false;
-            bFoundGoal = false;
+            nodeAction = null;
+            bCompareResult = true;
             iPointer = 0;
 
+            // Define lambda callback
             nodeAction = new TaskNodeTraversalCallback((taskNode) =>
             {
-                bool bFoundEntry;
-                TaskNodeList tList = taskNode.ChildNodes;
-                MessageUnit msgUnit;
-
+                // Found the target goal
                 if (taskNode.Name == goalName)
                 {
-                    bFoundGoal = true;
-
-                    bCompareResult = true;
-                    bFoundEntry = false;
-
-                    // Traverse child nodes
-                    foreach (TaskNode node in tList)
-                    {
-                        msgUnit = _tAgentMapper.GetMessageUnitFromTask(node.Name);
-
-                        for (int i = iPointer; i < actualOutput.Length; i++)
-                        {
-                            bFoundEntry = false;
-
-                            if (actualOutput[i] == msgUnit)
-                            {
-                                bFoundEntry = true;
-                                iPointer = i;
-                                break;
-                            }
-                        }
-
-                        bCompareResult &= bFoundEntry;
-                    }
-
-                    bCompareResult &= bFoundEntry;
+                    bCompareResult &= CompareOutputInternal(actualOutput, taskNode.ChildNodes, nodeAction);
 
                     // Terminate node traversing
                     return false;
@@ -145,6 +116,80 @@ namespace TestOracleGenerator
             });
 
             _tModel.TraverseTaskNodes(ref nodeAction);
+
+            return bCompareResult;
+        }
+
+        // Analyze single-level tasks in a goal
+        private bool CompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskNodes, TaskNodeTraversalCallback cbNodeTraversal)
+        {
+            bool bSubResult;
+            bool bCompareResult;
+            MessageUnit msgOracle;
+            int currentIndex;
+
+            bSubResult = false;
+            bCompareResult = true;
+            currentIndex = 0;
+
+            // Traverse child nodes
+            foreach (TaskNode node in taskNodes)
+            {
+                msgOracle = _tAgentMapper.GetMessageUnitFromTask(node.Name);
+
+                // if there is a nested goal in the sequence
+                if (node.Type == NODE_TYPE.GOAL)
+                {
+                    // Traverse one more time
+                    bSubResult = CompareOutput(node.Name, actualOutput);
+                }
+                else
+                {
+                    //bFoundEntry = CompareOutputFromMessage(actualOutput, msgOracle, iPointer);
+                    // Compare output with oracle
+                    for (int i = currentIndex; i < actualOutput.Length; i++)
+                    {
+                        bSubResult = false;
+
+                        if (actualOutput[i] == msgOracle)
+                        {
+                            bSubResult = true;
+
+                            // Define next index by checking the operator
+                            switch (node.Operator)
+                            {
+                                case TASK_OPERATOR.ENABLE:
+                                    currentIndex = i;
+                                    break;
+                                case TASK_OPERATOR.CHOICE:
+                                    currentIndex = actualOutput.Length; // Exit for
+
+                                    if (bCompareResult)
+                                    {
+                                        return bCompareResult;
+                                    }
+                                    else
+                                    {
+                                        // reset for the next optional comparison
+                                        bCompareResult = true;
+                                    }
+
+                                    break;
+                                case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
+                                default:
+                                    currentIndex = i;
+                                    break;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+                bCompareResult &= bSubResult;
+            }
+
+            bCompareResult &= bSubResult;
 
             return bCompareResult;
         }
@@ -236,7 +281,7 @@ namespace TestOracleGenerator
 
             info = new TestInfo();
 
-            Console.WriteLine(goalName);
+            //Console.WriteLine(goalName);
             info.goalName = goalName;
 
             to = _tOracleGenerator.GenerateTaskSequence(goalName);
