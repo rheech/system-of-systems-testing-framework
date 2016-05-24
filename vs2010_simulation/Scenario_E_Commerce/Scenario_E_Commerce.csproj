@@ -75,7 +75,7 @@
     <Compile Include="Agents\Customer.cs" />
     <Compile Include="Agents\Dell.cs" />
     <Compile Include="Agents\UPS.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="ScenarioMain.cs" />
     <Compile Include="Objects\Money.cs" />
     <Compile Include="Objects\OrderStatus.cs" />
     <Compile Include="Objects\Package.cs" />

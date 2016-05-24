@@ -51,8 +51,6 @@ namespace SoS_Simulator
         {
             if (lstGoalsResult.SelectedIndex != -1)
             {
-                updateTCResourceFile();
-
                 // Update visualization
                 txtGoalOutput.Text = _toGenerator.GenerateTestOracle(lstGoalsResult.SelectedItem.ToString()).ToString();
             }
@@ -63,7 +61,6 @@ namespace SoS_Simulator
             s.Tick();
 
             // Update goal listview (test pass/fail)
-            updateTCResourceFile();
             UpdateGoalList(); // Test Oracle
         }
 
@@ -112,6 +109,8 @@ namespace SoS_Simulator
 
             if (ofdOpenFile.ShowDialog() == DialogResult.OK)
             {
+                InitializeSimulator();
+
                 if (!LoadSimulatorLibrary(ofdOpenFile.FileName))
                 {
                     MessageBox.Show("Error loading simulation library.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -353,20 +352,6 @@ namespace SoS_Simulator
         #endregion
 
         #region Test Oracle
-        private void updateTCResourceFile()
-        {
-            /*_tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, txtGoal.Text),
-                                    String.Format("{0}{1}", BASE_PATH, txtRole.Text),
-                                    String.Format("{0}{1}", BASE_PATH, txtAgent.Text));*/
-            //_tcGenerator = new TOGenerator(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml"));
-            // SavePatient, Communicate, MedicalCare, ReportIncident, LocatePatient, TreatPatient, TransferPatient
-            //_tcGenerator.TaskModel = String.Format("{0}{1}", BASE_PATH, txtGoal.Text);
-            //_tcGenerator.RoleModel = String.Format("{0}{1}", BASE_PATH, txtRole.Text);
-            //_tcGenerator.AgentModel = String.Format("{0}{1}", BASE_PATH, txtAgent.Text);
-            //_tcGenerator.ProtocolModel = String.Format("{0}{1}", BASE_PATH, txtProtocol.Text);
-
-        }
-
         private void SetupGoalList(string[] goalList)
         {
             // Reset listvies
@@ -386,7 +371,6 @@ namespace SoS_Simulator
 
         private void UpdateGoalList()
         {
-            updateTCResourceFile();
             TestInfo info;
 
             MessageUnit[] msgUnit;
