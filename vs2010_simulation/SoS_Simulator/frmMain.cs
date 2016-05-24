@@ -378,10 +378,7 @@ namespace SoS_Simulator
 
         private void UpdateGoalList()
         {
-            TestInfo info;
-
             MessageUnit[] msgUnit;
-            COMPARISON_INFO comparisonInfo;
 
             msgUnit = s.GetSimulationMessages();
 
@@ -389,9 +386,6 @@ namespace SoS_Simulator
 
             foreach (ListViewItem item in lstViewGoal.Items)
             {
-                info = _toGenerator.GenerateTestOracle(item.Text);
-
-                //if (s.CompareResult(info))
                 if (_toGenerator.CompareOutput(item.Text, msgUnit))
                 {
                     item.SubItems[1].Text = "Pass";

@@ -56,33 +56,5 @@ namespace TestOracleGenerator.Oracle
 
             return msgUnit;
         }
-
-        public TestOracle2[] GenerateTestOracle(TestOracle2[] abstractOracle)
-        {
-            List<TestOracle2> tOracleList;
-            MessageUnit tempMsgUnit;
-
-            tOracleList = new List<TestOracle2>(abstractOracle);
-
-            for (int i = 0; i < tOracleList.Count; i++)
-            {
-                for (int j = 0; j < tOracleList[i].Length; j++)
-                {
-                    tempMsgUnit = tOracleList[i][j];
-
-                    if (_roleModel.GetRoleFromMessage(tempMsgUnit.Message, ref tempMsgUnit.From, ref tempMsgUnit.To))
-                    {
-                        tempMsgUnit.From = _agentModel.GetAgentFromRole(tempMsgUnit.From);
-                        tempMsgUnit.To = _agentModel.GetAgentFromRole(tempMsgUnit.To);
-                    }
-                    else
-                    {
-                        throw new ApplicationException("Error occurred while processing role model.");
-                    }
-                }
-            }
-
-            return tOracleList.ToArray();
-        }
     }
 }

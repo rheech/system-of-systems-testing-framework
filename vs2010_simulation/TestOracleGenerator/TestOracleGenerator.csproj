@@ -73,7 +73,6 @@
     <Compile Include="Oracle\MessageUnit.cs" />
     <Compile Include="Oracle\TaskAgentMapper.cs" />
     <Compile Include="Oracle\TestOracle.cs" />
-    <Compile Include="Oracle\TestOracle2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OracleGenerator.cs" />
     <Compile Include="Xml\AgentModel.cs" />
