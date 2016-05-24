@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TestOracleGenerator.Xml;
 using TestOracleGenerator.Oracle;
+using BugTracker;
 
 namespace TestOracleGenerator
 {
@@ -26,7 +27,7 @@ namespace TestOracleGenerator
         //public string foundRole;
         //public string[] foundCaps;
         //public Arrow[] sequence;
-        public TestOracle[] oracle;
+        public TestOracle2[] oracle;
 
         public override string ToString()
         {
@@ -37,7 +38,7 @@ namespace TestOracleGenerator
             sb.AppendFormat("\r\n");
             sb.AppendFormat("Sequence:\r\n");
 
-            foreach (TestOracle o in oracle)
+            foreach (TestOracle2 o in oracle)
             {
                 sb.AppendFormat("{0}\r\n", o);
             }
@@ -77,6 +78,7 @@ namespace TestOracleGenerator
             _tModel = new TaskModel(oracleXMLPath);
         }
 
+        #region Testing
         public bool CompareOutput(string goalName, MessageUnit[] actualOutput)
         {
             COMPARISON_INFO comparisonInfo;
@@ -145,7 +147,8 @@ namespace TestOracleGenerator
             // Traverse child nodes
             foreach (TaskNode node in taskOracleNodes)
             {
-                msgOracle = _tAgentMapper.GetMessageUnitFromTask(node.Name);
+                // Convert task to message
+                msgOracle = _tAgentMapper.GetMessageUnitFromTask(node);
 
                 // if there is a nested goal in the sequence
                 //bFoundEntry = CompareOutputFromMessage(actualOutput, msgOracle, iPointer);
@@ -224,18 +227,65 @@ namespace TestOracleGenerator
 
             return comparisonInfo;
         }
+        #endregion
+
+        public TestOracle GenTestOracle(string goalName)
+        {
+            TaskNodeTraversalCallback nodeAction;
+            TaskNode goalTaskNode;
+            List<MessageUnit> messagesList;
+
+            goalTaskNode = null;
+            messagesList = new List<MessageUnit>();
+
+            // Define lambda callback
+            nodeAction = new TaskNodeTraversalCallback((taskNode) =>
+            {
+                // Found the target goal
+                if (taskNode.Name == goalName)
+                {
+                    if (taskNode.HasChildNodes)
+                    {
+                        goalTaskNode = taskNode;
+
+                        foreach (TaskNode node in taskNode.ChildNodes)
+                        {
+                            messagesList.Add(_tAgentMapper.GetMessageUnitFromTask(node));
+                        }
+                    }
+
+                    // Terminate node traversing
+                    return false;
+                }
+
+                // Continue traversing
+                return true;
+            });
+
+            _tModel.TraverseTaskNodes(ref nodeAction);
+
+            // if error
+            if (goalTaskNode == null)
+            {
+                throw new ApplicationException("Task node list cannot be null.");
+            }
+
+            return new TestOracle(goalTaskNode, messagesList.ToArray());
+        }
 
         public TestInfo GenerateTestOracle(string goalName)
         {
-            TestOracle[] to;
+            TestOracle2[] to;
             TestInfo info;
 
             info = new TestInfo();
 
             //Console.WriteLine(goalName);
+            Debug.WriteLine(goalName);
+
             info.goalName = goalName;
 
-            to = TestOracle.FromTaskSequenceSet(_tModel.RetrieveTaskSequence(goalName));
+            to = TestOracle2.FromTaskSequenceSet(_tModel.RetrieveTaskSequence(goalName));
             to = _tAgentMapper.GenerateTestOracle(to);
 
             //info.oracle = to;

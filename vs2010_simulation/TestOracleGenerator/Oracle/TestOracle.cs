@@ -6,100 +6,58 @@ using TestOracleGenerator.Xml;
 
 namespace TestOracleGenerator.Oracle
 {
-    public enum ORACLE_LEVEL
-    {
-        TASK,
-        ROLE,
-        AGENT
-    }
-
     public class TestOracle
     {
-        List<MessageUnit> _messageList;
-        ORACLE_LEVEL _oracleLevel;
+        static Dictionary<TASK_OPERATOR, string> mapOperator;
 
-        public TestOracle()
+        TaskNode _goalTaskNode;
+        TaskNodeList _taskNodeList;
+        MessageUnit[] _messages;
+
+        public TestOracle(TaskNode goalTaskNode, MessageUnit[] messages)
         {
-        }
-
-        public TestOracle(MessageUnit[] messages)
-        {
-            _messageList = new List<MessageUnit>(messages);
-        }
-
-        public static TestOracle[] FromTaskSequenceSet(TaskSequenceSet tSet)
-        {
-            List<TestOracle> tOracleList;
-            List<MessageUnit> msgList;
-            MessageUnit msgUnit;
-
-            tOracleList = new List<TestOracle>();
-
-            for (int i = 0; i < tSet.Length; i++)
+            // define task operator only one time
+            if (mapOperator == null)
             {
-                msgList = new List<MessageUnit>();
-
-                for (int j = 0; j < tSet[i].Length; j++)
-                {
-                    msgUnit = new MessageUnit();
-                    msgUnit.Message = tSet[i][j].ToString();
-
-                    msgList.Add(msgUnit);
-                }
-
-                tOracleList.Add(new TestOracle(msgList.ToArray()));
+                MapTaskOperators();
             }
 
-            return tOracleList.ToArray();
-        }
-
-        public int Length
-        {
-            get
+            // Must be a goal node & has child nodes
+            if (goalTaskNode.Type == NODE_TYPE.GOAL &&
+                    goalTaskNode.HasChildNodes)
             {
-                if (_messageList != null)
-                {
-                    return _messageList.Count;
-                }
-
-                return 0;
+                // initialize
+                _goalTaskNode = goalTaskNode;
+                _taskNodeList = goalTaskNode.ChildNodes;
+                _messages = messages;
+            }
+            else
+            {
+                throw new ApplicationException("Test oracle must take a goal type task node which contains child nodes.");
             }
         }
 
-        public MessageUnit[] ToMessageList()
+        private static void MapTaskOperators()
         {
-            return _messageList.ToArray();
-        }
+            mapOperator = new Dictionary<TASK_OPERATOR, string>();
 
-        public MessageUnit this[int index]
-        {
-            get
-            {
-                if (_messageList != null)
-                {
-                    return _messageList[index];
-                }
-
-                throw new ApplicationException("Invalid index");
-            }
-            set
-            {
-                if (_messageList != null)
-                {
-                    _messageList[index] = value;
-                }
-
-                throw new ApplicationException("Invalid index");
-            }
+            mapOperator.Add(TASK_OPERATOR.NONE, "");
+            mapOperator.Add(TASK_OPERATOR.CHOICE, "[]");
+            mapOperator.Add(TASK_OPERATOR.ENABLE, ">>");
+            mapOperator.Add(TASK_OPERATOR.PARALLEL, "||");
         }
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb;
+            sb = new StringBuilder();
 
-            foreach (MessageUnit m in _messageList)
+            sb.AppendFormat("Goal: {0}\r\n\r\n", _goalTaskNode.Name);
+            sb.AppendFormat("Message Sequence:\r\n", _goalTaskNode.Name);
+
+            for (int i = 0; i < _taskNodeList.Count; i++)
             {
-                sb.AppendFormat("{0}\r\n", m);
+                sb.AppendFormat("{0} {1}\r\n", _messages[i].ToString(), mapOperator[_taskNodeList[i].Operator]);
             }
 
             return sb.ToString();

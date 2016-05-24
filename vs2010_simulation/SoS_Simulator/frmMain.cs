@@ -12,6 +12,7 @@ using TestOracleGenerator.Xml;
 using System.Reflection;
 using System.IO;
 using TestOracleGenerator.Oracle;
+using BugTracker;
 
 namespace SoS_Simulator
 {
@@ -52,7 +53,13 @@ namespace SoS_Simulator
             if (lstGoalsResult.SelectedIndex != -1)
             {
                 // Update visualization
-                txtGoalOutput.Text = _toGenerator.GenerateTestOracle(lstGoalsResult.SelectedItem.ToString()).ToString();
+                //txtGoalOutput.Text = _toGenerator.GenerateTestOracle(lstGoalsResult.SelectedItem.ToString()).ToString();
+
+                TestOracle oracle;
+                oracle = _toGenerator.GenTestOracle(lstGoalsResult.SelectedItem.ToString());
+
+                txtGoalOutput.Text = oracle.ToString();
+
             }
         }
 

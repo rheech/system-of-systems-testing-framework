@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ExceptionHandler
+namespace BugTracker
 {
-    public class TrackedException : ApplicationException
+    public class ApplicationError : ApplicationException
     {
-        public TrackedException()
+        public ApplicationError()
             : base()
         {
         }
-
-        public TrackedException(string message)
+        
+        public ApplicationError(string message)
             : base(message)
         {
         }

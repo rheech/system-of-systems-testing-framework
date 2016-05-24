@@ -17,6 +17,11 @@ namespace TestOracleGenerator.Xml
         {
             XmlNodeList nodes = RootNodes;
 
+            if (roleName == null)
+            {
+                throw new ApplicationException("Role name cannot be null.");
+            }
+
             foreach (XmlNode node in nodes)
             {
                 foreach (XmlNode n in node.SelectNodes("Role"))

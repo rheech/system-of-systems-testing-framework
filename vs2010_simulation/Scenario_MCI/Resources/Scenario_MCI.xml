@@ -10,7 +10,7 @@
           <node name="AssignTriagePosition" type="interaction" operator="enable" />
           <node name="ProvidePatientCount" type="interaction" />
         </node>
-        <node name="Treatment" type="goal" operator="choice">
+        <node name="Treatment" type="goal" operator="enable">
           <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
           <node name="MedComm" type="goal">
             <node name="CoordinateTransport" type="interaction" operator="enable" />

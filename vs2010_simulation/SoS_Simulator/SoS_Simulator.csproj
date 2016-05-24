@@ -114,9 +114,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExceptionHandler\ExceptionHandler.csproj">
-      <Project>{34F278A3-6284-49C3-A3D2-92C8B9425062}</Project>
-      <Name>ExceptionHandler</Name>
+    <ProjectReference Include="..\BugTracker\BugTracker.csproj">
+      <Project>{3448BF86-B80A-4FD0-9339-90164B761AFB}</Project>
+      <Name>BugTracker</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestOracleGenerator\TestOracleGenerator.csproj">
       <Project>{6F89FC9D-0A21-4852-8758-5E14216D37CA}</Project>

@@ -38,27 +38,31 @@ namespace TestOracleGenerator.Oracle
             return null;
         }*/
 
-        public MessageUnit GetMessageUnitFromTask(string messageTask)
+        public MessageUnit GetMessageUnitFromTask(TaskNode taskNode)
         {
             MessageUnit msgUnit;
 
             msgUnit = new MessageUnit();
-            msgUnit.Message = messageTask;
+            msgUnit.Message = taskNode.Name;
 
-            _roleModel.GetRoleFromMessage(msgUnit.Message, ref msgUnit.From, ref msgUnit.To);
+            // Only task node has interaction property
+            if (taskNode.Type == NODE_TYPE.TASK)
+            {
+                _roleModel.GetRoleFromMessage(msgUnit.Message, ref msgUnit.From, ref msgUnit.To);
 
-            msgUnit.From = _agentModel.GetAgentFromRole(msgUnit.From);
-            msgUnit.To = _agentModel.GetAgentFromRole(msgUnit.To);
+                msgUnit.From = _agentModel.GetAgentFromRole(msgUnit.From);
+                msgUnit.To = _agentModel.GetAgentFromRole(msgUnit.To);
+            }
 
             return msgUnit;
         }
 
-        public TestOracle[] GenerateTestOracle(TestOracle[] abstractOracle)
+        public TestOracle2[] GenerateTestOracle(TestOracle2[] abstractOracle)
         {
-            List<TestOracle> tOracleList;
+            List<TestOracle2> tOracleList;
             MessageUnit tempMsgUnit;
 
-            tOracleList = new List<TestOracle>(abstractOracle);
+            tOracleList = new List<TestOracle2>(abstractOracle);
 
             for (int i = 0; i < tOracleList.Count; i++)
             {

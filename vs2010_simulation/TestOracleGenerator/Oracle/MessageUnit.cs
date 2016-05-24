@@ -13,7 +13,13 @@ namespace TestOracleGenerator.Oracle
 
         public override string ToString()
         {
-            return String.Format("{0}.{1}->{2}", From, Message, To);
+            if (From != null && To != null)
+            {
+                return String.Format("({0}->{1}).{2}", From, To, Message);
+            }
+
+            // If agents are not specified
+            return String.Format("{{{0}}}", Message);
         }
 
         public static bool operator ==(MessageUnit a, MessageUnit b)
