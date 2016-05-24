@@ -572,9 +572,10 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Location = new System.Drawing.Point(6, 25);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(90, 13);
+            this.lblStatus.Size = new System.Drawing.Size(90, 117);
             this.lblStatus.TabIndex = 6;
-            this.lblStatus.Text = "Simulation Output";
+            this.lblStatus.Text = "Simulation Output\r\n\r\nPatients: 10\r\nMinor:\r\nImmediate:\r\nDelayed: \r\n\r\nSaved: \r\nDead" +
+    ": ";
             // 
             // lblFast
             // 
@@ -671,7 +672,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Goal";
-            this.columnHeader1.Width = 88;
+            this.columnHeader1.Width = 116;
             // 
             // columnHeader2
             // 
