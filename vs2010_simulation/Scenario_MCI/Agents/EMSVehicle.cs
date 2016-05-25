@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
+using Scenario_MCI.Objects;
 
 namespace Scenario_MCI.Agents
 {
     public class EMSVehicle : Agent
     {
+        Patient[] patients;
+        int numOfAvailableBeds;
+
+        public EMSVehicle()
+        {
+        }
+
         protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             switch (msgType)
@@ -20,14 +28,20 @@ namespace Scenario_MCI.Agents
                     break;*/
                 case "AssignTransportationPosition":
                     SendMessage(typeof(EMSVehicle), "CoordinateTransport");
-
-                    SendMessage(typeof(EMSVehicle), "ProvidePatientTransportStatus");
                     break;
                 case "CoordinateTransport":
                     SendMessage(typeof(Hospital), "CheckBedAvailability");
                     break;//SendMessage(typeof(EMSVehicle), MESSAGE_TYPE.ProvideAmbulanceDestination);
                 case "ProvideBedAvailability":
-                    SendMessage(typeof(EMSVehicle), "ProvideAmbulanceDestination");
+                    numOfAvailableBeds = (int)info[0];
+
+                    // if number of beds available
+                    if (numOfAvailableBeds > 0)
+                    {
+                        // Provide ambulance destination with patient info
+                        SendMessage(typeof(EMSVehicle), "ProvideAmbulanceDestination");
+                    }
+
                     break;
                 case "ProvideAmbulanceDestination":
                     SendMessage(typeof(Ambulance), "RequestAmbulance");

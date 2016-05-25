@@ -7,14 +7,14 @@ using Scenario_MCI.Objects;
 
 namespace Scenario_MCI.Agents
 {
-    public class Hospital : Agent, IPosition
+    public class Hospital : Agent
     {
+        private int numOfAvailableBeds;
         private List<Patient> _patients;
-        private int _x;
 
-        public Hospital(int x)
+        public Hospital(int AvailableBeds)
         {
-            _x = x;
+            numOfAvailableBeds = AvailableBeds;
             _patients = new List<Patient>();
         }
 
@@ -23,13 +23,13 @@ namespace Scenario_MCI.Agents
             switch (msgType)
             {
                 case "CheckBedAvailability":
-                    SendMessage(typeof(EMSVehicle), "ProvideBedAvailability");
+                    SendMessage(typeof(EMSVehicle), "ProvideBedAvailability", numOfAvailableBeds);
                     break;
                 case "PATIENT_ARRIVAL":
                     SendMessage(typeof(EmergencyCallCenter), "CHECK_MORE_PATIENTS");
                     break;
                 case "FIND_HOSPITAL":
-                    SendMessage(typeof(Ambulance), "HOSPITAL_LOCATION", _x);
+                    SendMessage(typeof(Ambulance), "HOSPITAL_LOCATION");
                     break;
                 default:
                     break;
@@ -39,18 +39,6 @@ namespace Scenario_MCI.Agents
         protected override void OnTick()
         {
             base.OnTick();
-        }
-
-        public int X
-        {
-            get
-            {
-                return _x;
-            }
-            set
-            {
-                _x = value;
-            }
         }
     }
 }

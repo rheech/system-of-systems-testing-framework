@@ -291,13 +291,21 @@ namespace SoS_Simulator
             lstGoalsResult.Items.Clear();
             txtSimOutput.Text = "";
 
-            LoadSimulator();
-            LoadTestOracle();
+            // If simulator is previously loaded (reset)
+            if (_fSimulator != null && _fOracle != null)
+            {
+                LoadSimulator();
+                LoadTestOracle();
 
-            tsLabel.Text = "Ready";
-            btnStart.Text = "&Start";
+                tsLabel.Text = "Ready";
+                btnStart.Text = "&Start";
 
-            _simulationStatus = SIMULATION_STATUS.READY;
+                _simulationStatus = SIMULATION_STATUS.READY;
+            }
+            else
+            {
+                _simulationStatus = SIMULATION_STATUS.NOT_READY;
+            }
         }
 
         private void StartSimulator()

@@ -7,37 +7,6 @@ using System.Windows.Forms;
 
 namespace SoS_Simulator.Agents
 {
-    /*public enum MESSAGE_TYPE
-    {
-        ReportDisaster,
-        DispatchCommand,
-        DeclareMCI,
-        AssignTriagePosition,
-        ProvidePatientCount,
-        AssignTreatmentPosition,
-        AssignTransportationPosition,
-        ProvidePatientTransportStatus,
-        CoordinateTransport,
-        ProvideAmbulanceDestination,
-        RequestAmbulance,
-        TransportComplete,
-        CheckBedAvailability,
-        ProvideBedAvailability,
-
-
-        NOTIFY,
-        INCIDENT_REPORT,
-        ASSIGN_AMBULANCE,
-        RESCUE_REQUEST,
-        PATIENT_PICKEDUP,
-        FIND_HOSPITAL,
-        HOSPITAL_LOCATION,
-        PATIENT_ARRIVAL,
-        CHECK_MORE_PATIENTS,
-        RESCUE_COMPLETE,
-        SIMULATION_COMPLETE
-    }*/
-
     public struct AgentMessage
     {
         public Type target;

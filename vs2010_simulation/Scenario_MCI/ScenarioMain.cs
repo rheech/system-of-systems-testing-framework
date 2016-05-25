@@ -10,11 +10,20 @@ using Scenario_MCI.Objects;
 
 namespace SoS_Simulator
 {
+    public class SimulationEnvironment
+    {
+        public Disaster Disaster;
+        public Patient Patient;
+    }
+
     public class ScenarioMain : Simulator
     {
         //public static TesterAgent.TestMonitor t = new TesterAgent.TestMonitor();
         public static Queue<Patient> patients;
         public static List<Patient> savedPatients;
+
+        // MCI Environment
+        SimulationEnvironment MCI_Environment;
 
         // other agents
         Ambulance _ambulance;
@@ -27,6 +36,8 @@ namespace SoS_Simulator
 
         protected override void Initialize()
         {
+            MCI_Environment = new SimulationEnvironment();
+
             _hospital = new Hospital(15);
             _ambulance = new Ambulance(15);
             _callCenter = new EmergencyCallCenter();
@@ -41,6 +52,14 @@ namespace SoS_Simulator
         protected override void Run()
         {
             _callCenter.ReportDisaster(_disaster);
+        }
+
+        public override object EnvironmentObject
+        {
+            get
+            {
+                return null;
+            }
         }
     }
 }

@@ -17,14 +17,14 @@ namespace SoS_Simulator
         public event SimulationCompleteHandler OnSimulationComplete;
 
         // Monitoring agent
-        MonitorAgent _monitorAgent;
+        protected MonitorAgent _monitorAgent;
 
         public Simulator()
         {
             InitializeSimulator();
         }
 
-        public void InitializeSimulator()
+        private void InitializeSimulator()
         {
             Agent.ResetEventHandler();
             SoS_Object.ResetEventHandler();
@@ -54,6 +54,11 @@ namespace SoS_Simulator
         public MessageUnit[] GetSimulationMessages()
         {
             return _monitorAgent.GetSimulationLog();
+        }
+
+        public abstract object EnvironmentObject
+        {
+            get;
         }
 
         private void MonitorAgent_OnTextUpdate(string text)

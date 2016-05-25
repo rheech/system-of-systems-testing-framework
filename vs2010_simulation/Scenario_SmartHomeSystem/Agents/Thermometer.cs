@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
 
-namespace Scenario_E_Commerce.Agents
+namespace Scenario_SmartHomeSystem.Agents
 {
-    public class Amazon : Agent
+    class Thermometer : Agent
     {
-        public Amazon()
+        public Thermometer()
         {
         }
 
@@ -16,9 +16,6 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgType)
             {
-                case "":
-                    SimulationComplete(false);
-                    break;
                 default:
                     break;
             }

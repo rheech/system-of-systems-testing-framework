@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SoS_Simulator;
 
-namespace Scenario_E_Commerce
+namespace Scenario_SmartHomeSystem
 {
     public class ScenarioMain : Simulator
     {
