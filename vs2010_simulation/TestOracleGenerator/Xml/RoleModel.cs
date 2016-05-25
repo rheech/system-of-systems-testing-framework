@@ -29,9 +29,6 @@ namespace TestOracleGenerator.Xml
                         return node.Attributes["name"].InnerText;
                     }
                 }
-
-                //temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
-                //temp = node.SelectSingleNode("arrow").InnerText;
             }
 
             return "";
@@ -49,9 +46,6 @@ namespace TestOracleGenerator.Xml
                 {
                     capabilities.Add(x.Attributes["name"].InnerText);
                 }
-
-                //temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
-                //temp = node.SelectSingleNode("arrow").InnerText;
             }
 
             return capabilities.ToArray();
@@ -65,27 +59,15 @@ namespace TestOracleGenerator.Xml
             {
                 foreach (XmlNode n in node.SelectNodes("arrow"))
                 {
-                    /*if (n.Attributes["name"].InnerText == goalName)
-                    {
-                        return node.Attributes["name"].InnerText;
-                    }*/
-                    //Console.WriteLine(n.Attributes["name"].InnerText);
-
                     // if message found
                     if (n.Attributes["name"].InnerText == messageName)
                     {
-                        //Console.WriteLine(n.ParentNode.Attributes["name"].InnerText);
-
                         RoleFrom = n.ParentNode.Attributes["name"].InnerText;
                         RoleTo = n.Attributes["to"].InnerText;
 
-                        //return n.ParentNode.Attributes["name"].InnerText;
                         return true;
                     }
                 }
-
-                //temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
-                //temp = node.SelectSingleNode("arrow").InnerText;
             }
 
             return false;
@@ -99,17 +81,6 @@ namespace TestOracleGenerator.Xml
                 {
                     return x;
                 }
-                /*
-                foreach (XmlNode y in x.SelectNodes("attribute"))
-                {
-                    Console.WriteLine(y.Attributes["name"].InnerText);
-
-                    if (y.Attributes["name"].InnerText == roleName)
-                    {
-                        return y;
-                    }
-                }
-                 */
             }
 
             return null;

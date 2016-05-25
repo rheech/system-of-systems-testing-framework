@@ -50,6 +50,8 @@ namespace TestOracleGenerator.Oracle
         public override string ToString()
         {
             StringBuilder sb;
+            string sTemp;
+
             sb = new StringBuilder();
 
             sb.AppendFormat("Goal: {0}\r\n\r\n", _goalTaskNode.Name);
@@ -57,7 +59,13 @@ namespace TestOracleGenerator.Oracle
 
             for (int i = 0; i < _taskNodeList.Count; i++)
             {
-                sb.AppendFormat("{0} {1}\r\n", _messages[i].ToString(), mapOperator[_taskNodeList[i].Operator]);
+                sTemp = String.Format("{0} {1}", _messages[i].ToString(), mapOperator[_taskNodeList[i].Operator]);
+                sb.Append(sTemp.Trim());
+
+                if (i < (_taskNodeList.Count - 1))
+                {
+                    sb.Append("\r\n");
+                }
             }
 
             return sb.ToString();

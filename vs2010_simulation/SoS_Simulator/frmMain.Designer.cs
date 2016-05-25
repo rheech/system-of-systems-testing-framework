@@ -305,19 +305,19 @@
             this.customizeToolStripMenuItem,
             this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -555,7 +555,7 @@
             this.txtOraclePath.Location = new System.Drawing.Point(5, 187);
             this.txtOraclePath.Name = "txtOraclePath";
             this.txtOraclePath.ReadOnly = true;
-            this.txtOraclePath.Size = new System.Drawing.Size(127, 20);
+            this.txtOraclePath.Size = new System.Drawing.Size(127, 21);
             this.txtOraclePath.TabIndex = 7;
             // 
             // label1
@@ -563,7 +563,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 169);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(75, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "Test Oracle:";
             // 
@@ -572,7 +572,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Location = new System.Drawing.Point(6, 25);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(90, 117);
+            this.lblStatus.Size = new System.Drawing.Size(104, 108);
             this.lblStatus.TabIndex = 6;
             this.lblStatus.Text = "Simulation Output\r\n\r\nPatients: 10\r\nMinor:\r\nImmediate:\r\nDelayed: \r\n\r\nSaved: \r\nDead" +
     ": ";
@@ -582,7 +582,7 @@
             this.lblFast.AutoSize = true;
             this.lblFast.Location = new System.Drawing.Point(172, 294);
             this.lblFast.Name = "lblFast";
-            this.lblFast.Size = new System.Drawing.Size(27, 13);
+            this.lblFast.Size = new System.Drawing.Size(29, 12);
             this.lblFast.TabIndex = 11;
             this.lblFast.Text = "Fast";
             // 
@@ -591,7 +591,7 @@
             this.lblSlow.AutoSize = true;
             this.lblSlow.Location = new System.Drawing.Point(9, 294);
             this.lblSlow.Name = "lblSlow";
-            this.lblSlow.Size = new System.Drawing.Size(30, 13);
+            this.lblSlow.Size = new System.Drawing.Size(33, 12);
             this.lblSlow.TabIndex = 10;
             this.lblSlow.Text = "Slow";
             // 
@@ -662,9 +662,9 @@
             this.columnHeader1,
             this.columnHeader2});
             this.lstViewGoal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstViewGoal.Location = new System.Drawing.Point(3, 16);
+            this.lstViewGoal.Location = new System.Drawing.Point(3, 17);
             this.lstViewGoal.Name = "lstViewGoal";
-            this.lstViewGoal.Size = new System.Drawing.Size(439, 149);
+            this.lstViewGoal.Size = new System.Drawing.Size(439, 148);
             this.lstViewGoal.TabIndex = 0;
             this.lstViewGoal.UseCompatibleStateImageBehavior = false;
             this.lstViewGoal.View = System.Windows.Forms.View.Details;
@@ -693,12 +693,13 @@
             // txtSimOutput
             // 
             this.txtSimOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSimOutput.Location = new System.Drawing.Point(3, 16);
+            this.txtSimOutput.Location = new System.Drawing.Point(3, 17);
             this.txtSimOutput.Multiline = true;
             this.txtSimOutput.Name = "txtSimOutput";
             this.txtSimOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSimOutput.Size = new System.Drawing.Size(439, 168);
+            this.txtSimOutput.Size = new System.Drawing.Size(439, 167);
             this.txtSimOutput.TabIndex = 6;
+            this.txtSimOutput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_PreviewKeyDown);
             // 
             // tabPage3
             // 
@@ -746,6 +747,7 @@
             // 
             this.lstGoalsResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstGoalsResult.FormattingEnabled = true;
+            this.lstGoalsResult.ItemHeight = 12;
             this.lstGoalsResult.Location = new System.Drawing.Point(0, 0);
             this.lstGoalsResult.Name = "lstGoalsResult";
             this.lstGoalsResult.Size = new System.Drawing.Size(218, 306);
@@ -761,6 +763,7 @@
             this.txtGoalOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtGoalOutput.Size = new System.Drawing.Size(448, 306);
             this.txtGoalOutput.TabIndex = 16;
+            this.txtGoalOutput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_PreviewKeyDown);
             // 
             // frmMain
             // 

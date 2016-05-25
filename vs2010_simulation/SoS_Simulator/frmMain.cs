@@ -37,6 +37,7 @@ namespace SoS_Simulator
         public frmMain()
         {
             InitializeComponent();
+
             lstViewGoal.FullRowSelect = true;
             _simulationStatus = SIMULATION_STATUS.NOT_READY;
         }
@@ -139,6 +140,22 @@ namespace SoS_Simulator
                 if (!LoadTestOracle(ofdOpenFile.FileName))
                 {
                     MessageBox.Show("Error loading test oracles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            string text;
+
+            if (e.KeyData == (Keys.Control | Keys.C))
+            {
+                text = ((TextBox)sender).SelectedText;
+
+                if (text != null && text != String.Empty)
+                {
+                    Clipboard.Clear();
+                    Clipboard.SetText(text);
                 }
             }
         }
