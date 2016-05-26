@@ -61,42 +61,7 @@ namespace Scenario_MCI.Agents
 
         protected override void OnTick()
         {
-            int diff;
-            int unit;
-
             base.OnTick();
-
-            /*if (_currentPosition != _destination)
-            {
-                diff = _destination - _currentPosition;
-                unit = diff / Math.Abs(diff);
-
-                _currentPosition += unit;
-
-                // arrived to destination
-                if (_currentPosition == _destination)
-                {
-                    // to disaster area
-                    if (_vehicleStatus == VEHICLE_STATUS.TO_DISASTER_AREA)
-                    {
-                        _currentPatient = Simulator.patients.Dequeue();
-                        SendMessage(typeof(Ambulance), MESSAGE_TYPE.PATIENT_PICKEDUP);
-                    }
-                    else if (_vehicleStatus == VEHICLE_STATUS.TO_HOSPITAL) // to hospital
-                    {
-                        Simulator.savedPatients.Add(_currentPatient);
-                        _currentPatient = null;
-                        _vehicleStatus = VEHICLE_STATUS.PARKED;
-
-                        SendMessage(typeof(Hospital), MESSAGE_TYPE.PATIENT_ARRIVAL);
-                    }
-                }
-
-                /*if (_currentPosition == _destination && MCI_Environment.patients.Count > 0)
-                {
-                    _currentPatient = MCI_Environment.patients.Dequeue();
-                }* /
-            }*/
         }
 
         public int X

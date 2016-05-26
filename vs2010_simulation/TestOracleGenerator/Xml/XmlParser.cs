@@ -10,23 +10,14 @@ namespace TestOracleGenerator.Xml
     {
         protected XmlDocument _doc;
         private string ROOT_PATH;
-        //protected XmlNodeList _nodes;
 
         public XmlParser(string file, string rootPath)
         {
             _doc = new XmlDocument();
             _doc.Load(file);
 
-            //XmlNodeList nodes = doc.DocumentElement.SelectNodes("/Diagram/Role");
-
-            string temp;
+            // Set XML root
             ROOT_PATH = rootPath;
-
-            /*foreach (XmlNode node in nodes)
-            {
-                temp = node.SelectSingleNode("attribute").Attributes["name"].InnerText;
-                temp = node.SelectSingleNode("arrow").InnerText;
-            }*/
         }
 
         /// <summary>

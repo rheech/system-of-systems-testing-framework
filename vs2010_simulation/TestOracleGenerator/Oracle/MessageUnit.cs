@@ -32,6 +32,11 @@ namespace TestOracleGenerator.Oracle
             return !a.Equals(b);
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             bool bEquals;
