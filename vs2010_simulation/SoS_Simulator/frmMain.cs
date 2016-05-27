@@ -46,7 +46,7 @@ namespace SoS_Simulator
         private void frmMain_Load(object sender, EventArgs e)
         {
             InitializeSimulatorDisplay();
-            LoadDefault();
+            //LoadDefault();
         }
 
         private void lstGoals_SelectedIndexChanged(object sender, EventArgs e)
@@ -261,6 +261,8 @@ namespace SoS_Simulator
             {
                 _toGenerator = new OracleGenerator(oracleFile.FullName);
                 goalList = _toGenerator.RetrieveGoalList();
+
+                lstGoalsResult.Items.Clear();
 
                 foreach (string s in goalList)
                 {
