@@ -8,7 +8,7 @@ namespace Scenario_E_Commerce.Agents
 {
     public class Amazon : Agent
     {
-        public Amazon()
+        public Amazon(ScenarioMain simulator) : base(simulator)
         {
         }
 

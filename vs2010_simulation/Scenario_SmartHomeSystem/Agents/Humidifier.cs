@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_SmartHomeSystem.Abstract;
 
 namespace Scenario_SmartHomeSystem.Agents
 {
-    class Humidifier : Agent
+    class Humidifier : SmartHome_Agent
     {
-        public Humidifier()
+        public Humidifier(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_SmartHomeSystem.Abstract;
 
 namespace Scenario_SmartHomeSystem.Agents
 {
-    public class Cooler : Agent
+    public class Cooler : SmartHome_Agent
     {
-        public Cooler()
+        public Cooler(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 
@@ -19,15 +20,19 @@ namespace Scenario_SmartHomeSystem.Agents
                 case "Heat":
                     //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
                     SendMessage(typeof(Heater), "Heat");
+                    Simulation.room.temperature += 0.05;
                     break;
                 case "Cool":
                     SendMessage(typeof(Cooler), "Cool");
+                    Simulation.room.temperature -= 0.05;
                     break;
                 case "DrawInMoist":
                     SendMessage(typeof(Dehumidifier), "DrawInMoist");
+                    Simulation.room.humidity -= 0.05;
                     break;
                 case "ReleaseMoist":
                     SendMessage(typeof(Hygrometer), "ReleaseMoist");
+                    Simulation.room.humidity += 0.05;
                     break;
                 default:
                     break;

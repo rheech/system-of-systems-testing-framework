@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_SmartHomeSystem.Abstract;
 
 namespace Scenario_SmartHomeSystem.Agents
 {
-    public class Heater : Agent
+    public class Heater : SmartHome_Agent
     {
-        public Heater()
+        public Heater(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 

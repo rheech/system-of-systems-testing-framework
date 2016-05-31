@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_SmartHomeSystem.Abstract;
 
 namespace Scenario_SmartHomeSystem.Agents
 {
-    class Thermometer : Agent
+    class Thermometer : SmartHome_Agent
     {
-        public Thermometer()
+        public Thermometer(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 
@@ -16,6 +17,9 @@ namespace Scenario_SmartHomeSystem.Agents
         {
             switch (msgType)
             {
+                case "CheckTemp":
+                    SendMessage(typeof(ControlCenter), "CurrentTemperature", Simulation.room.temperature);
+                    break;
                 default:
                     break;
             }

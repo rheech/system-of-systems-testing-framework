@@ -47,7 +47,7 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>..\bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -73,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\SmartHome_Agent.cs" />
+    <Compile Include="Abstract\SmartHome_Object.cs" />
     <Compile Include="Agents\ControlCenter.cs" />
     <Compile Include="Agents\Cooler.cs" />
     <Compile Include="Agents\Dehumidifier.cs" />

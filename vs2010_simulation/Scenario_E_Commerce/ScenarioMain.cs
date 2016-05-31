@@ -16,12 +16,9 @@ namespace Scenario_E_Commerce
         {
         }
 
-        public override object EnvironmentObject
+        public override string GetMonitoringText()
         {
-            get
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
     }
 }

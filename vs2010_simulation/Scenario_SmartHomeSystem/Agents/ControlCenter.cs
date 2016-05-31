@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_SmartHomeSystem.Abstract;
 
 namespace Scenario_SmartHomeSystem.Agents
 {
-    public class ControlCenter : Agent
+    public class ControlCenter : SmartHome_Agent
     {
-        public ControlCenter()
+        private double goalTemp, goalHumid;
+
+        public ControlCenter(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 
@@ -34,9 +37,22 @@ namespace Scenario_SmartHomeSystem.Agents
             }
         }
 
+        public void CheckTemperature()
+        {
+            SendMessage(typeof(Thermometer), "CheckTemp");
+        }
+
+        public void CheckHumidity()
+        {
+            SendMessage(typeof(Hygrometer), "CheckHumid");
+        }
+
         protected override void OnTick()
         {
             base.OnTick();
+
+            CheckTemperature();
+            //CheckHumidity();
         }
     }
 }

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_SmartHomeSystem.Abstract;
 
 namespace Scenario_SmartHomeSystem.Agents
 {
-    class Hygrometer : Agent
+    class Hygrometer : SmartHome_Agent
     {
-        public Hygrometer()
+        public Hygrometer(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 
@@ -16,6 +17,9 @@ namespace Scenario_SmartHomeSystem.Agents
         {
             switch (msgType)
             {
+                case "CheckHumid":
+                    SendMessage(typeof(ControlCenter), "CurrentHumidity", Simulation.room.humidity);
+                    break;
                 default:
                     break;
             }
