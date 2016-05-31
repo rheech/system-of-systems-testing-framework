@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Objects;
+using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Objects
 {
@@ -14,12 +14,12 @@ namespace Scenario_MCI.Objects
         Dead
     }
 
-    public class Patient : SoS_Object
+    public class Patient : MCI_Object
     {
         private int _delayed;
         private PATIENT_STATUS _patientStatus;
 
-        public Patient()
+        public Patient(ScenarioMain simulator) : base(simulator)
         {
             _delayed = 0;
         }

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
+using Scenario_MCI;
 using Scenario_MCI.Objects;
+using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Agents
 {
-    public class Hospital : Agent
+    public class Hospital : MCI_Agent
     {
         private int numOfAvailableBeds;
         private List<Patient> _patients;
 
-        public Hospital(int AvailableBeds)
+        public Hospital(ScenarioMain simulator, int AvailableBeds) : base(simulator)
         {
             numOfAvailableBeds = AvailableBeds;
             _patients = new List<Patient>();

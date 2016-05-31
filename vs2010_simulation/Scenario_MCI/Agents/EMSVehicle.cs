@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
 using Scenario_MCI.Objects;
+using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Agents
 {
-    public class EMSVehicle : Agent
+    public class EMSVehicle : MCI_Agent
     {
         Patient[] patients;
         int numOfAvailableBeds;
 
-        public EMSVehicle()
+        public EMSVehicle(ScenarioMain simulator) : base(simulator)
         {
         }
 

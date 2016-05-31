@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Agents;
+using Scenario_MCI.Abstract;
 using Scenario_MCI.Objects;
 
 namespace Scenario_MCI.Agents
 {
-    public class Ambulance : Agent, IPosition
+    public class Ambulance : MCI_Agent, IPosition
     {
         private enum VEHICLE_STATUS
         {
@@ -20,7 +20,7 @@ namespace Scenario_MCI.Agents
         Patient _currentPatient;
         int _currentPosition, _destination;
 
-        public Ambulance(int x)
+        public Ambulance(ScenarioMain simulator, int x) : base(simulator)
         {
             _currentPosition = x;
             _vehicleStatus = VEHICLE_STATUS.PARKED;
@@ -35,7 +35,7 @@ namespace Scenario_MCI.Agents
         {
             Patient rtnPatient;
             rtnPatient = _currentPatient;
-
+            
             _currentPatient = null;
 
             return rtnPatient;
@@ -47,6 +47,7 @@ namespace Scenario_MCI.Agents
             {
                 case "RequestAmbulance":
                     SendMessage(typeof(EMSVehicle), "TransportComplete");
+                    Console.WriteLine(Simulation.disaster);
                     break;
                 default:
                     break;

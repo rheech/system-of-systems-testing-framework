@@ -21,7 +21,7 @@ namespace SoS_Simulator.Agents
         private Queue<AgentMessage> _messageQueue;
         Random r;
 
-        public Agent()
+        public Agent(Simulator simulator) : base(simulator)
         {
             r = new Random();
             _messageQueue = new Queue<AgentMessage>();

@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
 using Scenario_MCI.Objects;
+using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Agents
 {
-    public class EmergencyCallCenter : Agent
+    public class EmergencyCallCenter : MCI_Agent
     {
         private int _reportedNumOfPatients;
         private int _savedPatients;
         private Disaster _disaster;
 
-        public EmergencyCallCenter()
+        public EmergencyCallCenter(ScenarioMain simulator) : base(simulator)
         {
         }
 

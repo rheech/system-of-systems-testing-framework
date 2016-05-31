@@ -30,7 +30,7 @@ namespace SoS_Simulator
             SoS_Object.ResetEventHandler();
 
             // simulation input
-            _monitorAgent = new MonitorAgent();
+            _monitorAgent = new MonitorAgent(this);
             _monitorAgent.OnTextUpdate += MonitorAgent_OnTextUpdate;
             _monitorAgent.OnSimulationFinished += MonitorAgent_OnSimulationFinished;
 
@@ -54,11 +54,6 @@ namespace SoS_Simulator
         public MessageUnit[] GetSimulationMessages()
         {
             return _monitorAgent.GetSimulationLog();
-        }
-
-        public abstract object EnvironmentObject
-        {
-            get;
         }
 
         private void MonitorAgent_OnTextUpdate(string text)

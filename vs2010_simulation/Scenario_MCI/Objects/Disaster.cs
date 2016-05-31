@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SoS_Simulator.Objects;
+using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Objects
 {
-    public class Disaster : SoS_Object, IPosition
+    public class Disaster : MCI_Object, IPosition
     {
         int _x;
 
-        public Disaster(int x)
+        public Disaster(ScenarioMain simulator, int x) : base(simulator)
         {
             _x = x;
         }

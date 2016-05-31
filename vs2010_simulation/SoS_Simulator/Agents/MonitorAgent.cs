@@ -26,7 +26,7 @@ namespace SoS_Simulator.Agents
         public event SimulationFinished OnSimulationFinished;
         private List<MessageUnit> _simLog;
 
-        public MonitorAgent()
+        public MonitorAgent(Simulator simulator) : base(simulator)
         {
             _simLog = new List<MessageUnit>();
         }
