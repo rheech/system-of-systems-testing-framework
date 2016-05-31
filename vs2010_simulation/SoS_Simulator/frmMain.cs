@@ -70,6 +70,8 @@ namespace SoS_Simulator
 
             // Update goal listview (test pass/fail)
             UpdateGoalList(); // Test Oracle
+
+            lblStatus.Text = String.Format("Simulation Output\r\n\r\n{0}", s.GetMonitoringText());
         }
 
         private void tbChangeSpeed_Scroll(object sender, EventArgs e)

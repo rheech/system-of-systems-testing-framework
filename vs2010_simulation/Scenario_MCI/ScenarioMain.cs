@@ -44,5 +44,20 @@ namespace Scenario_MCI
         {
             _callCenter.ReportDisaster(disaster);
         }
+
+        public override string GetMonitoringText()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat("Patients: \r\n");
+            sb.AppendFormat("Minor: \r\n");
+            sb.AppendFormat("Immediate: \r\n");
+            sb.AppendFormat("Delayed: \r\n");
+            sb.Append("\r\n");
+            sb.AppendFormat("Saved: \r\n");
+            sb.AppendFormat("Dead: \r\n");
+
+            return sb.ToString();
+        }
     }
 }

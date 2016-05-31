@@ -46,6 +46,8 @@ namespace SoS_Simulator
 
         protected abstract void Run();
 
+        public abstract string GetMonitoringText();
+
         public void Tick()
         {
             SoS_Object.RaiseTick();
