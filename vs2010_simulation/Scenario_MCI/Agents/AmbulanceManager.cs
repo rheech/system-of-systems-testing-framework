@@ -21,7 +21,7 @@ namespace Scenario_MCI.Agents
         {
             switch (msgType)
             {
-                case "DispatchCommand":
+                case "DispatchAmbulanceManager":
                     isDispatched = true;
                     // Request ambulance to standby in the staging area
                     SendMessage(typeof(Ambulance), "RequestStandBy");

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SoS>
+  <Module type="Utility" path=".\Utility_MCI.dll" />
+  <TaskModel type="Task">
+    <node name="MCI_Response" type="goal">
+      <node name="Communicate" type="goal" operator="enable">
+        <node name="DeclareMCI" type="interaction" />
+      </node>
+      <node name="SavePatient" type="goal">
+        <node name="Triage" type="goal" operator="enable">
+          <node name="AssignTriagePosition" type="interaction" operator="enable" />
+          <node name="ProvidePatientCount" type="interaction" />
+        </node>
+        <node name="Treatment" type="goal" operator="enable">
+          <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
+          <node name="MedComm" type="goal">
+            <node name="CoordinateTransport" type="interaction" operator="enable" />
+            <node name="ProvideAmbulanceDestination" type="interaction" operator="choice" />
+            <node name="CheckBedAvailability" type="interaction" operator="enable" />
+            <node name="ProvideBedAvailability" type="interaction" />
+          </node>
+        </node>
+        <node name="Transportation" type="goal">
+          <node name="AssignTransportationPosition" type="interaction" operator="enable" />
+          <node name="RequestAmbulance" type="interaction" operator="enable" />
+          <node name="TransportComplete" type="interaction" />
+        </node>
+      </node>
+    </node>
+  </TaskModel>
+  <RoleModel type="Role">
+    <Role name="BaseEmergencyCallCenter"></Role>
+    <Role name="IncidentCommander">
+      <attribute type="executes" name="EstablishCommand" />
+      <attribute type="executes" name="AssignICSPositions" />
+      <attribute type="executes" name="IssuePositionToolkits" />
+      <arrow name="DeclareMCI" to="BaseEmergencyCallCenter" />
+      <arrow name="AssignTriagePosition" to="TriageUnitLeader" />
+      <arrow name="AssignTreatmentPosition" to="TreatmentUnitLeader" />
+      <arrow name="AssignTransportationPosition" to="TransportationUnitLeader" />
+    </Role>
+    <Role name="TriageUnitLeader">
+      <attribute type="executes" name="RunTriage" />
+      <attribute type="executes" name="ObtainPatientCount" />
+      <attribute type="executes" name="ReassignTriageTeams" />
+      <attribute type="executes" name="EstablishMorgue" />
+      <arrow name="ProvidePatientCount" to="IncidentCommander" />
+    </Role>
+    <Role name="TreatmentUnitLeader">
+      <attribute type="executes" name="EstablishTreatmentAreas" />
+      <attribute type="executes" name="PrioritizePatients" />
+      <arrow name="ProvidePatientTransportStatus" to="TransportationUnitLeader" />
+      <arrow name="CoordinateTransport" to="MedComm" />
+    </Role>
+    <Role name="MedComm">
+      <attribute type="executes" name="UpdateBedAvailability" />
+      <arrow name="ProvideAmbulanceDestination" to="TransportationUnitLeader" />
+      <arrow name="CheckBedAvailability" to="BaseHospital" />
+    </Role>
+    <Role name="TransportationUnitLeader">
+      <attribute type="executes" name="ManageAmbulanceLoading" />
+      <attribute type="executes" name="ManagePatientTracking" />
+      <arrow name="RequestAmbulance" to="AmbulanceCoordinator" />
+    </Role>
+    <Role name="AmbulanceCoordinator">
+      <attribute type="executes" name="SetAmbulanceStagingArea" />
+      <attribute type="executes" name="AssureRoute" />
+      <attribute type="executes" name="TrackAmbulances" />
+      <arrow name="TransportComplete" to="TransportationUnitLeader" />
+    </Role>
+    <Role name="BaseHospital">
+      <attribute type="executes" name="UpdateBedAvailability" />
+      <arrow name="ProvideBedAvailability" to="MedComm" />
+    </Role>
+  </RoleModel>
+  <AgentModel type="Agent">
+    <Agent name="RescueVehicle">
+      <Role name="IncidentCommander" />
+      <Role name="TriageUnitLeader" />
+    </Agent>
+    <Agent name="EMSVehicle">
+      <Role name="TreatmentUnitLeader" />
+      <Role name="TransportationUnitLeader" />
+      <Role name="MedComm" />
+    </Agent>
+    <Agent name="EmergencyCallCenter">
+      <Role name="BaseEmergencyCallCenter" />
+    </Agent>
+    <Agent name="Ambulance">
+      <Role name="AmbulanceCoordinator" />
+    </Agent>
+    <Agent name="Hospital">
+      <Role name="BaseHospital" />
+    </Agent>
+  </AgentModel>
+</SoS>

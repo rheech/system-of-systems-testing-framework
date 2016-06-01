@@ -22,7 +22,7 @@ namespace Scenario_MCI.Agents
         {
             switch (msgType)
             {
-                case "DispatchCommand":
+                case "DispatchRescueVehicle":
                     // Declare Level 1 MCI after the investigation
                     isDispatched = true;
                     SendMessage(typeof(EmergencyCallCenter), "DeclareMCI");

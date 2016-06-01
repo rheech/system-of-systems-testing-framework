@@ -23,12 +23,12 @@ namespace Scenario_MCI.Agents
             {
                 case "DisasterReport":
                     // Send RescueVehicle to the MCI Area
-                    SendMessage(typeof(RescueVehicle), "DispatchCommand");
+                    SendMessage(typeof(RescueVehicle), "DispatchRescueVehicle");
                     break;
                 case "DeclareMCI":
                     // After Level 1 MCI declaration, dispatch other managers for support
-                    SendMessage(typeof(EMS_Manager), "DispatchCommand");
-                    SendMessage(typeof(AmbulanceManager), "DispatchCommand");
+                    SendMessage(typeof(EMS_Manager), "DispatchEMS_Manager");
+                    SendMessage(typeof(AmbulanceManager), "DispatchAmbulanceManager");
                     break;
                 default:
                     break;

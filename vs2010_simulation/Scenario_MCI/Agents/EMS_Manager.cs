@@ -22,7 +22,7 @@ namespace Scenario_MCI.Agents
         {
             switch (msgType)
             {
-                case "DispatchCommand":
+                case "DispatchEMS_Manager":
                     isDispatched = true;
                     break;
                 case "RequestPatientTreatment":

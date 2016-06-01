@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Diagram type="Agent">
+  <Agent name="RescueVehicle">
+    <Role name="IncidentCommander" />
+    <Role name="TriageUnitLeader" />
+  </Agent>
+  <Agent name="EMSVehicle">
+    <Role name="TreatmentUnitLeader" />
+    <Role name="TransportationUnitLeader" />
+    <Role name="MedComm" />
+  </Agent>
+  <Agent name="EmergencyCallCenter">
+    <Role name="BaseEmergencyCallCenter" />
+  </Agent>
+  <Agent name="Ambulance">
+    <Role name="AmbulanceCoordinator" />
+  </Agent>
+  <Agent name="Hospital">
+    <Role name="BaseHospital" />
+  </Agent>
+</Diagram>
