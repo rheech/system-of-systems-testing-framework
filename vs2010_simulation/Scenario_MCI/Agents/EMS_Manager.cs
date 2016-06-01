@@ -8,12 +8,12 @@ using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Agents
 {
-    public class EMSVehicle : MCI_Agent
+    public class EMS_Manager : MCI_Agent
     {
         Patient[] patients;
         int numOfAvailableBeds;
 
-        public EMSVehicle(ScenarioMain simulator) : base(simulator)
+        public EMS_Manager(ScenarioMain simulator) : base(simulator)
         {
         }
 
@@ -28,7 +28,7 @@ namespace Scenario_MCI.Agents
 
                     break;*/
                 case "AssignTransportationPosition":
-                    SendMessage(typeof(EMSVehicle), "CoordinateTransport");
+                    SendMessage(typeof(EMS_Manager), "CoordinateTransport");
                     break;
                 case "CoordinateTransport":
                     SendMessage(typeof(Hospital), "CheckBedAvailability");
@@ -40,12 +40,12 @@ namespace Scenario_MCI.Agents
                     if (numOfAvailableBeds > 0)
                     {
                         // Provide ambulance destination with patient info
-                        SendMessage(typeof(EMSVehicle), "ProvideAmbulanceDestination");
+                        SendMessage(typeof(EMS_Manager), "ProvideAmbulanceDestination");
                     }
 
                     break;
                 case "ProvideAmbulanceDestination":
-                    SendMessage(typeof(Ambulance), "RequestAmbulance");
+                    SendMessage(typeof(AmbulanceManager), "RequestAmbulance");
                     break;
                 case "TransportComplete":
                     SendMessage(typeof(Agent), "SIMULATION_COMPLETE");

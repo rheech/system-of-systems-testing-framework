@@ -6,25 +6,10 @@ using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Objects
 {
-    public class Disaster : MCI_Object, IPosition
+    public class Disaster : MCI_Object
     {
-        int _x;
-
-        public Disaster(ScenarioMain simulator, int x) : base(simulator)
+        public Disaster(ScenarioMain simulator) : base(simulator)
         {
-            _x = x;
-        }
-
-        public int X
-        {
-            get
-            {
-                return _x;
-            }
-            set
-            {
-                _x = value;
-            }
         }
     }
 }

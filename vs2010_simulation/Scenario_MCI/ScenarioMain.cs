@@ -17,10 +17,10 @@ namespace Scenario_MCI
         public static List<Patient> savedPatients;
 
         // other agents
-        Ambulance _ambulance;
+        AmbulanceManager _ambulance;
         Hospital _hospital;
         EmergencyCallCenter _callCenter;
-        EMSVehicle _emsVehicle;
+        EMS_Manager _emsVehicle;
         RescueVehicle _rescueVehicle;
 
         // environment
@@ -30,10 +30,10 @@ namespace Scenario_MCI
         protected override void Initialize()
         {
             _hospital = new Hospital(this, 15);
-            _ambulance = new Ambulance(this, 15);
+            _ambulance = new AmbulanceManager(this);
             _callCenter = new EmergencyCallCenter(this);
-            disaster = new Disaster(this, 5);
-            _emsVehicle = new EMSVehicle(this);
+            disaster = new Disaster(this);
+            _emsVehicle = new EMS_Manager(this);
             _rescueVehicle = new RescueVehicle(this);
 
             //SetPatients(10);

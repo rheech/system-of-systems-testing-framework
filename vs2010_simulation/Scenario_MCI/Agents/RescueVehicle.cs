@@ -21,9 +21,10 @@ namespace Scenario_MCI.Agents
                 case "DispatchCommand":
                     SendMessage(typeof(EmergencyCallCenter), "DeclareMCI");
                     
+
                     SendMessage(typeof(RescueVehicle), "AssignTriagePosition");
-                    SendMessage(typeof(EMSVehicle), "AssignTreatmentPosition");
-                    SendMessage(typeof(EMSVehicle), "AssignTransportationPosition");
+                    SendMessage(typeof(EMS_Manager), "AssignTreatmentPosition");
+                    SendMessage(typeof(EMS_Manager), "AssignTransportationPosition");
                     break;
                 case "AssignTriagePosition":
                     SendMessage(typeof(RescueVehicle), "ProvidePatientCount");
@@ -31,6 +32,11 @@ namespace Scenario_MCI.Agents
                 default:
                     break;
             }
+        }
+
+        private void StartTriage()
+        {
+
         }
 
         protected override void OnTick()

@@ -25,13 +25,13 @@ namespace Scenario_MCI.Agents
             switch (msgType)
             {
                 case "CheckBedAvailability":
-                    SendMessage(typeof(EMSVehicle), "ProvideBedAvailability", numOfAvailableBeds);
+                    SendMessage(typeof(EMS_Manager), "ProvideBedAvailability", numOfAvailableBeds);
                     break;
                 case "PATIENT_ARRIVAL":
                     SendMessage(typeof(EmergencyCallCenter), "CHECK_MORE_PATIENTS");
                     break;
                 case "FIND_HOSPITAL":
-                    SendMessage(typeof(Ambulance), "HOSPITAL_LOCATION");
+                    SendMessage(typeof(AmbulanceManager), "HOSPITAL_LOCATION");
                     break;
                 default:
                     break;

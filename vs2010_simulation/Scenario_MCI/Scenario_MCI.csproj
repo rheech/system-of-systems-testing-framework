@@ -76,13 +76,13 @@
     <Compile Include="Abstract\MCI_Agent.cs" />
     <Compile Include="Abstract\MCI_Object.cs" />
     <Compile Include="Agents\Ambulance.cs" />
+    <Compile Include="Agents\AmbulanceManager.cs" />
     <Compile Include="Agents\EmergencyCallCenter.cs" />
-    <Compile Include="Agents\EMSVehicle.cs" />
+    <Compile Include="Agents\EMS_Manager.cs" />
     <Compile Include="Agents\Hospital.cs" />
     <Compile Include="Agents\RescueVehicle.cs" />
     <Compile Include="ScenarioMain.cs" />
     <Compile Include="Objects\Disaster.cs" />
-    <Compile Include="Objects\IPosition.cs" />
     <Compile Include="Objects\Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
