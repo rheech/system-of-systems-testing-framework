@@ -260,6 +260,7 @@ namespace SoS_Simulator
         {
             string[] goalList;
             string utilFile;
+            ListViewItem item;
 
             try
             {
@@ -408,6 +409,8 @@ namespace SoS_Simulator
             foreach (string ss in goalList)
             {
                 item = new ListViewItem(ss);
+                item.UseItemStyleForSubItems = false;
+                item.SubItems.Add("");
                 item.SubItems.Add("");
 
                 lstViewGoal.Items.Add(item);
@@ -422,19 +425,36 @@ namespace SoS_Simulator
 
             //Console.WriteLine(_toGenerator.CompareOutput("Transportation", unit, 0));
 
-            /*foreach (ListViewItem item in lstViewGoal.Items)
+            foreach (ListViewItem item in lstViewGoal.Items)
             {
+                //item.UseItemStyleForSubItems = false;
+
                 if (_toGenerator.CompareOutput(item.Text, msgUnit))
                 {
                     item.SubItems[1].Text = "Pass";
-                    item.ForeColor = Color.Green;
+                    item.SubItems[1].ForeColor = Color.Green;
                 }
                 else
                 {
                     item.SubItems[1].Text = "Fail";
-                    item.ForeColor = Color.Red;
+                    item.SubItems[1].ForeColor = Color.Red;
                 }
-            }*/
+
+                // Check pass/fail using utility function
+                if (_util != null)
+                {
+                    if (_util.CheckGoalAccomplishment(item.Text))
+                    {
+                        item.SubItems[2].Text = "Pass";
+                        item.SubItems[2].ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        item.SubItems[2].Text = "Fail";
+                        item.SubItems[2].ForeColor = Color.Red;
+                    }
+                }
+            }
         }
         #endregion
     }

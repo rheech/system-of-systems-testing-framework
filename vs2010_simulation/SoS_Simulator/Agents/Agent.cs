@@ -19,7 +19,7 @@ namespace SoS_Simulator.Agents
         private delegate void MessageEventHandler(object from, Type target, string msgType, params object[] info);
         private static event MessageEventHandler MessageReceived;
         private Queue<AgentMessage> _messageQueue;
-        Random r;
+        private Random r;
 
         public Agent(Simulator simulator) : base(simulator)
         {
@@ -32,7 +32,6 @@ namespace SoS_Simulator.Agents
         {
             Agent.MessageReceived -= this.OnMessageReceivedInternal;
         }
-
 
         public static new void ResetEventHandler()
         {

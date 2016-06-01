@@ -25,6 +25,8 @@ namespace SoS_Simulator.Agents
         public delegate void SimulationFinished();
         public event SimulationFinished OnSimulationFinished;
         private List<MessageUnit> _simLog;
+        private int _lastSimLogCount;
+        private int _noMessageTick;
 
         public MonitorAgent(Simulator simulator) : base(simulator)
         {
@@ -73,7 +75,32 @@ namespace SoS_Simulator.Agents
 
         protected override void OnTick()
         {
-            
+            int simLogCount;
+
+            simLogCount = 0;
+
+            // prevent null exception
+            if (_simLog != null)
+            {
+                simLogCount = _simLog.Count;
+            }
+
+            // count if there is no message
+            if (_lastSimLogCount == _simLog.Count)
+            {
+                _noMessageTick++;
+            }
+            else
+            {
+                _lastSimLogCount = simLogCount;
+                _noMessageTick = 0;
+            }
+
+            // if no message for 5 times, finish simulation
+            if (_noMessageTick > 4)
+            {
+                Simulation<Simulator>().Finish();
+            }
         }
     }
 }

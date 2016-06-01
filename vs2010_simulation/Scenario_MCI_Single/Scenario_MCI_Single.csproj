@@ -98,7 +98,9 @@
     <Content Include="Resources\03_agent.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resources\Scenario_MCI_Single.xml" />
+    <Content Include="Resources\Scenario_MCI_Single.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

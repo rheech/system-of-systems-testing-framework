@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SoS>
-  <Module type="Utility" path=".\Utility_MCI.dll" />
   <TaskModel type="Task">
     <node name="MCI_Response" type="goal">
       <node name="Communicate" type="goal" operator="enable">

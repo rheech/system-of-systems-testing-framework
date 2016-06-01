@@ -99,6 +99,7 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lstGoalsResult = new System.Windows.Forms.ListBox();
             this.txtGoalOutput = new System.Windows.Forms.TextBox();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -660,7 +661,8 @@
             // 
             this.lstViewGoal.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader3});
             this.lstViewGoal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstViewGoal.Location = new System.Drawing.Point(3, 16);
             this.lstViewGoal.Name = "lstViewGoal";
@@ -763,6 +765,11 @@
             this.txtGoalOutput.Size = new System.Drawing.Size(448, 306);
             this.txtGoalOutput.TabIndex = 16;
             this.txtGoalOutput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_PreviewKeyDown);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Utility Function";
+            this.columnHeader3.Width = 109;
             // 
             // frmMain
             // 
@@ -885,6 +892,7 @@
         private System.Windows.Forms.Button btnOracleBrowse;
         private System.Windows.Forms.TextBox txtOraclePath;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 

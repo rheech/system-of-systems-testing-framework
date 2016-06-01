@@ -24,7 +24,14 @@ namespace SoS_Simulator.Objects
 
         public T Simulation<T>()
         {
-            if (_simulator.GetType() == typeof(T))
+            object temp;
+
+            if (typeof(Simulator) == typeof(T))
+            {
+                temp = _simulator;
+                return (T)temp;
+            }
+            else if(_simulator.GetType() == typeof(T))
             {
                 return (T)Convert.ChangeType(_simulator, typeof(T));
             }
