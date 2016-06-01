@@ -33,6 +33,7 @@ namespace Scenario_MCI.Agents
                     break;
                 case "TransportComplete":
                     SendMessage(typeof(EmergencyCallCenter), "EquipmentReleaseComplete"); // terminal state
+                    //Simulation.Finish();
                     break;
                 default:
                     break;

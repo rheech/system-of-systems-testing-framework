@@ -43,6 +43,8 @@ namespace Scenario_MCI
             patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
             patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
             patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
+            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
+            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
         }
 
         protected override void Run()
@@ -54,7 +56,7 @@ namespace Scenario_MCI
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat("Patients: \r\n");
+            sb.AppendFormat("Patients: {0}\r\n", patients.Count);
             sb.AppendFormat("Minor: \r\n");
             sb.AppendFormat("Immediate: \r\n");
             sb.AppendFormat("Delayed: \r\n");

@@ -413,7 +413,7 @@ namespace SoS_Simulator
 
             //Console.WriteLine(_toGenerator.CompareOutput("Transportation", unit, 0));
 
-            foreach (ListViewItem item in lstViewGoal.Items)
+            /*foreach (ListViewItem item in lstViewGoal.Items)
             {
                 if (_toGenerator.CompareOutput(item.Text, msgUnit))
                 {
@@ -425,7 +425,7 @@ namespace SoS_Simulator
                     item.SubItems[1].Text = "Fail";
                     item.ForeColor = Color.Red;
                 }
-            }
+            }*/
         }
         #endregion
     }

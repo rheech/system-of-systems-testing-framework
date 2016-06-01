@@ -46,6 +46,14 @@ namespace SoS_Simulator
 
         protected abstract void Run();
 
+        public void Finish()
+        {
+            if (OnSimulationComplete != null)
+            {
+                OnSimulationComplete();
+            }
+        }
+
         public abstract string GetMonitoringText();
 
         public void Tick()
