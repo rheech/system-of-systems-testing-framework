@@ -13,6 +13,7 @@ using System.Reflection;
 using System.IO;
 using TestOracleGenerator.Oracle;
 using BugTracker;
+using SoS_Simulator.UtilityFunc;
 
 namespace SoS_Simulator
 {
@@ -33,6 +34,7 @@ namespace SoS_Simulator
         Simulator s;
         SIMULATION_STATUS _simulationStatus;
         FileInfo _fSimulator, _fOracle;
+        UtilityFuncLib _util;
 
         public frmMain()
         {
@@ -40,6 +42,7 @@ namespace SoS_Simulator
 
             lstViewGoal.FullRowSelect = true;
             _simulationStatus = SIMULATION_STATUS.NOT_READY;
+            _util = null;
         }
 
         #region Event Handlers
@@ -60,7 +63,6 @@ namespace SoS_Simulator
                 oracle = _toGenerator.GenTestOracle(lstGoalsResult.SelectedItem.ToString());
 
                 txtGoalOutput.Text = oracle.ToString();
-
             }
         }
 
@@ -256,8 +258,8 @@ namespace SoS_Simulator
 
         private bool LoadTestOracle(FileInfo oracleFile)
         {
-            //string[] goalList = { "Communicate", "Triage", "Treatment", "MedComm", "Transportation" };
             string[] goalList;
+            string utilFile;
 
             try
             {
@@ -276,6 +278,13 @@ namespace SoS_Simulator
                 _fOracle = oracleFile;
                 txtOraclePath.Text = _fOracle.FullName;
                 SetupGoalList(goalList);
+
+                utilFile = UtilityFunc.UtilityFuncLib.GetUtilityFuncLibrary(oracleFile.FullName);
+
+                if (utilFile != null)
+                {
+                    _util = UtilityFunc.UtilityFuncLib.LoadUtilityFuncLib(utilFile, s);
+                }
 
                 return true;
             }
