@@ -19,8 +19,9 @@ namespace Scenario_MCI.Objects
         private int _delayed;
         private PATIENT_STATUS _patientStatus;
 
-        public Patient(ScenarioMain simulator) : base(simulator)
+        public Patient(ScenarioMain simulator, PATIENT_STATUS status) : base(simulator)
         {
+            _patientStatus = status;
             _delayed = 0;
         }
 

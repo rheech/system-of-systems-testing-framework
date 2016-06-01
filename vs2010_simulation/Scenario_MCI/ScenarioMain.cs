@@ -13,11 +13,11 @@ namespace Scenario_MCI
     public class ScenarioMain : Simulator
     {
         //public static TesterAgent.TestMonitor t = new TesterAgent.TestMonitor();
-        public static Queue<Patient> patients;
-        public static List<Patient> savedPatients;
+        public List<Patient> patients;
 
         // other agents
-        AmbulanceManager _ambulance;
+        AmbulanceManager _ambulanceManager;
+        Ambulance _ambulance;
         Hospital _hospital;
         EmergencyCallCenter _callCenter;
         EMS_Manager _emsVehicle;
@@ -30,14 +30,19 @@ namespace Scenario_MCI
         protected override void Initialize()
         {
             _hospital = new Hospital(this, 15);
-            _ambulance = new AmbulanceManager(this);
+            _ambulanceManager = new AmbulanceManager(this);
+            _ambulance = new Ambulance(this);
             _callCenter = new EmergencyCallCenter(this);
             disaster = new Disaster(this);
             _emsVehicle = new EMS_Manager(this);
             _rescueVehicle = new RescueVehicle(this);
 
             //SetPatients(10);
-            savedPatients = new List<Patient>();
+            patients = new List<Patient>();
+
+            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
+            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
+            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
         }
 
         protected override void Run()

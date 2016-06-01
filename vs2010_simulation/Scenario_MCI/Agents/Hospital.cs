@@ -11,12 +11,13 @@ namespace Scenario_MCI.Agents
 {
     public class Hospital : MCI_Agent
     {
-        private int numOfAvailableBeds;
+        private int bedAvailability;
         private List<Patient> _patients;
 
-        public Hospital(ScenarioMain simulator, int AvailableBeds) : base(simulator)
+        public Hospital(ScenarioMain simulator, int AvailableBeds)
+            : base(simulator)
         {
-            numOfAvailableBeds = AvailableBeds;
+            bedAvailability = AvailableBeds;
             _patients = new List<Patient>();
         }
 
@@ -24,14 +25,13 @@ namespace Scenario_MCI.Agents
         {
             switch (msgType)
             {
-                case "CheckBedAvailability":
-                    SendMessage(typeof(EMS_Manager), "ProvideBedAvailability", numOfAvailableBeds);
+                case "RequestBedAvailability":
+                    SendMessage(typeof(EMS_Manager), "ProvideBedAvailability", bedAvailability);
                     break;
-                case "PATIENT_ARRIVAL":
-                    SendMessage(typeof(EmergencyCallCenter), "CHECK_MORE_PATIENTS");
-                    break;
-                case "FIND_HOSPITAL":
-                    SendMessage(typeof(AmbulanceManager), "HOSPITAL_LOCATION");
+                case "DispatchPatient":
+                    Patient p = (Patient)info[0];
+                    _patients.Add(p);
+                    bedAvailability--;
                     break;
                 default:
                     break;

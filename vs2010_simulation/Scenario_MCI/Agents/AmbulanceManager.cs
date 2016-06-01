@@ -9,34 +9,26 @@ namespace Scenario_MCI.Agents
 {
     public class AmbulanceManager : MCI_Agent
     {
-        Patient _currentPatient;
+        bool isDispatched;
 
-        public AmbulanceManager(ScenarioMain simulator) : base(simulator)
+        public AmbulanceManager(ScenarioMain simulator)
+            : base(simulator)
         {
-        }
-
-        public void PickupPatient(Patient pt)
-        {
-            _currentPatient = pt;
-        }
-
-        public Patient ReleasePatient(Patient pt)
-        {
-            Patient rtnPatient;
-            rtnPatient = _currentPatient;
-            
-            _currentPatient = null;
-
-            return rtnPatient;
+            isDispatched = false;
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
         {
             switch (msgType)
             {
+                case "DispatchCommand":
+                    isDispatched = true;
+                    // Request ambulance to standby in the staging area
+                    SendMessage(typeof(Ambulance), "RequestStandBy");
+                    break;
                 case "RequestAmbulance":
-                    SendMessage(typeof(EMS_Manager), "TransportComplete");
-                    Console.WriteLine(Simulation.disaster);
+                    // Dispatch ambulance to the field
+                    SendMessage(typeof(Ambulance), "DispatchAmbulance");
                     break;
                 default:
                     break;

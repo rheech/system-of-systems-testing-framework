@@ -10,8 +10,12 @@ namespace Scenario_MCI.Agents
 {
     public class RescueVehicle : MCI_Agent
     {
-        public RescueVehicle(ScenarioMain simulator) : base(simulator)
+        bool isDispatched;
+
+        public RescueVehicle(ScenarioMain simulator)
+            : base(simulator)
         {
+            isDispatched = false;
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
@@ -19,24 +23,32 @@ namespace Scenario_MCI.Agents
             switch (msgType)
             {
                 case "DispatchCommand":
+                    // Declare Level 1 MCI after the investigation
+                    isDispatched = true;
                     SendMessage(typeof(EmergencyCallCenter), "DeclareMCI");
-                    
-
-                    SendMessage(typeof(RescueVehicle), "AssignTriagePosition");
-                    SendMessage(typeof(EMS_Manager), "AssignTreatmentPosition");
-                    SendMessage(typeof(EMS_Manager), "AssignTransportationPosition");
+                    this.StartTriage();
                     break;
-                case "AssignTriagePosition":
-                    SendMessage(typeof(RescueVehicle), "ProvidePatientCount");
+                case "TreatmentComplete": // If treatment is complete
+                    SendMessage(typeof(EmergencyCallCenter), "MCIComplete");
+                    break;
+                case "TransportComplete":
+                    SendMessage(typeof(EmergencyCallCenter), "EquipmentReleaseComplete"); // terminal state
                     break;
                 default:
                     break;
             }
         }
 
+        // Perform medical S.T.A.R.T. Triage
         private void StartTriage()
         {
+            // We assume that StartTriage is already done (not implemented)
 
+            // After the triage is complete, report to emergency call center
+            SendMessage(typeof(EmergencyCallCenter), "TriageComplete");
+            
+            // Request EMS_Manager for patient treatment
+            SendMessage(typeof(EMS_Manager), "RequestPatientTreatment");
         }
 
         protected override void OnTick()

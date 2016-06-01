@@ -12,7 +12,8 @@ namespace Scenario_MCI.Agents
     {
         public int numPatients;
 
-        public EmergencyCallCenter(ScenarioMain simulator) : base(simulator)
+        public EmergencyCallCenter(ScenarioMain simulator)
+            : base(simulator)
         {
         }
 
@@ -21,18 +22,13 @@ namespace Scenario_MCI.Agents
             switch (msgType)
             {
                 case "DisasterReport":
-                    //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
+                    // Send RescueVehicle to the MCI Area
                     SendMessage(typeof(RescueVehicle), "DispatchCommand");
                     break;
                 case "DeclareMCI":
+                    // After Level 1 MCI declaration, dispatch other managers for support
                     SendMessage(typeof(EMS_Manager), "DispatchCommand");
                     SendMessage(typeof(AmbulanceManager), "DispatchCommand");
-                    break;
-                case "ReportPatientCount":
-                    numPatients = (int)info[0];
-                    break;
-                case "RESCUE_COMPLETE":
-                    SimulationComplete(false);
                     break;
                 default:
                     break;
@@ -47,7 +43,6 @@ namespace Scenario_MCI.Agents
         // Received disaster report (beginning of MCI)
         public void ReportDisaster(Disaster disaster)
         {
-            _disaster = disaster;
             SendMessage(typeof(EmergencyCallCenter), "DisasterReport");
         }
     }
