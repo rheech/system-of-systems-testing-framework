@@ -19,14 +19,14 @@
             <node name="RequestBedAvailability" type="interaction" operator="enable" />
             <node name="ProvideBedAvailability" type="interaction" />
           </node>
-          <node name="TreatmentComplete" />
+          <node name="TreatmentComplete" type="interaction" />
         </node>
         <node name="Transport" type="goal">
           <node name="RequestAmbulance" type="interaction" operator="enable" />
           <node name="PatientTransfer" type="goal">
-            <node name="FieldArrivalReport" type="interaction" />
-            <node name="DispatchPatient" type="interaction" />
-            <node name="TransferComplete" />
+            <node name="FieldArrivalReport" type="interaction" operator="enable" />
+            <node name="DispatchPatient" type="interaction" operator="enable" />
+            <node name="TransferComplete" type="interaction" operator="enable" />
           </node>
         </node>
       </node>
@@ -47,7 +47,7 @@
     <Role name="TreatmentUnitLeader">
       <attribute type="executes" name="EstablishTreatmentAreas" />
       <attribute type="executes" name="PrioritizePatients" />
-      <arrow name="TreatmentComplete" to="BaseEmergencyCallCenter" />
+      <arrow name="TreatmentComplete" to="IncidentCommander" />
     </Role>
     <Role name="TriageUnitLeader">
       <attribute type="executes" name="RunTriage" />
@@ -74,7 +74,7 @@
       <arrow name="DispatchAmbulance" to="Transporter" />
     </Role>
     <Role name="Transporter">
-      <arrow name="FieldArrivalReport" to="AmbulanceCoordinator" />
+      <arrow name="FieldArrivalReport" to="TransportationUnitLeader" />
       <arrow name="TransferComplete" to="TransportationUnitLeader" />
       <arrow name="DispatchPatient" to="Clinic" />
     </Role>

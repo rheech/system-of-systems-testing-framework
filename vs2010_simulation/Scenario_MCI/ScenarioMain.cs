@@ -14,6 +14,7 @@ namespace Scenario_MCI
     {
         //public static TesterAgent.TestMonitor t = new TesterAgent.TestMonitor();
         public List<Patient> patients;
+        public int immediate, delayed, minor, dead;
 
         // other agents
         AmbulanceManager _ambulanceManager;
@@ -40,11 +41,46 @@ namespace Scenario_MCI
             //SetPatients(10);
             patients = new List<Patient>();
 
-            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
-            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
-            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
-            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
-            patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
+            immediate = 3;
+            delayed = 4;
+            minor = 5;
+            dead = 2;
+
+            for (int i = 0; i < immediate; i++)
+            {
+                patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
+            }
+
+            for (int i = 0; i < delayed; i++)
+            {
+                patients.Add(new Patient(this, PATIENT_STATUS.Delayed));
+            }
+
+            for (int i = 0; i < minor; i++)
+            {
+                patients.Add(new Patient(this, PATIENT_STATUS.Minor));
+            }
+
+            for (int i = 0; i < dead; i++)
+            {
+                patients.Add(new Patient(this, PATIENT_STATUS.Dead));
+            }
+        }
+
+        public int Total
+        {
+            get
+            {
+                return minor + delayed + immediate + dead;
+            }
+        }
+
+        public int transferred
+        {
+            get
+            {
+                return Total - patients.Count;
+            }
         }
 
         protected override void Run()
@@ -56,13 +92,13 @@ namespace Scenario_MCI
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendFormat("Patients: {0}\r\n", patients.Count);
-            sb.AppendFormat("Minor: \r\n");
-            sb.AppendFormat("Immediate: \r\n");
-            sb.AppendFormat("Delayed: \r\n");
+            sb.AppendFormat("Patients: {0}\r\n\r\n", Total);
+            sb.AppendFormat("Minor: {0}\r\n", minor);
+            sb.AppendFormat("Immediate: {0}\r\n", immediate);
+            sb.AppendFormat("Delayed: {0}\r\n", delayed);
+            sb.AppendFormat("Dead: {0}\r\n", dead);
             sb.Append("\r\n");
-            sb.AppendFormat("Saved: \r\n");
-            sb.AppendFormat("Dead: \r\n");
+            sb.AppendFormat("Transferred: {0}\r\n", transferred);
 
             return sb.ToString();
         }

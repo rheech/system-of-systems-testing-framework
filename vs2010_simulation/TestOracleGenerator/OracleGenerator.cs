@@ -168,6 +168,9 @@ namespace TestOracleGenerator
                             case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
                                 comparisonInfo.CurrentIndex = i;
                                 break;
+                            case TASK_OPERATOR.ORDERINDEPENDENCE:
+                                comparisonInfo.CurrentIndex = 0;
+                                break;
                             case TASK_OPERATOR.NONE:
                                 bBreakLoop = true;
                                 break;

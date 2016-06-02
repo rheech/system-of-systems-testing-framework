@@ -71,7 +71,7 @@ namespace SoS_Simulator
             s.Tick();
 
             // Update goal listview (test pass/fail)
-            //UpdateGoalList(); // Test Oracle
+            UpdateGoalList(); // Test Oracle
 
             lblStatus.Text = String.Format("Simulation Output\r\n\r\n{0}", s.GetMonitoringText());
         }
@@ -240,6 +240,8 @@ namespace SoS_Simulator
                         _fSimulator = simulatorFile;
                         EnableSimulator(true);
                         _simulationStatus = SIMULATION_STATUS.READY;
+
+                        lblStatus.Text = String.Format("Simulation Output\r\n\r\n{0}", s.GetMonitoringText());
 
                         return true;
                     }

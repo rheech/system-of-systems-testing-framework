@@ -78,9 +78,9 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnOracleBrowse = new System.Windows.Forms.Button();
             this.contextMenuOracleBrowse = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.oracleClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOracleBrowse = new System.Windows.Forms.Button();
             this.txtOraclePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -544,6 +544,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Simulator";
             // 
+            // btnOracleBrowse
+            // 
+            this.btnOracleBrowse.ContextMenuStrip = this.contextMenuOracleBrowse;
+            this.btnOracleBrowse.Location = new System.Drawing.Point(138, 185);
+            this.btnOracleBrowse.Name = "btnOracleBrowse";
+            this.btnOracleBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnOracleBrowse.TabIndex = 8;
+            this.btnOracleBrowse.Text = "&Browse";
+            this.btnOracleBrowse.UseVisualStyleBackColor = true;
+            this.btnOracleBrowse.Click += new System.EventHandler(this.btnOracleBrowse_Click);
+            this.btnOracleBrowse.Paint += new System.Windows.Forms.PaintEventHandler(this.btnOracleBrowse_Paint);
+            // 
             // contextMenuOracleBrowse
             // 
             this.contextMenuOracleBrowse.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -557,18 +569,6 @@
             this.oracleClear.Size = new System.Drawing.Size(101, 22);
             this.oracleClear.Text = "Clear";
             this.oracleClear.Click += new System.EventHandler(this.oracleClear_Click);
-            // 
-            // btnOracleBrowse
-            // 
-            this.btnOracleBrowse.ContextMenuStrip = this.contextMenuOracleBrowse;
-            this.btnOracleBrowse.Location = new System.Drawing.Point(138, 185);
-            this.btnOracleBrowse.Name = "btnOracleBrowse";
-            this.btnOracleBrowse.Size = new System.Drawing.Size(75, 23);
-            this.btnOracleBrowse.TabIndex = 8;
-            this.btnOracleBrowse.Text = "&Browse";
-            this.btnOracleBrowse.UseVisualStyleBackColor = true;
-            this.btnOracleBrowse.Click += new System.EventHandler(this.btnOracleBrowse_Click);
-            this.btnOracleBrowse.Paint += new System.Windows.Forms.PaintEventHandler(this.btnOracleBrowse_Paint);
             // 
             // txtOraclePath
             // 
@@ -592,10 +592,9 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Location = new System.Drawing.Point(6, 25);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(90, 117);
+            this.lblStatus.Size = new System.Drawing.Size(90, 13);
             this.lblStatus.TabIndex = 6;
-            this.lblStatus.Text = "Simulation Output\r\n\r\nPatients: 10\r\nMinor:\r\nImmediate:\r\nDelayed: \r\n\r\nSaved: \r\nDead" +
-    ": ";
+            this.lblStatus.Text = "Simulation Output";
             // 
             // lblFast
             // 

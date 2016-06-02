@@ -23,6 +23,8 @@ namespace Utility_MCI
         {
             switch (goalName)
             {
+                case "MCI_Response":
+                    return MCI_Response();
                 case "RescuePatient":
                     return RescuePatient();
                 default:
@@ -32,11 +34,16 @@ namespace Utility_MCI
             return false;
         }
 
+        private bool MCI_Response()
+        {
+            return ((Simulation.Total - Simulation.transferred) == 0);
+        }
+
         private bool RescuePatient()
         {
             if (Simulation.patients != null)
             {
-                return (Simulation.patients.Count != 0);
+                return (Simulation.transferred > 0);
             }
 
             return false;
