@@ -34,6 +34,7 @@
   </TaskModel>
   <RoleModel type="Role">
     <Role name="EmergencyCallManager">
+      <attribute type="executes" name="ReportDisaster" />
       <arrow name="DispatchAmbulanceManager" to="AmbulanceCoordinator" />
       <arrow name="DispatchEMS_Manager" to="TreatmentUnitLeader" />
       <arrow name="DispatchRescueVehicle" to="IncidentCommander" />
@@ -74,6 +75,7 @@
       <arrow name="DispatchAmbulance" to="Transporter" />
     </Role>
     <Role name="Transporter">
+      <attribute type="executes" name="TransportPatient" />
       <arrow name="FieldArrivalReport" to="TransportationUnitLeader" />
       <arrow name="TransferComplete" to="TransportationUnitLeader" />
       <arrow name="DispatchPatient" to="Clinic" />
@@ -83,7 +85,7 @@
       <arrow name="RequestBedAvailability" to="Clinic" />
     </Role>
     <Role name="Clinic">
-      <attribute type="executes" name="UpdateBedAvailability" />
+      <attribute type="executes" name="ReceivePatient" />
       <arrow name="ProvideBedAvailability" to="MedComm" />
     </Role>
   </RoleModel>
