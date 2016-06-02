@@ -71,7 +71,7 @@
       <attribute type="executes" name="SetAmbulanceStangingArea" />
       <attribute type="executes" name="AssureRoute" />
       <attribute type="executes" name="TrackAmbulances" />
-      <arrow name="DispatchAmbulance" to="Ambulance" />
+      <arrow name="DispatchAmbulance" to="Transporter" />
     </Role>
     <Role name="Transporter">
       <arrow name="FieldArrivalReport" to="AmbulanceCoordinator" />
