@@ -15,7 +15,7 @@ namespace Utility_MCI
         {
             if (_simulator.GetType() != typeof(ScenarioMain))
             {
-                throw new ApplicationException("The library is not an MCI simulator.");
+                throw new ApplicationException("This library is not an MCI simulator.");
             }
         }
 

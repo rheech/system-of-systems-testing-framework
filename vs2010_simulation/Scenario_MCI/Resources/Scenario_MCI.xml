@@ -3,33 +3,37 @@
   <Module type="Utility" path="..\Utility_MCI.dll" />
   <TaskModel type="Task">
     <node name="MCI_Response" type="goal">
-      <node name="Communicate" type="goal" operator="enable">
-        <node name="DeclareMCI" type="interaction" />
+      <node name="Dispatch" type="goal" operator="orderindependence">
+        <node name="DispatchRescueVehicle" type="interaction" operator="orderindependence" />
+        <node name="DispatchEMS_Manager" type="interaction" operator="orderindependence" />
+        <node name="DispatchAmbulanceManager" type="interaction" operator="orderindependence"></node>
+        <node name="DispatchAmbulance" type="interaction"></node>
       </node>
-      <node name="SavePatient" type="goal">
+      <node name="RescuePatient" type="goal">
         <node name="Triage" type="goal" operator="enable">
-          <node name="AssignTriagePosition" type="interaction" operator="enable" />
-          <node name="ProvidePatientCount" type="interaction" />
+          <node name="TriageComplete" type="interaction" />
         </node>
-        <node name="Treatment" type="goal" operator="enable">
-          <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
+        <node name="Treatment" type="goal" operator="orderindependence">
+          <node name="RequestPatientTreatment" type="interaction" operator="enable" />
           <node name="MedComm" type="goal">
-            <node name="CoordinateTransport" type="interaction" operator="enable" />
-            <node name="ProvideAmbulanceDestination" type="interaction" operator="choice" />
-            <node name="CheckBedAvailability" type="interaction" operator="enable" />
-            <node name="ProvideBedAvailability" type="interaction" />
+            <node name="RequestBedAvailability" type="interaction" operator="enable" />
+            <node name="ProvideBedAvailability" type="interaction" operator="choice" />
           </node>
+          <node name="TreatmentComplete" type="interaction" />
         </node>
-        <node name="Transportation" type="goal">
-          <node name="AssignTransportationPosition" type="interaction" operator="enable" />
+        <node name="Transport" type="goal">
           <node name="RequestAmbulance" type="interaction" operator="enable" />
-          <node name="TransportComplete" type="interaction" />
+          <node name="PatientTransfer" type="goal"></node>
         </node>
       </node>
     </node>
   </TaskModel>
   <RoleModel type="Role">
-    <Role name="BaseEmergencyCallCenter"></Role>
+    <Role name="EmergencyCallManager">
+      <arrow name="DispatchAmbulanceManager" to="AmbulanceCoordinator" />
+      <arrow name="DispatchEMS_Manager" to="TreatmentUnitLeader" />
+      <arrow name="DispatchRescueVehicle" to="IncidentCommander" />
+    </Role>
     <Role name="IncidentCommander">
       <attribute type="executes" name="EstablishCommand" />
       <attribute type="executes" name="AssignICSPositions" />
@@ -78,19 +82,19 @@
       <Role name="IncidentCommander" />
       <Role name="TriageUnitLeader" />
     </Agent>
-    <Agent name="EMSVehicle">
+    <Agent name="EMS_Manager">
       <Role name="TreatmentUnitLeader" />
       <Role name="TransportationUnitLeader" />
       <Role name="MedComm" />
     </Agent>
     <Agent name="EmergencyCallCenter">
-      <Role name="BaseEmergencyCallCenter" />
+      <Role name="EmergencyCallManager" />
     </Agent>
-    <Agent name="Ambulance">
+    <Agent name="AmbulanceManager">
       <Role name="AmbulanceCoordinator" />
     </Agent>
     <Agent name="Hospital">
-      <Role name="BaseHospital" />
+      <Role name="Clinic" />
     </Agent>
   </AgentModel>
 </SoS>

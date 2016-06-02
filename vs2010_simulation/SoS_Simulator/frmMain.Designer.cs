@@ -78,6 +78,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.contextMenuOracleBrowse = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.oracleClear = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOracleBrowse = new System.Windows.Forms.Button();
             this.txtOraclePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -92,6 +94,7 @@
             this.lstViewGoal = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSimOutput = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -99,7 +102,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lstGoalsResult = new System.Windows.Forms.ListBox();
             this.txtGoalOutput = new System.Windows.Forms.TextBox();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -110,6 +112,7 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.contextMenuOracleBrowse.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbChangeSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
@@ -541,8 +544,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Simulator";
             // 
+            // contextMenuOracleBrowse
+            // 
+            this.contextMenuOracleBrowse.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.oracleClear});
+            this.contextMenuOracleBrowse.Name = "contextMenuOracleBrowse";
+            this.contextMenuOracleBrowse.Size = new System.Drawing.Size(102, 26);
+            // 
+            // oracleClear
+            // 
+            this.oracleClear.Name = "oracleClear";
+            this.oracleClear.Size = new System.Drawing.Size(101, 22);
+            this.oracleClear.Text = "Clear";
+            this.oracleClear.Click += new System.EventHandler(this.oracleClear_Click);
+            // 
             // btnOracleBrowse
             // 
+            this.btnOracleBrowse.ContextMenuStrip = this.contextMenuOracleBrowse;
             this.btnOracleBrowse.Location = new System.Drawing.Point(138, 185);
             this.btnOracleBrowse.Name = "btnOracleBrowse";
             this.btnOracleBrowse.Size = new System.Drawing.Size(75, 23);
@@ -550,6 +568,7 @@
             this.btnOracleBrowse.Text = "&Browse";
             this.btnOracleBrowse.UseVisualStyleBackColor = true;
             this.btnOracleBrowse.Click += new System.EventHandler(this.btnOracleBrowse_Click);
+            this.btnOracleBrowse.Paint += new System.Windows.Forms.PaintEventHandler(this.btnOracleBrowse_Paint);
             // 
             // txtOraclePath
             // 
@@ -681,6 +700,11 @@
             this.columnHeader2.Text = "Pass/Fail";
             this.columnHeader2.Width = 86;
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Utility Function";
+            this.columnHeader3.Width = 109;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtSimOutput);
@@ -766,11 +790,6 @@
             this.txtGoalOutput.TabIndex = 16;
             this.txtGoalOutput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_PreviewKeyDown);
             // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Utility Function";
-            this.columnHeader3.Width = 109;
-            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -799,6 +818,7 @@
             this.splitContainer3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuOracleBrowse.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbChangeSpeed)).EndInit();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
@@ -893,6 +913,8 @@
         private System.Windows.Forms.TextBox txtOraclePath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ContextMenuStrip contextMenuOracleBrowse;
+        private System.Windows.Forms.ToolStripMenuItem oracleClear;
     }
 }
 

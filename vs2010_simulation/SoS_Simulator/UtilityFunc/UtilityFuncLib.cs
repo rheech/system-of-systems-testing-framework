@@ -61,13 +61,14 @@ namespace SoS_Simulator.UtilityFunc
                     if (t.Name == "UtilityFuncMain")
                     {
                         mainType = t;
+
                         lib = (UtilityFuncLib)Activator.CreateInstance(mainType, sim);
 
                         return lib;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (ApplicationException ex)
             {
                 // Error loading utility func library
             }

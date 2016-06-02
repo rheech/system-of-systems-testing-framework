@@ -49,7 +49,7 @@ namespace SoS_Simulator
         private void frmMain_Load(object sender, EventArgs e)
         {
             InitializeSimulatorDisplay();
-            LoadDefault();
+            //LoadDefault();
         }
 
         private void lstGoals_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,7 +71,7 @@ namespace SoS_Simulator
             s.Tick();
 
             // Update goal listview (test pass/fail)
-            UpdateGoalList(); // Test Oracle
+            //UpdateGoalList(); // Test Oracle
 
             lblStatus.Text = String.Format("Simulation Output\r\n\r\n{0}", s.GetMonitoringText());
         }
@@ -123,6 +123,8 @@ namespace SoS_Simulator
             {
                 InitializeSimulator();
 
+                ClearTestOracle();
+
                 if (!LoadSimulatorLibrary(ofdOpenFile.FileName))
                 {
                     MessageBox.Show("Error loading simulation library.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -146,6 +148,16 @@ namespace SoS_Simulator
                     MessageBox.Show("Error loading test oracles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnOracleBrowse_Paint(object sender, PaintEventArgs e)
+        {
+            int arrowX = btnOracleBrowse.ClientRectangle.Width - 14;
+            int arrowY = btnOracleBrowse.ClientRectangle.Height / 2 - 1;
+
+            Brush brush = Enabled ? SystemBrushes.ControlText : SystemBrushes.ButtonShadow;
+            Point[] arrows = new Point[] { new Point(arrowX, arrowY), new Point(arrowX + 7, arrowY), new Point(arrowX + 3, arrowY + 4) };
+            e.Graphics.FillPolygon(brush, arrows);
         }
 
         private void TextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -241,6 +253,12 @@ namespace SoS_Simulator
             return false;
         }
 
+        private void ClearTestOracle()
+        {
+            txtOraclePath.Text = "";
+            _fOracle = null;
+        }
+
         private bool LoadTestOracle()
         {
             if (_fOracle.Exists)
@@ -260,7 +278,6 @@ namespace SoS_Simulator
         {
             string[] goalList;
             string utilFile;
-            ListViewItem item;
 
             try
             {
@@ -394,6 +411,7 @@ namespace SoS_Simulator
         private void Simulator_OnSimulationComplete()
         {
             FinishSimulator();
+            UpdateGoalList(); // Test Oracle
         }
         #endregion
 
@@ -457,5 +475,12 @@ namespace SoS_Simulator
             }
         }
         #endregion
+
+        private void oracleClear_Click(object sender, EventArgs e)
+        {
+            ClearTestOracle();
+        }
+
+
     }
 }
