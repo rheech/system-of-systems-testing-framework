@@ -12,7 +12,8 @@ namespace TestOracleGenerator.Xml
         NONE,
         ENABLE,
         CHOICE,
-        PARALLEL
+        PARALLEL,
+        ORDERINDEPENDENCE
     }
 
     public enum NODE_TYPE
@@ -46,6 +47,9 @@ namespace TestOracleGenerator.Xml
                 case "parallel":
                     tOperator = TASK_OPERATOR.PARALLEL;
                     break;
+                case "orderindependence":
+                    tOperator = TASK_OPERATOR.ORDERINDEPENDENCE;
+                    break;
                 default:
                     tOperator = TASK_OPERATOR.NONE;
                     break;
@@ -77,11 +81,9 @@ namespace TestOracleGenerator.Xml
         public void TraverseChildNodes(ref TaskNodeTraversalCallback nodeAction)
         {
             XmlNodeList nodes;
-            //TRAVERSE_OPTION traverseOption;
             TaskNode taskNode;
 
             nodes = _xmlNode.ChildNodes;
-            //traverseOption = TRAVERSE_OPTION.ALL;
 
             foreach (XmlNode node in nodes)
             {
@@ -92,11 +94,6 @@ namespace TestOracleGenerator.Xml
                 {
                     break;
                 }
-
-                /*if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
-                {
-                    break;
-                }*/
             }
         }
 
@@ -134,21 +131,6 @@ namespace TestOracleGenerator.Xml
             }
 
             return bContinueTraversing;
-
-
-            /*
-            if (taskNode.HasChildNodes && (traverseOption == TRAVERSE_OPTION.ALL))
-            {
-                foreach (XmlNode x in taskNode.ChildNodes)
-                {
-                    traverseOption = recTraverseXmlNode(x, ref nodeAction);
-
-                    if (traverseOption == TRAVERSE_OPTION.NONE_FINISH)
-                    {
-                        break;
-                    }
-                }
-            }*/
         }
 
         public string Name

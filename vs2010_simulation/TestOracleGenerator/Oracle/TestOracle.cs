@@ -45,6 +45,7 @@ namespace TestOracleGenerator.Oracle
             mapOperator.Add(TASK_OPERATOR.CHOICE, "[]");
             mapOperator.Add(TASK_OPERATOR.ENABLE, ">>");
             mapOperator.Add(TASK_OPERATOR.PARALLEL, "||");
+            mapOperator.Add(TASK_OPERATOR.ORDERINDEPENDENCE, "|=|");
         }
 
         public override string ToString()
