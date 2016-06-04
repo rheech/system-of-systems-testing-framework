@@ -13,7 +13,7 @@ namespace TestOracleGenerator.Xml
         INTERLEAVING, // Independent Concurrency, |||
         ORDER_INDEPENDENT, // Order Independent |=|
         CHOICE, // Choice, []
-        ENABLE // Enabling, >>
+        SEQUENTIAL // Enabling, >>
     }
 
     public enum NODE_TYPE
@@ -38,17 +38,17 @@ namespace TestOracleGenerator.Xml
 
             switch (operatorName.ToLower())
             {
-                case "enable":
-                    tOperator = TASK_OPERATOR.ENABLE;
+                case "interleaving":
+                    tOperator = TASK_OPERATOR.INTERLEAVING;
+                    break;
+                case "orderindependent":
+                    tOperator = TASK_OPERATOR.ORDER_INDEPENDENT;
                     break;
                 case "choice":
                     tOperator = TASK_OPERATOR.CHOICE;
                     break;
-                case "interleaving":
-                    tOperator = TASK_OPERATOR.INTERLEAVING;
-                    break;
-                case "orderindependence":
-                    tOperator = TASK_OPERATOR.ORDER_INDEPENDENT;
+                case "sequential":
+                    tOperator = TASK_OPERATOR.SEQUENTIAL;
                     break;
                 default:
                     tOperator = TASK_OPERATOR.NONE;

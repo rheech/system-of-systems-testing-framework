@@ -3,30 +3,30 @@
   <Module type="Utility" path="..\Utility_MCI.dll" />
   <TaskModel type="Task">
     <node name="MCI_Response" type="goal">
-      <node name="Dispatch" type="goal" operator="orderindependence">
-        <node name="DispatchRescueVehicle" type="interaction" operator="orderindependence" />
-        <node name="DispatchEMS_Manager" type="interaction" operator="orderindependence" />
-        <node name="DispatchAmbulanceManager" type="interaction" operator="orderindependence"></node>
+      <node name="Dispatch" type="goal" operator="orderindependent">
+        <node name="DispatchRescueVehicle" type="interaction" operator="orderindependent" />
+        <node name="DispatchEMS_Manager" type="interaction" operator="orderindependent" />
+        <node name="DispatchAmbulanceManager" type="interaction" operator="orderindependent"></node>
         <node name="DispatchAmbulance" type="interaction"></node>
       </node>
       <node name="RescuePatient" type="goal">
-        <node name="Triage" type="goal" operator="enable">
+        <node name="Triage" type="goal" operator="sequential">
           <node name="TriageComplete" type="interaction" />
         </node>
-        <node name="Treatment" type="goal" operator="orderindependence">
-          <node name="RequestPatientTreatment" type="interaction" operator="enable" />
-          <node name="MedComm" type="goal" operator="enable">
-            <node name="RequestBedAvailability" type="interaction" operator="enable" />
+        <node name="Treatment" type="goal" operator="orderindependent">
+          <node name="RequestPatientTreatment" type="interaction" operator="sequential" />
+          <node name="MedComm" type="goal" operator="sequential">
+            <node name="RequestBedAvailability" type="interaction" operator="sequential" />
             <node name="ProvideBedAvailability" type="interaction" />
           </node>
           <node name="TreatmentComplete" type="interaction" />
         </node>
         <node name="Transport" type="goal">
-          <node name="RequestAmbulance" type="interaction" operator="enable" />
+          <node name="RequestAmbulance" type="interaction" operator="sequential" />
           <node name="PatientTransfer" type="goal">
-            <node name="FieldArrivalReport" type="interaction" operator="enable" />
-            <node name="DispatchPatient" type="interaction" operator="enable" />
-            <node name="TransferComplete" type="interaction" operator="enable" />
+            <node name="FieldArrivalReport" type="interaction" operator="sequential" />
+            <node name="DispatchPatient" type="interaction" operator="sequential" />
+            <node name="TransferComplete" type="interaction" operator="sequential" />
           </node>
         </node>
       </node>

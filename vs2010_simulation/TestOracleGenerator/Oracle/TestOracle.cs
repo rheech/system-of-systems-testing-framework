@@ -41,11 +41,11 @@ namespace TestOracleGenerator.Oracle
         {
             mapOperator = new Dictionary<TASK_OPERATOR, string>();
 
-            mapOperator.Add(TASK_OPERATOR.NONE, "");
-            mapOperator.Add(TASK_OPERATOR.CHOICE, "[]");
-            mapOperator.Add(TASK_OPERATOR.ENABLE, ">>");
             mapOperator.Add(TASK_OPERATOR.INTERLEAVING, "|||");
             mapOperator.Add(TASK_OPERATOR.ORDER_INDEPENDENT, "|=|");
+            mapOperator.Add(TASK_OPERATOR.CHOICE, "[]");
+            mapOperator.Add(TASK_OPERATOR.SEQUENTIAL, ">>");
+            mapOperator.Add(TASK_OPERATOR.NONE, "");
         }
 
         public override string ToString()

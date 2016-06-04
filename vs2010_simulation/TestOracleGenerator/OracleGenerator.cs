@@ -148,8 +148,23 @@ namespace TestOracleGenerator
                         // Define next index by checking the operator
                         switch (node.Operator)
                         {
-                            case TASK_OPERATOR.ENABLE:
-                                comparisonInfo.CurrentIndex = i;
+                            case TASK_OPERATOR.INTERLEAVING: // ORDER INDEPENDENT + CHOICE
+                                comparisonInfo.CurrentIndex = 0;
+                                
+                                comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
+
+                                if (comparisonInfo.Result)
+                                {
+                                    return comparisonInfo;
+                                }
+                                else
+                                {
+                                    // reset for the next optional comparison
+                                    comparisonInfo.Result = true;
+                                }
+                                break;
+                            case TASK_OPERATOR.ORDER_INDEPENDENT:
+                                comparisonInfo.CurrentIndex = 0;
                                 break;
                             case TASK_OPERATOR.CHOICE:
                                 comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
@@ -165,11 +180,8 @@ namespace TestOracleGenerator
                                 }
 
                                 break;
-                            case TASK_OPERATOR.INTERLEAVING: // NOT IMPLEMENTED
+                            case TASK_OPERATOR.SEQUENTIAL:
                                 comparisonInfo.CurrentIndex = i;
-                                break;
-                            case TASK_OPERATOR.ORDER_INDEPENDENT:
-                                comparisonInfo.CurrentIndex = 0;
                                 break;
                             case TASK_OPERATOR.NONE:
                                 bBreakLoop = true;
