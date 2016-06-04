@@ -10,10 +10,10 @@ namespace TestOracleGenerator.Xml
     public enum TASK_OPERATOR
     {
         NONE,
-        ENABLE,
-        CHOICE,
-        PARALLEL,
-        ORDERINDEPENDENCE
+        INTERLEAVING, // Independent Concurrency, |||
+        ORDER_INDEPENDENT, // Order Independent |=|
+        CHOICE, // Choice, []
+        ENABLE // Enabling, >>
     }
 
     public enum NODE_TYPE
@@ -44,11 +44,11 @@ namespace TestOracleGenerator.Xml
                 case "choice":
                     tOperator = TASK_OPERATOR.CHOICE;
                     break;
-                case "parallel":
-                    tOperator = TASK_OPERATOR.PARALLEL;
+                case "interleaving":
+                    tOperator = TASK_OPERATOR.INTERLEAVING;
                     break;
                 case "orderindependence":
-                    tOperator = TASK_OPERATOR.ORDERINDEPENDENCE;
+                    tOperator = TASK_OPERATOR.ORDER_INDEPENDENT;
                     break;
                 default:
                     tOperator = TASK_OPERATOR.NONE;

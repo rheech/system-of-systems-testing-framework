@@ -80,8 +80,6 @@
     <Compile Include="Xml\TaskModel.cs" />
     <Compile Include="Xml\TaskNode.cs" />
     <Compile Include="Xml\TaskNodeList.cs" />
-    <Compile Include="Xml\TaskSequence.cs" />
-    <Compile Include="Xml\TaskSequenceSet.cs" />
     <Compile Include="Xml\XmlParser.cs" />
     <Compile Include="Xml\RoleModel.cs" />
   </ItemGroup>

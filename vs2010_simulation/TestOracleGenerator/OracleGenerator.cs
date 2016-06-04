@@ -165,10 +165,10 @@ namespace TestOracleGenerator
                                 }
 
                                 break;
-                            case TASK_OPERATOR.PARALLEL: // NOT IMPLEMENTED
+                            case TASK_OPERATOR.INTERLEAVING: // NOT IMPLEMENTED
                                 comparisonInfo.CurrentIndex = i;
                                 break;
-                            case TASK_OPERATOR.ORDERINDEPENDENCE:
+                            case TASK_OPERATOR.ORDER_INDEPENDENT:
                                 comparisonInfo.CurrentIndex = 0;
                                 break;
                             case TASK_OPERATOR.NONE:
