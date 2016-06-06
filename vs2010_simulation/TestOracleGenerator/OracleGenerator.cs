@@ -44,6 +44,23 @@ namespace TestOracleGenerator
             _tModel = new TaskModel(oracleXMLPath);
         }
 
+        private TestOracleSet GenerateTestOracleSet()
+        {
+            TaskNodeList goalList;
+            TestOracleSet oracleSet;
+            
+            //goalList = RetrieveGoalList();
+            goalList = RetrieveAllGoalNodes();
+            oracleSet = new TestOracleSet();
+
+            foreach (TaskNode n in goalList)
+            {
+                oracleSet.Add(GenerateTestOracleByGoal(n));
+            }
+
+            return oracleSet;
+        }
+
         #region Testing
         public bool CompareOutput(string goalName, MessageUnitList actualOutput)
         {
@@ -95,7 +112,7 @@ namespace TestOracleGenerator
             return comparisonInfo;
         }
 
-        // Analyze single-level tasks in a goal
+        // Analyze single-level tasks in a specific goal (after found goal)
         private COMPARISON_INFO recCompareOutputInternal(MessageUnitList actualOutput, TaskNodeList taskOracleNodes, COMPARISON_INFO comparisonInfo)
         {
             bool bSubResult;
@@ -228,6 +245,76 @@ namespace TestOracleGenerator
             return comparisonInfo;
         }
         #endregion
+
+        private TaskNodeList RetrieveAllGoalNodes()
+        {
+            TaskNodeTraversalCallback nodeAction;
+            TaskNodeList goalList;
+
+            nodeAction = null;
+            goalList = new TaskNodeList();
+
+            // Define lambda callback
+            nodeAction = new TaskNodeTraversalCallback((taskNode) =>
+            {
+                // Found a goal
+                if (taskNode.Type == NODE_TYPE.GOAL)
+                {
+                    goalList.Add(taskNode);
+                }
+
+                // Continue traversing
+                return true;
+            });
+
+            _tModel.TraverseTaskNodes(ref nodeAction);
+
+            return goalList;
+        }
+
+        private TestOracle GenerateTestOracleByGoal(TaskNode goalNode)
+        {
+            TaskNodeTraversalCallback nodeAction;
+            TaskNode goalTaskNode;
+            MessageUnitList messagesList;
+
+            goalTaskNode = null;
+            messagesList = new MessageUnitList();
+
+            // Define lambda callback
+            nodeAction = new TaskNodeTraversalCallback((taskNode) =>
+            {
+                // Found the target goal
+                if (taskNode.IsSameContent(goalNode))
+                {
+                    if (taskNode.HasChildNodes)
+                    {
+                        goalTaskNode = taskNode;
+
+                        foreach (TaskNode node in taskNode.ChildNodes)
+                        {
+                            messagesList.Add(_tAgentMapper.GetMessageUnitFromTask(node));
+                        }
+                    }
+
+                    // Terminate node traversing
+                    return false;
+                }
+
+                // Continue traversing
+                return true;
+            });
+
+            _tModel.TraverseTaskNodes(ref nodeAction);
+
+            // if error
+            if (goalTaskNode == null)
+            {
+                throw new ApplicationException("Task node list cannot be null.");
+            }
+
+            return new TestOracle(goalTaskNode, messagesList);
+        }
 
         public TestOracle GenTestOracle(string goalName)
         {

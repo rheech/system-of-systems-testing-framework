@@ -259,5 +259,21 @@ namespace TestOracleGenerator.Xml
                 return taskOperator;
             }
         }
+
+        public bool IsSameContent(object obj)
+        {
+            bool bEquals;
+            TaskNode tNode;
+
+            if (obj is TaskNode)
+            {
+                tNode = (TaskNode)obj;
+                bEquals = (Name == tNode.Name && Operator == tNode.Operator && RecursionCount == tNode.RecursionCount);
+
+                return bEquals;
+            }
+
+            return base.Equals(obj);
+        }
     }
 }
