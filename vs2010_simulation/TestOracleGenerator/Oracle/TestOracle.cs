@@ -6,15 +6,15 @@ using TestOracleGenerator.Xml;
 
 namespace TestOracleGenerator.Oracle
 {
-    public class TestOracle
+    public class TestOracle : TaskNodeList
     {
         static Dictionary<TASK_OPERATOR, string> mapOperator;
 
         TaskNode _goalTaskNode;
-        TaskNodeList _taskNodeList;
-        MessageUnit[] _messages;
+        //TaskNodeList _taskNodeList;
+        MessageUnitList _messages;
 
-        public TestOracle(TaskNode goalTaskNode, MessageUnit[] messages)
+        public TestOracle(TaskNode goalTaskNode, MessageUnitList messages)
         {
             // define task operator only one time
             if (mapOperator == null)
@@ -28,12 +28,36 @@ namespace TestOracleGenerator.Oracle
             {
                 // initialize
                 _goalTaskNode = goalTaskNode;
-                _taskNodeList = goalTaskNode.ChildNodes;
+                //_taskNodeList = goalTaskNode.ChildNodes;
                 _messages = messages;
+
+                // Add all task nodes
+                this.Clear();
+
+                foreach (TaskNode tNode in goalTaskNode.ChildNodes)
+                {
+                    this.Add(tNode);
+                }
             }
             else
             {
                 throw new ApplicationException("Test oracle must take a goal type task node which contains child nodes.");
+            }
+        }
+
+        public string GoalName
+        {
+            get
+            {
+                return _goalTaskNode.Name;
+            }
+        }
+
+        public MessageUnitList MessageOracle
+        {
+            get
+            {
+                return _messages;
             }
         }
 
@@ -58,12 +82,12 @@ namespace TestOracleGenerator.Oracle
             sb.AppendFormat("Goal: {0}\r\n\r\n", _goalTaskNode.Name);
             sb.AppendFormat("Message Sequence:\r\n", _goalTaskNode.Name);
 
-            for (int i = 0; i < _taskNodeList.Count; i++)
+            for (int i = 0; i < this.Count; i++)
             {
-                sTemp = String.Format("{0} {1}", _messages[i].ToString(), mapOperator[_taskNodeList[i].Operator]);
+                sTemp = String.Format("{0} {1}", _messages[i].ToString(), mapOperator[this[i].Operator]);
                 sb.Append(sTemp.Trim());
 
-                if (i < (_taskNodeList.Count - 1))
+                if (i < (this.Count - 1))
                 {
                     sb.Append("\r\n");
                 }

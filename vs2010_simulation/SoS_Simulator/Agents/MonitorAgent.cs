@@ -24,13 +24,13 @@ namespace SoS_Simulator.Agents
         public event TextUpdateHandler OnTextUpdate;
         public delegate void SimulationFinished();
         public event SimulationFinished OnSimulationFinished;
-        private List<MessageUnit> _simLog;
+        private MessageUnitList _simLog;
         private int _lastSimLogCount;
         private int _noMessageTick;
 
         public MonitorAgent(Simulator simulator) : base(simulator)
         {
-            _simLog = new List<MessageUnit>();
+            _simLog = new MessageUnitList();
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
@@ -68,9 +68,9 @@ namespace SoS_Simulator.Agents
             }
         }
 
-        public MessageUnit[] GetSimulationLog()
+        public MessageUnitList GetSimulationLog()
         {
-            return _simLog.ToArray();
+            return _simLog;
         }
 
         protected override void OnTick()

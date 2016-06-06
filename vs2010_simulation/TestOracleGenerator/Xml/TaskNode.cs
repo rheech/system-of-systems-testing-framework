@@ -23,7 +23,7 @@ namespace TestOracleGenerator.Xml
         TASK
     }
 
-    public class TaskNode : TaskInterface
+    public class TaskNode
     {
         private XmlNode _xmlNode;
 
@@ -150,13 +150,46 @@ namespace TestOracleGenerator.Xml
             }
         }
 
+        public int RecursionCount
+        {
+            get
+            {
+                string sCount;
+                int numCount;
+
+                sCount = "";
+
+                // check if count attribute exists
+                if (_xmlNode.Attributes["count"] != null)
+                {
+                    sCount = _xmlNode.Attributes["count"].InnerText;
+
+                    // check if input is valid
+                    if (Int32.TryParse(sCount, out numCount))
+                    {
+                        return numCount;
+                    }
+                    else if (sCount == "*")
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Invlid count detected in task node.");
+                    }
+                }
+
+                return 1; // Default is only one occurrence
+            }
+        }
+
         public TaskNodeList ChildNodes
         {
             get
             {
-                List<TaskNode> taskNodeList;
+                TaskNodeList taskNodeList;
 
-                taskNodeList = new List<TaskNode>();
+                taskNodeList = new TaskNodeList();
 
                 if (_xmlNode.HasChildNodes)
                 {
@@ -165,7 +198,7 @@ namespace TestOracleGenerator.Xml
                         taskNodeList.Add(new TaskNode(n));
                     }
 
-                    return new TaskNodeList(taskNodeList);
+                    return taskNodeList;
                 }
 
                 return null;

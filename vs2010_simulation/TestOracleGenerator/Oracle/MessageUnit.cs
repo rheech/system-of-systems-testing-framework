@@ -10,6 +10,7 @@ namespace TestOracleGenerator.Oracle
         public string Message;
         public string From;
         public string To;
+        public int Occurrence;
 
         public override string ToString()
         {

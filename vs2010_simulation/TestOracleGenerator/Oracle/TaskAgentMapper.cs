@@ -23,6 +23,7 @@ namespace TestOracleGenerator.Oracle
 
             msgUnit = new MessageUnit();
             msgUnit.Message = taskNode.Name;
+            msgUnit.Occurrence = taskNode.RecursionCount;
 
             // Only task node has interaction property
             if (taskNode.Type == NODE_TYPE.TASK)

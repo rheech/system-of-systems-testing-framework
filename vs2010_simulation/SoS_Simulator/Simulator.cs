@@ -61,7 +61,7 @@ namespace SoS_Simulator
             SoS_Object.RaiseTick();
         }
 
-        public MessageUnit[] GetSimulationMessages()
+        public MessageUnitList GetSimulationMessages()
         {
             return _monitorAgent.GetSimulationLog();
         }

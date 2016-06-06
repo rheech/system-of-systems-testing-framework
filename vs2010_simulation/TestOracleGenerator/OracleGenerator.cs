@@ -25,6 +25,7 @@ namespace TestOracleGenerator
     {
         public string GoalName;
         public bool Result;
+        public int ResultCount;
         public int CurrentIndex;
     }
 
@@ -44,7 +45,7 @@ namespace TestOracleGenerator
         }
 
         #region Testing
-        public bool CompareOutput(string goalName, MessageUnit[] actualOutput)
+        public bool CompareOutput(string goalName, MessageUnitList actualOutput)
         {
             COMPARISON_INFO comparisonInfo;
             comparisonInfo = new COMPARISON_INFO();
@@ -57,7 +58,7 @@ namespace TestOracleGenerator
             return comparisonInfo.Result;
         }
 
-        private COMPARISON_INFO CompareOutputInternal(string goalName, MessageUnit[] actualOutput, COMPARISON_INFO comparisonInfo)
+        private COMPARISON_INFO CompareOutputInternal(string goalName, MessageUnitList actualOutput, COMPARISON_INFO comparisonInfo)
         {
             TaskNodeTraversalCallback nodeAction;
             bool bFoundGoal;
@@ -95,9 +96,10 @@ namespace TestOracleGenerator
         }
 
         // Analyze single-level tasks in a goal
-        private COMPARISON_INFO recCompareOutputInternal(MessageUnit[] actualOutput, TaskNodeList taskOracleNodes, COMPARISON_INFO comparisonInfo)
+        private COMPARISON_INFO recCompareOutputInternal(MessageUnitList actualOutput, TaskNodeList taskOracleNodes, COMPARISON_INFO comparisonInfo)
         {
             bool bSubResult;
+            int iSubResultCount;
             bool bBreakLoop;
             //bool bCompareResult;
             MessageUnit msgOracle;
@@ -115,10 +117,12 @@ namespace TestOracleGenerator
                 // Convert task to message
                 msgOracle = _tAgentMapper.GetMessageUnitFromTask(node);
 
+                iSubResultCount = 0;
+
                 // if there is a nested goal in the sequence
                 //bFoundEntry = CompareOutputFromMessage(actualOutput, msgOracle, iPointer);
                 // Compare output with oracle
-                for (int i = comparisonInfo.CurrentIndex; i < actualOutput.Length; i++)
+                for (int i = comparisonInfo.CurrentIndex; i < actualOutput.Count; i++)
                 {
                     bSubResult = false;
 
@@ -131,7 +135,23 @@ namespace TestOracleGenerator
                     // If oracle matches with a task name
                     if (actualOutput[i] == msgOracle)
                     {
-                        bSubResult = true;
+                        //bSubResult = true;
+                        //iSubResultCount++;
+
+                        //iSubResultCount = actualOutput.OccurrenceOf(msgOracle);
+                        /*
+                        for (int k = i + 1; k < actualOutput.Count; k++)
+                        {
+                            if (actualOutput[k] == msgOracle)
+                            {
+                                iSubResultCount++;
+                            }
+                        }*/
+
+                        //if (iSubResultCount == node.RecursionCount)
+                        {
+                            bSubResult = true;
+                        }
                     }
                     else if (node.Type == NODE_TYPE.GOAL) // abstract task
                     {
@@ -151,7 +171,7 @@ namespace TestOracleGenerator
                             case TASK_OPERATOR.INTERLEAVING: // ORDER INDEPENDENT + CHOICE
                                 comparisonInfo.CurrentIndex = 0;
                                 
-                                comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
+                                comparisonInfo.CurrentIndex = actualOutput.Count; // Exit for
 
                                 if (comparisonInfo.Result)
                                 {
@@ -167,7 +187,7 @@ namespace TestOracleGenerator
                                 comparisonInfo.CurrentIndex = 0;
                                 break;
                             case TASK_OPERATOR.CHOICE:
-                                comparisonInfo.CurrentIndex = actualOutput.Length; // Exit for
+                                comparisonInfo.CurrentIndex = actualOutput.Count; // Exit for
 
                                 if (comparisonInfo.Result)
                                 {
@@ -213,10 +233,10 @@ namespace TestOracleGenerator
         {
             TaskNodeTraversalCallback nodeAction;
             TaskNode goalTaskNode;
-            List<MessageUnit> messagesList;
+            MessageUnitList messagesList;
 
             goalTaskNode = null;
-            messagesList = new List<MessageUnit>();
+            messagesList = new MessageUnitList();
 
             // Define lambda callback
             nodeAction = new TaskNodeTraversalCallback((taskNode) =>
@@ -250,7 +270,7 @@ namespace TestOracleGenerator
                 throw new ApplicationException("Task node list cannot be null.");
             }
 
-            return new TestOracle(goalTaskNode, messagesList.ToArray());
+            return new TestOracle(goalTaskNode, messagesList);
         }
 
         public string[] RetrieveGoalList()

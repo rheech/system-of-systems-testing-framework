@@ -7,9 +7,9 @@ using TestOracleGenerator.Oracle;
 
 namespace TestOracleGenerator.Xml
 {
-    public class TaskNodeList : IEnumerable<TaskNode>
+    public class TaskNodeList : List<TaskNode>
     {
-        private List<TaskNode> _taskNodes;
+        /*private List<TaskNode> _taskNodes;
 
         public TaskNodeList(TaskNode[] taskNodes)
         {
@@ -86,11 +86,11 @@ namespace TestOracleGenerator.Xml
             }
 
             throw new ApplicationException("Invalid index");
-        }*/
+        }* /
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
-        }
+        }*/
     }
 }

@@ -439,9 +439,9 @@ namespace SoS_Simulator
 
         private void UpdateGoalList()
         {
-            MessageUnit[] msgUnit;
+            MessageUnitList msgUnitList;
 
-            msgUnit = s.GetSimulationMessages();
+            msgUnitList = s.GetSimulationMessages();
 
             //Console.WriteLine(_toGenerator.CompareOutput("Transportation", unit, 0));
 
@@ -449,7 +449,7 @@ namespace SoS_Simulator
             {
                 //item.UseItemStyleForSubItems = false;
 
-                if (_toGenerator.CompareOutput(item.Text, msgUnit))
+                if (_toGenerator.CompareOutput(item.Text, msgUnitList))
                 {
                     item.SubItems[1].Text = "Pass";
                     item.SubItems[1].ForeColor = Color.Green;
