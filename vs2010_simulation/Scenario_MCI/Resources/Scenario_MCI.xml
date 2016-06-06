@@ -5,7 +5,7 @@
     <node name="MCI_Response" type="goal">
       <node name="Dispatch" type="goal" operator="orderindependent">
         <node name="DispatchRescueVehicle" type="interaction" operator="orderindependent" />
-        <node name="DispatchEMS_Manager" type="interaction" operator="orderindependent" />
+        <node name="DispatchEMSVehicle" type="interaction" operator="orderindependent" />
         <node name="DispatchAmbulanceManager" type="interaction" operator="orderindependent"></node>
         <node name="DispatchAmbulance" type="interaction"></node>
       </node>
@@ -36,7 +36,7 @@
     <Role name="EmergencyCallManager">
       <attribute type="executes" name="ReportDisaster" />
       <arrow name="DispatchAmbulanceManager" to="AmbulanceCoordinator" />
-      <arrow name="DispatchEMS_Manager" to="TreatmentUnitLeader" />
+      <arrow name="DispatchEMSVehicle" to="TreatmentUnitLeader" />
       <arrow name="DispatchRescueVehicle" to="IncidentCommander" />
     </Role>
     <Role name="IncidentCommander">
@@ -94,7 +94,7 @@
       <Role name="IncidentCommander" />
       <Role name="TriageUnitLeader" />
     </Agent>
-    <Agent name="EMS_Manager">
+    <Agent name="EMSVehicle">
       <Role name="TreatmentUnitLeader" />
       <Role name="TransportationUnitLeader" />
       <Role name="MedComm" />

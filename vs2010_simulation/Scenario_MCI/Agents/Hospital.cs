@@ -26,7 +26,7 @@ namespace Scenario_MCI.Agents
             switch (msgType)
             {
                 case "RequestBedAvailability":
-                    SendMessage(typeof(EMS_Manager), "ProvideBedAvailability", bedAvailability);
+                    SendMessage(typeof(EMSVehicle), "ProvideBedAvailability", bedAvailability);
                     break;
                 case "DispatchPatient":
                     Patient p = (Patient)info[0];

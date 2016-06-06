@@ -27,7 +27,7 @@ namespace Scenario_MCI.Agents
                     break;
                 case "DeclareMCI":
                     // After Level 1 MCI declaration, dispatch other managers for support
-                    SendMessage(typeof(EMS_Manager), "DispatchEMS_Manager");
+                    SendMessage(typeof(EMSVehicle), "DispatchEMSVehicle");
                     SendMessage(typeof(AmbulanceManager), "DispatchAmbulanceManager");
                     break;
                 default:

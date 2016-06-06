@@ -8,11 +8,11 @@ using Scenario_MCI.Abstract;
 
 namespace Scenario_MCI.Agents
 {
-    public class EMS_Manager : MCI_Agent
+    public class EMSVehicle : MCI_Agent
     {
         bool isDispatched;
 
-        public EMS_Manager(ScenarioMain simulator)
+        public EMSVehicle(ScenarioMain simulator)
             : base(simulator)
         {
             isDispatched = false;
@@ -22,7 +22,7 @@ namespace Scenario_MCI.Agents
         {
             switch (msgType)
             {
-                case "DispatchEMS_Manager":
+                case "DispatchEMSVehicle":
                     isDispatched = true;
                     break;
                 case "RequestPatientTreatment":

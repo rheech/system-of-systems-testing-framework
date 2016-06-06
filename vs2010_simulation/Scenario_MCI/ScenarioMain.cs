@@ -21,7 +21,7 @@ namespace Scenario_MCI
         Ambulance _ambulance;
         Hospital _hospital;
         EmergencyCallCenter _callCenter;
-        EMS_Manager _emsVehicle;
+        EMSVehicle _emsVehicle;
         RescueVehicle _rescueVehicle;
 
         // environment
@@ -35,7 +35,7 @@ namespace Scenario_MCI
             _ambulance = new Ambulance(this);
             _callCenter = new EmergencyCallCenter(this);
             disaster = new Disaster(this);
-            _emsVehicle = new EMS_Manager(this);
+            _emsVehicle = new EMSVehicle(this);
             _rescueVehicle = new RescueVehicle(this);
 
             //SetPatients(10);

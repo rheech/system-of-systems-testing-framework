@@ -48,8 +48,8 @@ namespace Scenario_MCI.Agents
             // After the triage is complete, report to emergency call center
             SendMessage(typeof(EmergencyCallCenter), "TriageComplete");
             
-            // Request EMS_Manager for patient treatment
-            SendMessage(typeof(EMS_Manager), "RequestPatientTreatment");
+            // Request EMSVehicle for patient treatment
+            SendMessage(typeof(EMSVehicle), "RequestPatientTreatment");
         }
 
         protected override void OnTick()

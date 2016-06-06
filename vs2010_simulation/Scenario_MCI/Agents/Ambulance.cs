@@ -33,13 +33,13 @@ namespace Scenario_MCI.Agents
                 case "DispatchAmbulance": // Ambulance dispatch request from staging area to MCI field
                     position = AMBULANCE_POSITION.Field;
                     // Go to MCI field
-                    SendMessage(typeof(EMS_Manager), "FieldArrivalReport");
+                    SendMessage(typeof(EMSVehicle), "FieldArrivalReport");
                     break;
                 case "RequestPatientTransfer":
                     // Transport patient
                     Patient p = (Patient)info[0];
                     SendMessage(typeof(Hospital), "DispatchPatient", p);
-                    SendMessage(typeof(EMS_Manager), "TransferComplete");
+                    SendMessage(typeof(EMSVehicle), "TransferComplete");
                     position = AMBULANCE_POSITION.StagingArea;
                     break;
                 default:
