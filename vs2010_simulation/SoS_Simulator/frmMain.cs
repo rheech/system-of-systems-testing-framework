@@ -14,6 +14,7 @@ using System.IO;
 using TestOracleGenerator.Oracle;
 using BugTracker;
 using SoS_Simulator.UtilityFunc;
+using System.Diagnostics;
 
 namespace SoS_Simulator
 {
@@ -35,6 +36,7 @@ namespace SoS_Simulator
         SIMULATION_STATUS _simulationStatus;
         FileInfo _fSimulator, _fOracle;
         UtilityFuncLib _util;
+        Stopwatch _simTimeWatch;
 
         public frmMain()
         {
@@ -360,6 +362,8 @@ namespace SoS_Simulator
 
         private void StartSimulator()
         {
+            _simTimeWatch = new Stopwatch();
+            _simTimeWatch.Start();
             s.RunSimulator();
             tmrSimulation.Enabled = true;
             tsLabel.Text = "Simulating...";
@@ -370,6 +374,7 @@ namespace SoS_Simulator
         private void PauseSimulator()
         {
             tmrSimulation.Enabled = false;
+            _simTimeWatch.Stop();
             tsLabel.Text = "Paused";
             btnStart.Text = "Re&sume";
             _simulationStatus = SIMULATION_STATUS.PAUSED;
@@ -377,6 +382,7 @@ namespace SoS_Simulator
 
         private void ResumeSimulator()
         {
+            _simTimeWatch.Start();
             tmrSimulation.Enabled = true;
             tsLabel.Text = "Simulating...";
             btnStart.Text = "Pau&se";
@@ -386,7 +392,8 @@ namespace SoS_Simulator
         private void FinishSimulator()
         {
             tmrSimulation.Enabled = false;
-            tsLabel.Text = "Simulation complete.";
+            _simTimeWatch.Stop();
+            tsLabel.Text = String.Format("Simulation complete. (Simulation time: {0:0.00} seconds)", _simTimeWatch.Elapsed.TotalSeconds);
             btnStart.Text = "Re&start";
             _simulationStatus = SIMULATION_STATUS.FINISHED;
         }
