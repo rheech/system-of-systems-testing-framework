@@ -37,6 +37,7 @@ namespace SoS_Simulator
         FileInfo _fSimulator, _fOracle;
         UtilityFuncLib _util;
         Stopwatch _simTimeWatch;
+        TimeSpan _simTickTime;
 
         public frmMain()
         {
@@ -68,8 +69,12 @@ namespace SoS_Simulator
             }
         }
 
+        int k = 0;
+
         private void tmrSimulation_Tick(object sender, EventArgs e)
         {
+            k++;
+            _simTickTime += TimeSpan.FromMilliseconds(tmrSimulation.Interval);
             s.Tick();
 
             // Update goal listview (test pass/fail)
@@ -362,6 +367,7 @@ namespace SoS_Simulator
 
         private void StartSimulator()
         {
+            _simTickTime = new TimeSpan();
             _simTimeWatch = new Stopwatch();
             _simTimeWatch.Start();
             s.RunSimulator();
@@ -393,7 +399,9 @@ namespace SoS_Simulator
         {
             tmrSimulation.Enabled = false;
             _simTimeWatch.Stop();
-            tsLabel.Text = String.Format("Simulation complete. (Duration: {0:0.00} seconds)", _simTimeWatch.Elapsed.TotalSeconds);
+            tsLabel.Text = String.Format("Simulation complete. (Duration: {0:0.00} seconds, {1:0.00} seconds delayed.)",
+                                        _simTimeWatch.Elapsed.TotalSeconds, (_simTimeWatch.Elapsed - _simTickTime).TotalSeconds);
+            _simTickTime = TimeSpan.Zero;
             btnStart.Text = "Re&start";
             _simulationStatus = SIMULATION_STATUS.FINISHED;
         }
