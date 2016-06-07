@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComparingEngine.cs" />
     <Compile Include="Oracle\TestOracleSet.cs" />
     <Compile Include="Oracle\MessageUnit.cs" />
     <Compile Include="Oracle\MessageUnitList.cs" />

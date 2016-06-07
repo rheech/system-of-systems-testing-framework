@@ -31,7 +31,7 @@ namespace SoS_Simulator
 
         private const string BASE_PATH = "Resources\\";
 
-        OracleGenerator _toGenerator;
+        ComparingEngine _toGenerator;
         Simulator s;
         SIMULATION_STATUS _simulationStatus;
         FileInfo _fSimulator, _fOracle;
@@ -290,7 +290,7 @@ namespace SoS_Simulator
 
             try
             {
-                _toGenerator = new OracleGenerator(oracleFile.FullName);
+                _toGenerator = new ComparingEngine(oracleFile.FullName);
                 goalList = _toGenerator.RetrieveGoalList();
 
                 lstGoalsResult.Items.Clear();
