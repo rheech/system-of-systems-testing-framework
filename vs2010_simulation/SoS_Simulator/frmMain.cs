@@ -393,7 +393,7 @@ namespace SoS_Simulator
         {
             tmrSimulation.Enabled = false;
             _simTimeWatch.Stop();
-            tsLabel.Text = String.Format("Simulation complete. (Simulation time: {0:0.00} seconds)", _simTimeWatch.Elapsed.TotalSeconds);
+            tsLabel.Text = String.Format("Simulation complete. (Duration: {0:0.00} seconds)", _simTimeWatch.Elapsed.TotalSeconds);
             btnStart.Text = "Re&start";
             _simulationStatus = SIMULATION_STATUS.FINISHED;
         }
