@@ -502,5 +502,38 @@ namespace SoS_Simulator
         {
             lblStatus.Text = String.Format(format, args);
         }
+
+        private void tsCompLv1_Click(object sender, EventArgs e)
+        {
+            _toGenerator.ComparisonLevel = COMPARISON_LEVEL.LEVEL1;
+
+            tsCompLv1.Checked = true;
+            tsCompLv2.Checked = false;
+            tsCompLv3.Checked = false;
+
+            groupBox3.Text = "Goal (Comparison Lv.1)";
+        }
+
+        private void tsCompLv2_Click(object sender, EventArgs e)
+        {
+            _toGenerator.ComparisonLevel = COMPARISON_LEVEL.LEVEL2;
+
+            tsCompLv1.Checked = false;
+            tsCompLv2.Checked = true;
+            tsCompLv3.Checked = false;
+
+            groupBox3.Text = "Goal (Comparison Lv.2)";
+        }
+
+        private void tsCompLv3_Click(object sender, EventArgs e)
+        {
+            _toGenerator.ComparisonLevel = COMPARISON_LEVEL.LEVEL3;
+
+            tsCompLv1.Checked = false;
+            tsCompLv2.Checked = false;
+            tsCompLv3.Checked = true;
+
+            groupBox3.Text = "Goal (Comparison Lv.3)";
+        }
     }
 }

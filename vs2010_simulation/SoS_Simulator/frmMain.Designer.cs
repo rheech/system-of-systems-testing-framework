@@ -102,6 +102,10 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lstGoalsResult = new System.Windows.Forms.ListBox();
             this.txtGoalOutput = new System.Windows.Forms.TextBox();
+            this.comparisonLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsCompLv1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsCompLv2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsCompLv3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -559,14 +563,15 @@
             // contextMenuOracleBrowse
             // 
             this.contextMenuOracleBrowse.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.oracleClear});
+            this.oracleClear,
+            this.comparisonLevelToolStripMenuItem});
             this.contextMenuOracleBrowse.Name = "contextMenuOracleBrowse";
-            this.contextMenuOracleBrowse.Size = new System.Drawing.Size(102, 26);
+            this.contextMenuOracleBrowse.Size = new System.Drawing.Size(167, 48);
             // 
             // oracleClear
             // 
             this.oracleClear.Name = "oracleClear";
-            this.oracleClear.Size = new System.Drawing.Size(101, 22);
+            this.oracleClear.Size = new System.Drawing.Size(166, 22);
             this.oracleClear.Text = "Clear";
             this.oracleClear.Click += new System.EventHandler(this.oracleClear_Click);
             // 
@@ -673,7 +678,7 @@
             this.groupBox3.Size = new System.Drawing.Size(445, 168);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Goal";
+            this.groupBox3.Text = "Goal (Comparison Lv.1)";
             // 
             // lstViewGoal
             // 
@@ -788,6 +793,39 @@
             this.txtGoalOutput.Size = new System.Drawing.Size(448, 306);
             this.txtGoalOutput.TabIndex = 16;
             this.txtGoalOutput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_PreviewKeyDown);
+            // 
+            // comparisonLevelToolStripMenuItem
+            // 
+            this.comparisonLevelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsCompLv1,
+            this.tsCompLv2,
+            this.tsCompLv3});
+            this.comparisonLevelToolStripMenuItem.Name = "comparisonLevelToolStripMenuItem";
+            this.comparisonLevelToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.comparisonLevelToolStripMenuItem.Text = "ComparisonLevel";
+            // 
+            // tsCompLv1
+            // 
+            this.tsCompLv1.Checked = true;
+            this.tsCompLv1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsCompLv1.Name = "tsCompLv1";
+            this.tsCompLv1.Size = new System.Drawing.Size(152, 22);
+            this.tsCompLv1.Text = "Level 1";
+            this.tsCompLv1.Click += new System.EventHandler(this.tsCompLv1_Click);
+            // 
+            // tsCompLv2
+            // 
+            this.tsCompLv2.Name = "tsCompLv2";
+            this.tsCompLv2.Size = new System.Drawing.Size(152, 22);
+            this.tsCompLv2.Text = "Level 2";
+            this.tsCompLv2.Click += new System.EventHandler(this.tsCompLv2_Click);
+            // 
+            // tsCompLv3
+            // 
+            this.tsCompLv3.Name = "tsCompLv3";
+            this.tsCompLv3.Size = new System.Drawing.Size(152, 22);
+            this.tsCompLv3.Text = "Level 3";
+            this.tsCompLv3.Click += new System.EventHandler(this.tsCompLv3_Click);
             // 
             // frmMain
             // 
@@ -914,6 +952,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ContextMenuStrip contextMenuOracleBrowse;
         private System.Windows.Forms.ToolStripMenuItem oracleClear;
+        private System.Windows.Forms.ToolStripMenuItem comparisonLevelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsCompLv1;
+        private System.Windows.Forms.ToolStripMenuItem tsCompLv2;
+        private System.Windows.Forms.ToolStripMenuItem tsCompLv3;
     }
 }
 

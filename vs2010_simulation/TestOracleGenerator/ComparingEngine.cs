@@ -7,6 +7,13 @@ using TestOracleGenerator.Xml;
 
 namespace TestOracleGenerator
 {
+    public enum COMPARISON_LEVEL
+    {
+        LEVEL1,
+        LEVEL2,
+        LEVEL3
+    };
+
     public class ComparingEngine : OracleGenerator
     {
         public ComparingEngine(string oracleXMLPath)
@@ -106,7 +113,10 @@ namespace TestOracleGenerator
                     if (actualOutput[i] == msgOracle)
                     {
                         //bSubResult = true;
-                        //iSubResultCount++;
+                        /*if (ComparisonLevel > COMPARISON_LEVEL.LEVEL1)
+                        {
+                            iSubResultCount++;
+                        }*/
 
                         //iSubResultCount = actualOutput.OccurrenceOf(msgOracle);
                         /*
@@ -118,7 +128,28 @@ namespace TestOracleGenerator
                             }
                         }*/
 
-                        //if (iSubResultCount == node.RecursionCount)
+                        /*/if (iSubResultCount == node.RecursionCount)
+                        /{
+                            bSubResult = true;
+                        }*/
+
+                        switch (ComparisonLevel)
+                        {
+                            case COMPARISON_LEVEL.LEVEL1:
+                                bSubResult = true;
+                                break;
+                            case COMPARISON_LEVEL.LEVEL2:
+                                iSubResultCount++;
+                                break;
+                            case COMPARISON_LEVEL.LEVEL3:
+                                iSubResultCount = actualOutput.OccurrenceOf(msgOracle);
+                                break;
+                            default:
+                                break;
+                        }
+
+                        if (!bSubResult && 
+                                iSubResultCount == node.RecursionCount)
                         {
                             bSubResult = true;
                         }
@@ -198,5 +229,11 @@ namespace TestOracleGenerator
             return comparisonInfo;
         }
         #endregion
+
+        public COMPARISON_LEVEL ComparisonLevel
+        {
+            get;
+            set;
+        }
     }
 }
