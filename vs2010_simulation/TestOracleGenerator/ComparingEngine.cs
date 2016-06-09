@@ -142,7 +142,14 @@ namespace TestOracleGenerator
                                 iSubResultCount++;
                                 break;
                             case COMPARISON_LEVEL.LEVEL3:
-                                iSubResultCount = actualOutput.OccurrenceOf(msgOracle);
+                                if (node.RecursionCount != -1)
+                                {
+                                    iSubResultCount = actualOutput.OccurrenceOf(msgOracle);
+                                }
+                                else
+                                {
+                                    bSubResult = true;
+                                }
                                 break;
                             default:
                                 break;

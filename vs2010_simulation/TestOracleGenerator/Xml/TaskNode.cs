@@ -179,7 +179,7 @@ namespace TestOracleGenerator.Xml
                     }
                 }
 
-                return 1; // Default is only one occurrence
+                return -1; // Default is the infinite occurrence
             }
         }
 
