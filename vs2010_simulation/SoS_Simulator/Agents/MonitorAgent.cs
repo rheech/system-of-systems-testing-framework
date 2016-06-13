@@ -7,23 +7,18 @@ using TestOracleGenerator.Oracle;
 
 namespace SoS_Simulator.Agents
 {
-    public struct SimulationEntry
-    {
-        public string agent;
-        public string arrow;
-
-        public override string ToString()
-        {
-            return String.Format("{0}.{1}", agent, arrow);
-        }
-    }
-
+    /// <summary>
+    /// A Monitoring Agent to keep track of interaction messages from simulation
+    /// </summary>
     public class MonitorAgent : Agent
     {
+
         public delegate void TextUpdateHandler(string text);
-        public event TextUpdateHandler OnTextUpdate;
         public delegate void SimulationFinished();
+
+        public event TextUpdateHandler OnTextUpdate;
         public event SimulationFinished OnSimulationFinished;
+
         private MessageUnitList _simLog;
         private int _lastSimLogCount;
         private int _noMessageTick;
