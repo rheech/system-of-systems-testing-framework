@@ -1,46 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Diagram type="Role">
-  <Role name="BaseEmergencyCallCenter"></Role>
+<RoleModel type="Role">
+  <Role name="EmergencyCallManager">
+    <attribute type="executes" name="ReportDisaster" />
+    <arrow name="DispatchAmbulanceManager" to="AmbulanceCoordinator" />
+    <arrow name="DispatchEMSVehicle" to="TreatmentUnitLeader" />
+    <arrow name="DispatchRescueVehicle" to="IncidentCommander" />
+  </Role>
   <Role name="IncidentCommander">
     <attribute type="executes" name="EstablishCommand" />
     <attribute type="executes" name="AssignICSPositions" />
     <attribute type="executes" name="IssuePositionToolkits" />
     <arrow name="DeclareMCI" to="BaseEmergencyCallCenter" />
-    <arrow name="AssignTriagePosition" to="TriageUnitLeader" />
-    <arrow name="AssignTreatmentPosition" to="TreatmentUnitLeader" />
-    <arrow name="AssignTransportationPosition" to="TransportationUnitLeader" />
+  </Role>
+  <Role name="TreatmentUnitLeader">
+    <attribute type="executes" name="EstablishTreatmentAreas" />
+    <attribute type="executes" name="PrioritizePatients" />
+    <arrow name="TreatmentComplete" to="IncidentCommander" />
   </Role>
   <Role name="TriageUnitLeader">
     <attribute type="executes" name="RunTriage" />
     <attribute type="executes" name="ObtainPatientCount" />
     <attribute type="executes" name="ReassignTriageTeams" />
     <attribute type="executes" name="EstablishMorgue" />
-    <arrow name="ProvidePatientCount" to="IncidentCommander" />
+    <arrow name="RequestPatientTreatment" to="TreatmentUnitLeader" />
+    <arrow name="TriageComplete" to="EmergencyCallManager" />
   </Role>
-  <Role name="TreatmentUnitLeader">
-    <attribute type="executes" name="EstablishTreatmentAreas" />
-    <attribute type="executes" name="PrioritizePatients" />
-    <arrow name="ProvidePatientTransportStatus" to="TransportationUnitLeader" />
-    <arrow name="CoordinateTransport" to="MedComm" />
-  </Role>
-  <Role name="MedComm">
-    <attribute type="executes" name="UpdateBedAvailability" />
-    <arrow name="ProvideAmbulanceDestination" to="TransportationUnitLeader" />
-    <arrow name="CheckBedAvailability" to="BaseHospital" />
+  <Role name="EmergencyCallManager">
+    <arrow name="DispatchRescueVehicle" to="IncidentCommander" />
+    <arrow name="DispatchAmbulanceManager" to="AmbulanceCoordinator" />
   </Role>
   <Role name="TransportationUnitLeader">
     <attribute type="executes" name="ManageAmbulanceLoading" />
     <attribute type="executes" name="ManagePatientTracking" />
+    <arrow name="DispatchRescueVehicle" to="IncidentCommander" />
     <arrow name="RequestAmbulance" to="AmbulanceCoordinator" />
   </Role>
   <Role name="AmbulanceCoordinator">
-    <attribute type="executes" name="SetAmbulanceStagingArea" />
+    <attribute type="executes" name="SetAmbulanceStangingArea" />
     <attribute type="executes" name="AssureRoute" />
     <attribute type="executes" name="TrackAmbulances" />
-    <arrow name="TransportComplete" to="TransportationUnitLeader" />
+    <arrow name="DispatchAmbulance" to="Transporter" />
   </Role>
-  <Role name="BaseHospital">
+  <Role name="Transporter">
+    <attribute type="executes" name="TransportPatient" />
+    <arrow name="FieldArrivalReport" to="TransportationUnitLeader" />
+    <arrow name="TransferComplete" to="TransportationUnitLeader" />
+    <arrow name="DispatchPatient" to="Clinic" />
+  </Role>
+  <Role name="MedComm">
     <attribute type="executes" name="UpdateBedAvailability" />
+    <arrow name="RequestBedAvailability" to="Clinic" />
+  </Role>
+  <Role name="Clinic">
+    <attribute type="executes" name="ReceivePatient" />
     <arrow name="ProvideBedAvailability" to="MedComm" />
   </Role>
-</Diagram>
+</RoleModel>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Diagram type="Agent">
+<AgentModel type="Agent">
   <Agent name="RescueVehicle">
     <Role name="IncidentCommander" />
     <Role name="TriageUnitLeader" />
@@ -10,12 +10,15 @@
     <Role name="MedComm" />
   </Agent>
   <Agent name="EmergencyCallCenter">
-    <Role name="BaseEmergencyCallCenter" />
+    <Role name="EmergencyCallManager" />
   </Agent>
-  <Agent name="Ambulance">
+  <Agent name="AmbulanceManager">
     <Role name="AmbulanceCoordinator" />
   </Agent>
-  <Agent name="Hospital">
-    <Role name="BaseHospital" />
+  <Agent name="Ambulance">
+    <Role name="Transporter" />
   </Agent>
-</Diagram>
+  <Agent name="Hospital">
+    <Role name="Clinic" />
+  </Agent>
+</AgentModel>
