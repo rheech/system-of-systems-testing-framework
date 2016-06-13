@@ -17,7 +17,7 @@ namespace SoS_Simulator.Objects
         /// <summary>
         /// Initializes the new instance of environmental object in SoS simulator.
         /// </summary>
-        /// <param name="simulator">A simulator to place the object.</param>
+        /// <param name="simulator">A simulator related to the object.</param>
         public SoS_Object(Simulator simulator)
         {
             SoS_Object.Tick += this.OnTickInternal;

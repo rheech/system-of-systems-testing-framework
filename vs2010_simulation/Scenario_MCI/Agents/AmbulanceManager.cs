@@ -17,9 +17,9 @@ namespace Scenario_MCI.Agents
             isDispatched = false;
         }
 
-        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
-            switch (msgType)
+            switch (msgText)
             {
                 case "DispatchAmbulanceManager":
                     isDispatched = true;

@@ -15,9 +15,9 @@ namespace Scenario_SmartHomeSystem.Agents
         {
         }
 
-        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
-            switch (msgType)
+            switch (msgText)
             {
                 case "Heat":
                     //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);

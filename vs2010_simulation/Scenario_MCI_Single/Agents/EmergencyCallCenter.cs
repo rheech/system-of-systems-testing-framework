@@ -18,9 +18,9 @@ namespace Scenario_MCI_Single.Agents
         {
         }
 
-        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
-            switch (msgType)
+            switch (msgText)
             {
                 case "ReportDisaster":
                     //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);

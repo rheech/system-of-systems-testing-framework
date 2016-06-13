@@ -23,9 +23,9 @@ namespace Scenario_MCI.Agents
         {
         }
 
-        protected override void OnMessageReceived(object from, Type target, string msgType, params object[] info)
+        protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
-            switch (msgType)
+            switch (msgText)
             {
                 case "RequestStandBy":
                     position = AMBULANCE_POSITION.StagingArea;
