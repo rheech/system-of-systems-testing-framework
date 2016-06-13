@@ -6,8 +6,8 @@
       <node name="Dispatch" type="goal" operator="orderindependent">
         <node name="DispatchRescueVehicle" type="interaction" operator="orderindependent" />
         <node name="DispatchEMSVehicle" type="interaction" operator="orderindependent" />
-        <node name="DispatchAmbulanceManager" type="interaction" operator="orderindependent"></node>
-        <node name="DispatchAmbulance" type="interaction"></node>
+        <node name="DispatchAmbulanceManager" type="interaction" operator="orderindependent" />
+        <node name="DispatchAmbulance" type="interaction" />
       </node>
       <node name="RescuePatient" type="goal">
         <node name="Triage" type="goal" operator="sequential">
@@ -26,7 +26,7 @@
           <node name="PatientTransfer" type="goal">
             <node name="FieldArrivalReport" type="interaction" operator="sequential" />
             <node name="DispatchPatient" type="interaction" operator="sequential" />
-            <node name="TransferComplete" type="interaction" operator="sequential" />
+            <node name="TransferComplete" type="interaction" operator="sequential" count="14" />
           </node>
         </node>
       </node>

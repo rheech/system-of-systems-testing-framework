@@ -139,7 +139,14 @@ namespace TestOracleGenerator
                                 bSubResult = true;
                                 break;
                             case COMPARISON_LEVEL.LEVEL2:
-                                iSubResultCount++;
+                                if (node.RecursionCount != -1)
+                                {
+                                    iSubResultCount++;
+                                }
+                                else
+                                {
+                                    bSubResult = true;
+                                }
                                 break;
                             case COMPARISON_LEVEL.LEVEL3:
                                 if (node.RecursionCount != -1)
