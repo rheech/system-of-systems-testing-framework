@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace SoS_Simulator.Agents
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct AgentMessage
     {
         public Type target;
@@ -14,20 +17,28 @@ namespace SoS_Simulator.Agents
         public object[] info;
     }
 
+    /// <summary>
+    /// An Abstract autonomous Agent class to simulate constituent systems in SoS
+    /// </summary>
     public abstract class Agent : SoS_Object
     {
         private delegate void MessageEventHandler(object from, Type target, string msgText, params object[] info);
         private static event MessageEventHandler MessageReceived;
         private Queue<AgentMessage> _messageQueue;
-        private Random r;
 
+        /// <summary>
+        /// Create an instance of Agent
+        /// </summary>
+        /// <param name="simulator">A simulator related to the Agent</param>
         public Agent(Simulator simulator) : base(simulator)
         {
-            r = new Random();
             _messageQueue = new Queue<AgentMessage>();
             Agent.MessageReceived += this.OnMessageReceivedInternal;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         ~Agent()
         {
             Agent.MessageReceived -= this.OnMessageReceivedInternal;
@@ -65,14 +76,7 @@ namespace SoS_Simulator.Agents
                     target.Name == "Agent" ||
                     this.GetType().Name == "MonitorAgent") // if monitoring agent, receive all
             {
-                // if (r.Next(1, 101) < 95) // 메시지가 90% 의 확률로 전달됨.
-                {
-                    OnMessageReceived(from, target, msgText, info);
-                }
-                //else
-                {
-                    //SimulationComplete(true);
-                }
+                OnMessageReceived(from, target, msgText, info);
             }
         }
 
@@ -89,11 +93,6 @@ namespace SoS_Simulator.Agents
 
         protected virtual void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
-        }
-
-        protected void SimulationComplete(bool error)
-        {
-            SendMessage(typeof(Agent), "SIMULATION_COMPLETE");
         }
     }
 }

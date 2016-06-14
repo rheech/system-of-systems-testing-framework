@@ -17,7 +17,7 @@ namespace Scenario_E_Commerce.Agents
             switch (msgText)
             {
                 case "":
-                    SimulationComplete(false);
+                    //SimulationComplete(false);
                     break;
                 default:
                     break;

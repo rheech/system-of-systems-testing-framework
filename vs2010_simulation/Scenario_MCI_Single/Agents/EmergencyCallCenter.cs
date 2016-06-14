@@ -27,7 +27,7 @@ namespace Scenario_MCI_Single.Agents
                     SendMessage(typeof(RescueVehicle), "DispatchCommand");
                     break;
                 case "RESCUE_COMPLETE":
-                    SimulationComplete(false);
+                    //SimulationComplete(false);
                     break;
                 default:
                     break;
