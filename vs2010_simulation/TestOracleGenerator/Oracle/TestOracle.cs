@@ -69,6 +69,7 @@ namespace TestOracleGenerator.Oracle
             mapOperator.Add(TASK_OPERATOR.ORDER_INDEPENDENT, "|=|");
             mapOperator.Add(TASK_OPERATOR.CHOICE, "[]");
             mapOperator.Add(TASK_OPERATOR.SEQUENTIAL, ">>");
+            mapOperator.Add(TASK_OPERATOR.SEQUENTIAL_INFO, "[]>>");
             mapOperator.Add(TASK_OPERATOR.NONE, "");
         }
 

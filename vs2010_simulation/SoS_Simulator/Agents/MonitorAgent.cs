@@ -47,6 +47,8 @@ namespace SoS_Simulator.Agents
             entry.From = from.GetType().Name.ToString();
             entry.To = target.Name.ToString();
             entry.Message = msgText.ToString();
+            entry.Cycle = this.Cycle;
+            entry.Parameter = info;
 
             // Add current message to the simulation log
             _simLog.Add(entry);

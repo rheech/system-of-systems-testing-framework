@@ -112,27 +112,6 @@ namespace TestOracleGenerator
                     // If oracle matches with a task name
                     if (actualOutput[i] == msgOracle)
                     {
-                        //bSubResult = true;
-                        /*if (ComparisonLevel > COMPARISON_LEVEL.LEVEL1)
-                        {
-                            iSubResultCount++;
-                        }*/
-
-                        //iSubResultCount = actualOutput.OccurrenceOf(msgOracle);
-                        /*
-                        for (int k = i + 1; k < actualOutput.Count; k++)
-                        {
-                            if (actualOutput[k] == msgOracle)
-                            {
-                                iSubResultCount++;
-                            }
-                        }*/
-
-                        /*/if (iSubResultCount == node.RecursionCount)
-                        /{
-                            bSubResult = true;
-                        }*/
-
                         switch (ComparisonLevel)
                         {
                             case COMPARISON_LEVEL.LEVEL1:
@@ -183,9 +162,8 @@ namespace TestOracleGenerator
                         // Define next index by checking the operator
                         switch (node.Operator)
                         {
-                            case TASK_OPERATOR.INTERLEAVING: // ORDER INDEPENDENT + CHOICE
+                            case TASK_OPERATOR.INTERLEAVING: // ORDER INDEPENDENT + CHOICE + CONCURRENCY
                                 comparisonInfo.CurrentIndex = 0;
-
                                 comparisonInfo.CurrentIndex = actualOutput.Count; // Exit for
 
                                 if (comparisonInfo.Result)
@@ -197,9 +175,6 @@ namespace TestOracleGenerator
                                     // reset for the next optional comparison
                                     comparisonInfo.Result = true;
                                 }
-                                break;
-                            case TASK_OPERATOR.ORDER_INDEPENDENT:
-                                comparisonInfo.CurrentIndex = 0;
                                 break;
                             case TASK_OPERATOR.CHOICE:
                                 comparisonInfo.CurrentIndex = actualOutput.Count; // Exit for
@@ -215,8 +190,31 @@ namespace TestOracleGenerator
                                 }
 
                                 break;
+                            case TASK_OPERATOR.SYNCHRONIZATION: // CONCURRENCY with Information Passing
+                                if (actualOutput[i].Parameter.Length > 0 &&
+                                        actualOutput[i].Cycle == actualOutput[i + 1].Cycle)
+                                {
+                                    bSubResult = true;
+                                }
+                                break;
+                            case TASK_OPERATOR.CONCURRENCY: // CONCURRENCY
+                                if (actualOutput[i].Cycle == actualOutput[i + 1].Cycle)
+                                {
+                                    bSubResult = true;
+                                }
+                                break;
                             case TASK_OPERATOR.SEQUENTIAL:
                                 comparisonInfo.CurrentIndex = i;
+                                break;
+                            case TASK_OPERATOR.SEQUENTIAL_INFO:
+                                if (actualOutput[i].Parameter.Length > 0)
+                                {
+                                    comparisonInfo.CurrentIndex = i;
+                                }
+
+                                break;
+                            case TASK_OPERATOR.ORDER_INDEPENDENT:
+                                comparisonInfo.CurrentIndex = 0;
                                 break;
                             case TASK_OPERATOR.NONE:
                                 bBreakLoop = true;

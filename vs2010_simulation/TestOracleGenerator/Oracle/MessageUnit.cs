@@ -11,6 +11,8 @@ namespace TestOracleGenerator.Oracle
         public string From;
         public string To;
         public int Occurrence;
+        public int Cycle;
+        public object[] Parameter;
 
         public override string ToString()
         {

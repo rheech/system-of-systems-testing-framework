@@ -12,6 +12,7 @@ namespace SoS_Simulator.Objects
     {
         private delegate void TickEventHandler();
         private static event TickEventHandler Tick;
+        private static int _numCycle = 0;
         private Simulator _simulator;
 
         /// <summary>
@@ -61,6 +62,7 @@ namespace SoS_Simulator.Objects
         public static void ResetEventHandler()
         {
             Tick = null;
+            _numCycle = 0;
         }
 
         /// <summary>
@@ -68,6 +70,8 @@ namespace SoS_Simulator.Objects
         /// </summary>
         public static void RaiseTick()
         {
+            _numCycle++;
+
             if (Tick != null)
             {
                 Tick();
@@ -87,6 +91,14 @@ namespace SoS_Simulator.Objects
         /// </summary>
         protected virtual void OnTick()
         {
+        }
+
+        public int Cycle
+        {
+            get
+            {
+                return _numCycle;
+            }
         }
     }
 }
