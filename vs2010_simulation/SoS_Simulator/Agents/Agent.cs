@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace SoS_Simulator.Agents
 {
     /// <summary>
-    /// 
+    /// AgentMessage structure
     /// </summary>
     public struct AgentMessage
     {
@@ -37,27 +37,29 @@ namespace SoS_Simulator.Agents
         }
 
         /// <summary>
-        /// 
+        /// Destructor for Agent class
         /// </summary>
         ~Agent()
         {
+            // Remove from message event handler
             Agent.MessageReceived -= this.OnMessageReceivedInternal;
         }
 
+        /// <summary>
+        /// Reset all event handlers (overrides the base method)
+        /// </summary>
         public static new void ResetEventHandler()
         {
             MessageReceived = null;
             SoS_Object.ResetEventHandler();
         }
 
-        private static void SendMessageInternal(object from, Type target, string msgText, params object[] info)
-        {
-            if (MessageReceived != null)
-            {
-                MessageReceived(from, target, msgText, info);
-            }
-        }
-
+        /// <summary>
+        /// Send message to agents
+        /// </summary>
+        /// <param name="target">Receiver agent</param>
+        /// <param name="msgText">Message text in string</param>
+        /// <param name="info">Additional parameter</param>
         public void SendMessage(Type target, string msgText, params object[] info)
         {
             AgentMessage msg;
@@ -67,9 +69,33 @@ namespace SoS_Simulator.Agents
             msg.msgText = msgText;
             msg.info = info;
 
+            // Put message to message queue
             _messageQueue.Enqueue(msg);
         }
 
+        /// <summary>
+        /// An internal method of SendMessage based on queue
+        /// </summary>
+        /// <param name="from">Transmitter agent</param>
+        /// <param name="target">Receiver agent type</param>
+        /// <param name="msgText">Message text in string</param>
+        /// <param name="info">Additional parameter</param>
+        private static void SendMessageInternal(object from, Type target, string msgText, params object[] info)
+        {
+            if (MessageReceived != null)
+            {
+                MessageReceived(from, target, msgText, info);
+            }
+        }
+
+
+        /// <summary>
+        /// Message receive event handler
+        /// </summary>
+        /// <param name="from">Transmitter agent</param>
+        /// <param name="target">Receiver agent type</param>
+        /// <param name="msgText">Message text in string</param>
+        /// <param name="info">Additional parameter</param>
         private void OnMessageReceivedInternal(object from, Type target, string msgText, params object[] info)
         {
             if (target == this.GetType() ||
@@ -80,10 +106,14 @@ namespace SoS_Simulator.Agents
             }
         }
 
+        /// <summary>
+        /// Execute agent in accordance to the instruction cycle
+        /// </summary>
         protected override void OnTick()
         {
             AgentMessage msg;
 
+            // Process message queue
             if (_messageQueue.Count > 0)
             {
                 msg = _messageQueue.Dequeue();
@@ -91,6 +121,13 @@ namespace SoS_Simulator.Agents
             }
         }
 
+        /// <summary>
+        /// Overridable function of receive message event for derived agents
+        /// </summary>
+        /// <param name="from">Transmitter agent</param>
+        /// <param name="target">Receiver agent type</param>
+        /// <param name="msgText">Message text in string</param>
+        /// <param name="info">Additional parameter</param>
         protected virtual void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
         }
