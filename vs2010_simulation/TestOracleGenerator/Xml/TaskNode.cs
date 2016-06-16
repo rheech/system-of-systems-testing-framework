@@ -14,8 +14,8 @@ namespace TestOracleGenerator.Xml
         CHOICE, // Choice, []
         SYNCHRONIZATION, // Synchronization, |[]|
         CONCURRENCY, // Concurrency ||
-        SEQUENTIAL, // Enabling, >>
-        SEQUENTIAL_INFO, // Enabling Info, []>>
+        ENABLE, // Enabling, >>
+        ENABLEINFO, // Enabling Info, []>>
         ORDER_INDEPENDENT // Order Independent |=|
     }
 
@@ -53,11 +53,11 @@ namespace TestOracleGenerator.Xml
                 case "concurrency":
                     tOperator = TASK_OPERATOR.CONCURRENCY;
                     break;
-                case "sequential":
-                    tOperator = TASK_OPERATOR.SEQUENTIAL;
+                case "enable":
+                    tOperator = TASK_OPERATOR.ENABLE;
                     break;
-                case "sequentialinfo":
-                    tOperator = TASK_OPERATOR.SEQUENTIAL_INFO;
+                case "enableinfo":
+                    tOperator = TASK_OPERATOR.ENABLEINFO;
                     break;
                 case "orderindependent":
                     tOperator = TASK_OPERATOR.ORDER_INDEPENDENT;

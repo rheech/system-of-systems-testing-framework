@@ -203,10 +203,10 @@ namespace TestOracleGenerator
                                     bSubResult = true;
                                 }
                                 break;
-                            case TASK_OPERATOR.SEQUENTIAL:
+                            case TASK_OPERATOR.ENABLE:
                                 comparisonInfo.CurrentIndex = i;
                                 break;
-                            case TASK_OPERATOR.SEQUENTIAL_INFO:
+                            case TASK_OPERATOR.ENABLEINFO:
                                 if (actualOutput[i].Parameter.Length > 0)
                                 {
                                     comparisonInfo.CurrentIndex = i;

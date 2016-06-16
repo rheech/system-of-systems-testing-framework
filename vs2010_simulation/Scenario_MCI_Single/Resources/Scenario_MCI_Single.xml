@@ -2,26 +2,26 @@
 <SoS>
   <TaskModel type="Task">
     <node name="MCI_Response" type="goal">
-      <node name="Communicate" type="goal" operator="sequential">
+      <node name="Communicate" type="goal" operator="enable">
         <node name="DeclareMCI" type="interaction" />
       </node>
       <node name="SavePatient" type="goal">
-        <node name="Triage" type="goal" operator="sequential">
-          <node name="AssignTriagePosition" type="interaction" operator="sequential" />
+        <node name="Triage" type="goal" operator="enable">
+          <node name="AssignTriagePosition" type="interaction" operator="enable" />
           <node name="ProvidePatientCount" type="interaction" />
         </node>
-        <node name="Treatment" type="goal" operator="sequential">
-          <node name="AssignTreatmentPosition" type="interaction" operator="sequential" />
+        <node name="Treatment" type="goal" operator="enable">
+          <node name="AssignTreatmentPosition" type="interaction" operator="enable" />
           <node name="MedComm" type="goal">
-            <node name="CoordinateTransport" type="interaction" operator="sequential" />
+            <node name="CoordinateTransport" type="interaction" operator="enable" />
             <node name="ProvideAmbulanceDestination" type="interaction" operator="choice" />
-            <node name="CheckBedAvailability" type="interaction" operator="sequential" />
+            <node name="CheckBedAvailability" type="interaction" operator="enable" />
             <node name="ProvideBedAvailability" type="interaction" />
           </node>
         </node>
         <node name="Transportation" type="goal">
-          <node name="AssignTransportationPosition" type="interaction" operator="sequential" />
-          <node name="RequestAmbulance" type="interaction" operator="sequential" />
+          <node name="AssignTransportationPosition" type="interaction" operator="enable" />
+          <node name="RequestAmbulance" type="interaction" operator="enable" />
           <node name="TransportComplete" type="interaction" />
         </node>
       </node>

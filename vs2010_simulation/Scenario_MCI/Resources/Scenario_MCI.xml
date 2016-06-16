@@ -10,23 +10,23 @@
         <node name="DispatchAmbulance" type="interaction" />
       </node>
       <node name="RescuePatient" type="goal">
-        <node name="Triage" type="goal" operator="sequential">
+        <node name="Triage" type="goal" operator="enable">
           <node name="TriageComplete" type="interaction" />
         </node>
         <node name="Treatment" type="goal" operator="orderindependent">
-          <node name="RequestPatientTreatment" type="interaction" operator="sequential" />
-          <node name="MedComm" type="goal" operator="sequential">
-            <node name="RequestBedAvailability" type="interaction" operator="sequential" />
+          <node name="RequestPatientTreatment" type="interaction" operator="enable" />
+          <node name="MedComm" type="goal" operator="enable">
+            <node name="RequestBedAvailability" type="interaction" operator="enable" />
             <node name="ProvideBedAvailability" type="interaction" />
           </node>
           <node name="TreatmentComplete" type="interaction" />
         </node>
         <node name="Transport" type="goal">
-          <node name="RequestAmbulance" type="interaction" operator="sequential" />
+          <node name="RequestAmbulance" type="interaction" operator="enable" />
           <node name="PatientTransfer" type="goal">
-            <node name="FieldArrivalReport" type="interaction" operator="sequential" />
-            <node name="DispatchPatient" type="interaction" operator="sequential" />
-            <node name="TransferComplete" type="interaction" operator="sequential" count="14" />
+            <node name="FieldArrivalReport" type="interaction" operator="enable" />
+            <node name="DispatchPatient" type="interaction" operator="enableinfo" />
+            <node name="TransferComplete" type="interaction" operator="enable" count="14" />
           </node>
         </node>
       </node>
