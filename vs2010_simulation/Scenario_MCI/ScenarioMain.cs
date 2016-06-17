@@ -12,7 +12,6 @@ namespace Scenario_MCI
 {
     public class ScenarioMain : Simulator
     {
-        //public static TesterAgent.TestMonitor t = new TesterAgent.TestMonitor();
         public List<Patient> patients;
         public int immediate, delayed, minor, dead;
 
@@ -24,28 +23,24 @@ namespace Scenario_MCI
         EMSVehicle _emsVehicle;
         RescueVehicle _rescueVehicle;
 
-        // environment
-        public Disaster disaster;
-
-
         protected override void Initialize()
         {
             _hospital = new Hospital(this, 15);
             _ambulanceManager = new AmbulanceManager(this);
             _ambulance = new Ambulance(this);
             _callCenter = new EmergencyCallCenter(this);
-            disaster = new Disaster(this);
             _emsVehicle = new EMSVehicle(this);
             _rescueVehicle = new RescueVehicle(this);
 
-            //SetPatients(10);
             patients = new List<Patient>();
 
+            // set num of patients with status
             immediate = 3;
             delayed = 4;
             minor = 5;
             dead = 2;
 
+            // set 14 patients
             for (int i = 0; i < immediate; i++)
             {
                 patients.Add(new Patient(this, PATIENT_STATUS.Immediate));
@@ -85,7 +80,7 @@ namespace Scenario_MCI
 
         protected override void Run()
         {
-            _callCenter.ReportDisaster(disaster);
+            _callCenter.ReportDisaster();
         }
 
         public override string GetMonitoringText()

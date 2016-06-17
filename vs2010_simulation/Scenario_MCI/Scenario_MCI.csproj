@@ -82,7 +82,6 @@
     <Compile Include="Agents\Hospital.cs" />
     <Compile Include="Agents\RescueVehicle.cs" />
     <Compile Include="ScenarioMain.cs" />
-    <Compile Include="Objects\Disaster.cs" />
     <Compile Include="Objects\Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

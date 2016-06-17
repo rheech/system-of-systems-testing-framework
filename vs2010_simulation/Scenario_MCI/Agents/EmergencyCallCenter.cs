@@ -41,7 +41,7 @@ namespace Scenario_MCI.Agents
         }
 
         // Received disaster report (beginning of MCI)
-        public void ReportDisaster(Disaster disaster)
+        public void ReportDisaster()
         {
             SendMessage(typeof(EmergencyCallCenter), "DisasterReport");
         }
