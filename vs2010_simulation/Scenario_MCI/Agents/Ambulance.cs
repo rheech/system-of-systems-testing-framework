@@ -7,8 +7,14 @@ using Scenario_MCI.Objects;
 
 namespace Scenario_MCI.Agents
 {
+    /// <summary>
+    /// Ambulance
+    /// </summary>
     public class Ambulance : MCI_Agent
     {
+        /// <summary>
+        /// Enumeration represents an ambulance position
+        /// </summary>
         enum AMBULANCE_POSITION
         {
             StagingArea,
@@ -18,11 +24,22 @@ namespace Scenario_MCI.Agents
 
         AMBULANCE_POSITION position;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="simulator"></param>
         public Ambulance(ScenarioMain simulator)
             : base(simulator)
         {
         }
 
+        /// <summary>
+        /// Receive message from other agents
+        /// </summary>
+        /// <param name="from">Transmitter agent</param>
+        /// <param name="target">Receiver agent type</param>
+        /// <param name="msgText">Message text in string</param>
+        /// <param name="info">Additional parameter</param>
         protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
             switch (msgText)
@@ -45,6 +62,14 @@ namespace Scenario_MCI.Agents
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// Tick function derived from the parent
+        /// </summary>
+        protected override void OnTick()
+        {
+            base.OnTick();
         }
     }
 }
