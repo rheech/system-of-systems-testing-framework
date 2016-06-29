@@ -6,9 +6,9 @@ using SoS_Simulator.Agents;
 
 namespace Scenario_E_Commerce.Agents
 {
-    public class Dell : Agent
+    public class Visa : Agent
     {
-        public Dell(ScenarioMain simulator)
+        public Visa(ScenarioMain simulator)
             : base(simulator)
         {
         }

@@ -16,8 +16,10 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgText)
             {
-                case "":
+                case "RequestOrder":
                     //SimulationComplete(false);
+                    SendMessage(typeof(Visa), "ProcessPayment");
+
                     break;
                 default:
                     break;

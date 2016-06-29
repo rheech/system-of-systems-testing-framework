@@ -194,11 +194,11 @@ namespace SoS_Simulator
 
         private void LoadDefault()
         {
-            if (LoadSimulatorLibrary("Scenario_MCI.dll"))
+            if (LoadSimulatorLibrary("Scenario_E_Commerce.dll"))
             {
-                if (!LoadTestOracle(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml")))
+                //if (!LoadTestOracle(String.Format("{0}{1}", BASE_PATH, "Scenario_MCI.xml")))
                 {
-                    MessageBox.Show("Error loading test oracles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error loading test oracles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
