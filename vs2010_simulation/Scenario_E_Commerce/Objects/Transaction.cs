@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Scenario_E_Commerce.Objects
 {
-    class Package
+    public class Transaction
     {
+        public double Amount;
     }
 }

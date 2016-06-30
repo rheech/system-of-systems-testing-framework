@@ -16,10 +16,21 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgText)
             {
-                case "RequestOrder":
-                    //SimulationComplete(false);
+                case "SearchProduct":
+                    SendMessage(typeof(Customer), "SearchProductReturn");
+                    break;
+                case "ViewProduct":
+                    SendMessage(typeof(Customer), "ViewProductReturn");
+                    break;
+                case "MakePayment":
                     SendMessage(typeof(Visa), "ProcessPayment");
-
+                    break;
+                case "PaymentComplete":
+                    SendMessage(typeof(BarnesAndNoble), "OrderRequest");
+                    SendMessage(typeof(Customer), "OrderComplete");
+                    break;
+                case "DeliverStarted":
+                    SendMessage(typeof(Customer), "OrderShipped");
                     break;
                 default:
                     break;

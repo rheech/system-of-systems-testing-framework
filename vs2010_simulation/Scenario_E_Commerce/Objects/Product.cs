@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Scenario_E_Commerce.Objects
 {
-    class OrderStatus
+    public class Product
     {
+        public string Name;
+        public double Price;
     }
 }

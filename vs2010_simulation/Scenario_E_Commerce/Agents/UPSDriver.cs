@@ -6,9 +6,9 @@ using SoS_Simulator.Agents;
 
 namespace Scenario_E_Commerce.Agents
 {
-    public class UPS : Agent
+    public class UPSDriver : Agent
     {
-        public UPS(ScenarioMain simulator)
+        public UPSDriver(ScenarioMain simulator)
             : base(simulator)
         {
         }
@@ -17,9 +17,8 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgText)
             {
-                case "RequestDelivery":
-                    SendMessage(typeof(UPSDriver), "DeliverPackage");
-                    SendMessage(typeof(BarnesAndNoble), "DeliverStarted");
+                case "DeliverPackage":
+                    SendMessage(typeof(UPS), "DeliverComplete");
                     break;
                 default:
                     break;

@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Scenario_E_Commerce.Objects
 {
-    class Money
+    public class Card
     {
+        public string Number;
+        public double CreditLimit;
     }
 }

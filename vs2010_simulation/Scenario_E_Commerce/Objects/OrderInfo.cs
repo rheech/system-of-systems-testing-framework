@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Scenario_E_Commerce.Objects
 {
-    class Warehouse
+    public class OrderInfo
     {
+        public Transaction transaction;
+        public List<Product> item;
     }
 }

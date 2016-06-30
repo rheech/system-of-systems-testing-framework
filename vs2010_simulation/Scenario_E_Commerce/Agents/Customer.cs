@@ -15,15 +15,20 @@ namespace Scenario_E_Commerce.Agents
 
         public void RequestOrder()
         {
-            SendMessage(typeof(Amazon), "RequestOrder");
+            SendMessage(typeof(Amazon), "SearchProduct");
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
             switch (msgText)
             {
-                case "":
-                    //SimulationComplete(false);
+                case "SearchProductReturn":
+                    SendMessage(typeof(Amazon), "ViewProduct");
+                    break;
+                case "ViewProductReturn":
+                    SendMessage(typeof(Amazon), "MakePayment");
+                    break;
+                case "OrderComplete":
                     break;
                 default:
                     break;

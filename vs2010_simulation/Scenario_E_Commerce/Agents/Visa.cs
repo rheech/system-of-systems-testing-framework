@@ -17,8 +17,8 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgText)
             {
-                case "":
-                    //SimulationComplete(false);
+                case "ProcessPayment":
+                    SendMessage(typeof(Amazon), "PaymentComplete");
                     break;
                 default:
                     break;

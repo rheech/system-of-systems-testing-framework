@@ -6,9 +6,9 @@ using SoS_Simulator.Agents;
 
 namespace Scenario_E_Commerce.Agents
 {
-    public class Dell : Agent
+    public class BarnesAndNoble : Agent
     {
-        public Dell(ScenarioMain simulator)
+        public BarnesAndNoble(ScenarioMain simulator)
             : base(simulator)
         {
         }
@@ -17,8 +17,11 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgText)
             {
-                case "":
-                    //SimulationComplete(false);
+                case "OrderRequest":
+                    SendMessage(typeof(UPS), "RequestDelivery");
+                    break;
+                case "DeliverStarted":
+                    SendMessage(typeof(Amazon), "DeliveryProcessed");
                     break;
                 default:
                     break;
