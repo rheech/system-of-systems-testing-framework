@@ -46,7 +46,6 @@ namespace Scenario_E_Commerce
             creditCard.Number = "12345";
             creditCard.Name = "John Doe";
             creditCard.CreditLimit = 200.00;
-
         }
 
         protected override void Run()

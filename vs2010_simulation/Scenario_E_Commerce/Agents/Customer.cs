@@ -10,6 +10,7 @@ namespace Scenario_E_Commerce.Agents
     public class Customer : Agent
     {
         List<Product> _productToBuy;
+        Card _creditCard;
 
         public Customer(ScenarioMain simulator)
             : base(simulator)
@@ -41,6 +42,27 @@ namespace Scenario_E_Commerce.Agents
         protected override void OnTick()
         {
             base.OnTick();
+        }
+
+        public Card CreditCard
+        {
+            get
+            {
+                return _creditCard;
+            }
+        }
+
+        public Product[] ProductsToBuy
+        {
+            get
+            {
+                if (_productToBuy != null)
+                {
+                    return _productToBuy.ToArray();
+                }
+
+                return null;
+            }
         }
     }
 }
