@@ -11,10 +11,25 @@ namespace Scenario_E_Commerce.Agents
     {
         List<Product> _productToBuy;
         Card _creditCard;
+        Product _lastProduct;
 
-        public Customer(ScenarioMain simulator)
+        public Customer(ScenarioMain simulator, Product[] productsToBuy, Card creditCard)
             : base(simulator)
         {
+            _productToBuy = new List<Product>(productsToBuy);
+            _creditCard = creditCard;
+        }
+
+        public void BuyProduct()
+        {
+            // If there is a product to purchase
+            if (_productToBuy.Count > 0)
+            {
+                // Take it, and search it using Amazon
+                _lastProduct = _productToBuy[0];
+                _productToBuy.RemoveAt(0);
+                SendMessage(typeof(Amazon), "SearchProduct", _lastProduct);
+            }
         }
 
         public void RequestOrder()
