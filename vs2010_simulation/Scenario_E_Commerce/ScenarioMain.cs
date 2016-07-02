@@ -10,8 +10,6 @@ namespace Scenario_E_Commerce
 {
     public class ScenarioMain : Simulator
     {
-        Product product;
-
         Amazon _amazon;
         Customer _customer;
         BarnesAndNoble _dell;
@@ -20,13 +18,35 @@ namespace Scenario_E_Commerce
 
         protected override void Initialize()
         {
+            List<Product> productsToBuy;
+            Product tempProduct;
+            Card creditCard;
+
             _amazon = new Amazon(this);
             _customer = new Customer(this);
             _dell = new BarnesAndNoble(this);
             _ups = new UPS(this);
             _visa = new Visa(this);
 
-            
+            productsToBuy = new List<Product>();
+
+            // Add books
+            tempProduct = new Product();
+            tempProduct.Name = "Software Engineering (10th Edition)";
+            tempProduct.Price = 165.20;
+            productsToBuy.Add(tempProduct);
+
+            tempProduct = new Product();
+            tempProduct.Name = "Introduction to Programming Using C#";
+            tempProduct.Price = 24.95;
+            productsToBuy.Add(tempProduct);
+
+            // Add credit card
+            creditCard = new Card();
+            creditCard.Number = "12345";
+            creditCard.Name = "John Doe";
+            creditCard.CreditLimit = 200.00;
+
         }
 
         protected override void Run()

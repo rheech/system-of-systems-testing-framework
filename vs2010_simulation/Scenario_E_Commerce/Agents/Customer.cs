@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
+using Scenario_E_Commerce.Objects;
 
 namespace Scenario_E_Commerce.Agents
 {
     public class Customer : Agent
     {
+        List<Product> _productToBuy;
+
         public Customer(ScenarioMain simulator)
             : base(simulator)
         {
