@@ -23,23 +23,24 @@ namespace Scenario_SmartHomeSystem.Objects
         {
             base.OnTick();
 
-            /*if (rnd.Next(1) == 1)
+            // Randomly adjust temp, humidity
+            if (rnd.Next(2) == 1)
             {
-                temperature += (0.01 * rnd.Next(10));
+                temperature += (0.01 * rnd.Next(3));
             }
             else
             {
-                temperature -= (0.01 * rnd.Next(10));
+                temperature -= (0.01 * rnd.Next(3));
             }
 
-            if (rnd.Next(1) == 1)
+            if (rnd.Next(2) == 1)
             {
-                humidity += (0.01 * rnd.Next(10));
+                humidity += (0.01 * rnd.Next(3));
             }
             else
             {
-                humidity -= (0.01 * rnd.Next(10));
-            }*/
+                humidity -= (0.01 * rnd.Next(3));
+            }
         }
     }
 }

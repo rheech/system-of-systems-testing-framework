@@ -25,7 +25,7 @@ namespace Scenario_SmartHomeSystem
             room.temperature = 25;
             room.humidity = 40;
 
-            _controlCenter = new ControlCenter(this);
+            _controlCenter = new ControlCenter(this, 25.0, 40.0);
             _cooler = new Cooler(this);
             _heater = new Heater(this);
             _humidifier = new Humidifier(this);

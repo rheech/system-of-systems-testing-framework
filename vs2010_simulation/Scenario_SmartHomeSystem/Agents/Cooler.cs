@@ -17,22 +17,9 @@ namespace Scenario_SmartHomeSystem.Agents
         {
             switch (msgText)
             {
-                case "Heat":
-                    //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
-                    SendMessage(typeof(Heater), "Heat");
-                    Simulation.room.temperature += 0.05;
-                    break;
                 case "Cool":
-                    SendMessage(typeof(Cooler), "Cool");
+                    //SendMessage(typeof(Cooler), "Cool");
                     Simulation.room.temperature -= 0.05;
-                    break;
-                case "DrawInMoist":
-                    SendMessage(typeof(Dehumidifier), "DrawInMoist");
-                    Simulation.room.humidity -= 0.05;
-                    break;
-                case "ReleaseMoist":
-                    SendMessage(typeof(Hygrometer), "ReleaseMoist");
-                    Simulation.room.humidity += 0.05;
                     break;
                 default:
                     break;

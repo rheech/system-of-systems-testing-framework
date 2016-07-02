@@ -8,51 +8,98 @@ namespace Scenario_SmartHomeSystem.Agents
 {
     public class ControlCenter : SmartHome_Agent
     {
-        private double goalTemp, goalHumid;
+        double _goalTemp, _goalHumid;
 
-        public ControlCenter(ScenarioMain simulator)
+        public ControlCenter(ScenarioMain simulator, double goalTemperature, double goalHumidity)
             : base(simulator)
         {
+            _goalTemp = goalTemperature;
+            _goalHumid = goalHumidity;
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
             switch (msgText)
             {
-                case "Heat":
-                    //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
-                    SendMessage(typeof(Heater), "Heat");
+                case "CurrentTemperature":
+                    ActTemperature((double)info[0]);
                     break;
-                case "Cool":
-                    SendMessage(typeof(Cooler), "Cool");
-                    break;
-                case "DrawInMoist":
-                    SendMessage(typeof(Dehumidifier), "DrawInMoist");
-                    break;
-                case "ReleaseMoist":
-                    SendMessage(typeof(Hygrometer), "ReleaseMoist");
+                case "CurrentHumidity":
+                    ActHumidity((double)info[0]);
                     break;
                 default:
                     break;
             }
         }
 
-        public void CheckTemperature()
+        private void CheckTemperature()
         {
             SendMessage(typeof(Thermometer), "CheckTemp");
         }
 
-        public void CheckHumidity()
+        private void CheckHumidity()
         {
             SendMessage(typeof(Hygrometer), "CheckHumid");
+        }
+
+        private void Cool()
+        {
+            SendMessage(typeof(Cooler), "Cool");
+        }
+
+        private void Heat()
+        {
+            SendMessage(typeof(Heater), "Heat");
+        }
+
+        private void Dehumidify()
+        {
+            SendMessage(typeof(Dehumidifier), "DrawInMoist");
+        }
+
+        private void Humidify()
+        {
+            SendMessage(typeof(Humidifier), "ReleaseMoist");
+        }
+
+        private void ActTemperature(double currentTemperature)
+        {
+            double diff;
+            diff = currentTemperature - _goalTemp;
+
+            if (diff < 0)
+            {
+                Heat();
+            }
+            else if (diff > 0)
+            {
+                Cool();
+            }
+        }
+
+        private void ActHumidity(double currentHumidity)
+        {
+            double diff;
+            diff = currentHumidity - _goalHumid;
+
+            if (diff < 0)
+            {
+                Humidify();
+            }
+            else if (diff > 0)
+            {
+                Dehumidify();
+            }
         }
 
         protected override void OnTick()
         {
             base.OnTick();
 
-            CheckTemperature();
+            //CheckTemperature();
             //CheckHumidity();
+            ActTemperature(Simulation.room.temperature);
+            ActHumidity(Simulation.room.humidity);
         }
     }
 }

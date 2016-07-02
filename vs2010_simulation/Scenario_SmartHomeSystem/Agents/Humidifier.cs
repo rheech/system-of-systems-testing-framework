@@ -17,6 +17,10 @@ namespace Scenario_SmartHomeSystem.Agents
         {
             switch (msgText)
             {
+                case "ReleaseMoist":
+                    //SendMessage(typeof(Hygrometer), "ReleaseMoist");
+                    Simulation.room.humidity += 0.05;
+                    break;
                 default:
                     break;
             }

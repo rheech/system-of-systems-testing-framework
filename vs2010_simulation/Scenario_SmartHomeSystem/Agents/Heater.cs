@@ -17,6 +17,11 @@ namespace Scenario_SmartHomeSystem.Agents
         {
             switch (msgText)
             {
+                case "Heat":
+                    //SendMessage(typeof(EmergencyCallCenter), MESSAGE_TYPE.ReportDisaster);
+                    //SendMessage(typeof(Heater), "Heat");
+                    Simulation.room.temperature += 0.05;
+                    break;
                 default:
                     break;
             }
