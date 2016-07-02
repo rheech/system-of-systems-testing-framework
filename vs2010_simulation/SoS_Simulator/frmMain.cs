@@ -349,10 +349,14 @@ namespace SoS_Simulator
             txtSimOutput.Text = "";
 
             // If simulator is previously loaded (reset)
-            if (_fSimulator != null && _fOracle != null)
+            if (_fSimulator != null)
             {
                 LoadSimulator();
-                LoadTestOracle();
+
+                if (_fOracle != null)
+                {
+                    LoadTestOracle();
+                }
 
                 tsLabel.Text = "Ready";
                 btnStart.Text = "&Start";

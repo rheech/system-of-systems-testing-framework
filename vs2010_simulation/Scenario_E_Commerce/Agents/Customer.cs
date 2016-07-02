@@ -13,14 +13,64 @@ namespace Scenario_E_Commerce.Agents
         Card _creditCard;
         Product _lastProduct;
 
-        public Customer(ScenarioMain simulator, Product[] productsToBuy, Card creditCard)
+        public Customer(ScenarioMain simulator)
             : base(simulator)
+        {
+
+        }
+
+        public void BuyProduct(Product[] productsToBuy, Card creditCard)
         {
             _productToBuy = new List<Product>(productsToBuy);
             _creditCard = creditCard;
+
+            CheckNextProductToBuy();
         }
 
-        public void BuyProduct()
+        protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
+        {
+            switch (msgText)
+            {
+                case "SearchProductReturn":
+                    // If book is found (with the book info), add to cart
+                    if (info != null)
+                    {
+                        AddToCart((Product)info[0]);
+                    }
+                    break;
+                case "AddCartSucceed":
+                    // If adding cart is succeed, check for another one or proceed to checkout
+                    if (_productToBuy.Count > 0)
+                    {
+                        // Search for the next product to buy
+                        CheckNextProductToBuy();
+                    }
+                    else // if everything is found
+                    {
+                        // Proceed to checkout (pay the price)
+                        SendMessage(typeof(Amazon), "MakePayment", _creditCard);
+                    }
+                    break;
+                case "OrderCharged":
+                case "OrderShipped":
+                case "OrderDelivered":
+                    // Order is complete. Nothing to do for now.
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void AddToCart(Product product)
+        {
+            // if the product is the one the customer was looking for
+            if (product == _lastProduct)
+            {
+                SendMessage(typeof(Amazon), "AddCart", product);
+            }
+        }
+
+        private void CheckNextProductToBuy()
         {
             // If there is a product to purchase
             if (_productToBuy.Count > 0)
@@ -29,28 +79,6 @@ namespace Scenario_E_Commerce.Agents
                 _lastProduct = _productToBuy[0];
                 _productToBuy.RemoveAt(0);
                 SendMessage(typeof(Amazon), "SearchProduct", _lastProduct);
-            }
-        }
-
-        public void RequestOrder()
-        {
-            SendMessage(typeof(Amazon), "SearchProduct");
-        }
-
-        protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
-        {
-            switch (msgText)
-            {
-                case "SearchProductReturn":
-                    SendMessage(typeof(Amazon), "ViewProduct");
-                    break;
-                case "ViewProductReturn":
-                    SendMessage(typeof(Amazon), "MakePayment");
-                    break;
-                case "OrderComplete":
-                    break;
-                default:
-                    break;
             }
         }
 

@@ -14,19 +14,26 @@ namespace Scenario_E_Commerce
         Customer _customer;
         BarnesAndNoble _dell;
         UPS _ups;
+        UPSDriver _upsDriver;
         Visa _visa;
 
         protected override void Initialize()
         {
-            List<Product> productsToBuy;
-            Product tempProduct;
-            Card creditCard;
-
+            // Instantiate constituents
             _amazon = new Amazon(this);
             _customer = new Customer(this);
             _dell = new BarnesAndNoble(this);
             _ups = new UPS(this);
+            _upsDriver = new UPSDriver(this);
             _visa = new Visa(this);
+        }
+
+        protected override void Run()
+        {
+            // Reset
+            List<Product> productsToBuy;
+            Product tempProduct;
+            Card creditCard;
 
             productsToBuy = new List<Product>();
 
@@ -45,12 +52,10 @@ namespace Scenario_E_Commerce
             creditCard = new Card();
             creditCard.Number = "12345";
             creditCard.Name = "John Doe";
-            creditCard.CreditLimit = 200.00;
-        }
+            //creditCard.CreditLimit = 200.00;
 
-        protected override void Run()
-        {
-            _customer.RequestOrder();
+            // Begin simulation
+            _customer.BuyProduct(productsToBuy.ToArray(), creditCard);
         }
 
         public override string GetMonitoringText()

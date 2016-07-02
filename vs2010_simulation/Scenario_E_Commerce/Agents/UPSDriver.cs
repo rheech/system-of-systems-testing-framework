@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SoS_Simulator.Agents;
+using Scenario_E_Commerce.Objects;
 
 namespace Scenario_E_Commerce.Agents
 {
@@ -17,8 +18,8 @@ namespace Scenario_E_Commerce.Agents
         {
             switch (msgText)
             {
-                case "DeliverPackage":
-                    SendMessage(typeof(UPS), "DeliverComplete");
+                case "DeliverPackage": // Delivery request from UPS
+                    SendMessage(typeof(UPS), "DeliverSuccess", (Package)info[0]);
                     break;
                 default:
                     break;

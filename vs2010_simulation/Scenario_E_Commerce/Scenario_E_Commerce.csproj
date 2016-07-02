@@ -78,10 +78,11 @@
     <Compile Include="Agents\UPSDriver.cs" />
     <Compile Include="Agents\Visa.cs" />
     <Compile Include="Objects\Card.cs" />
+    <Compile Include="Objects\Package.cs" />
     <Compile Include="Objects\Product.cs" />
     <Compile Include="Objects\OrderInfo.cs" />
-    <Compile Include="ScenarioMain.cs" />
     <Compile Include="Objects\Transaction.cs" />
+    <Compile Include="ScenarioMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

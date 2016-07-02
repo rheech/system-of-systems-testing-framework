@@ -9,6 +9,5 @@ namespace Scenario_E_Commerce.Objects
     {
         public string Name;
         public string Number;
-        public double CreditLimit;
     }
 }
