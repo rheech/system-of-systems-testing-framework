@@ -32,6 +32,7 @@ namespace Scenario_E_Commerce
         {
             // Reset
             List<Product> productsToBuy;
+            Product productForOneClickCheckout;
             Product tempProduct;
             Card creditCard;
 
@@ -48,6 +49,11 @@ namespace Scenario_E_Commerce
             tempProduct.Price = 24.95;
             productsToBuy.Add(tempProduct);
 
+            // Book for one-click checkout
+            productForOneClickCheckout = new Product();
+            productForOneClickCheckout.Name = "Introduction to Programming Using C++";
+            productForOneClickCheckout.Price = 30.99;
+
             // Add credit card
             creditCard = new Card();
             creditCard.Number = "12345";
@@ -56,7 +62,7 @@ namespace Scenario_E_Commerce
 
             // Begin simulation
             _customer.BuyProduct(productsToBuy.ToArray(), creditCard);
-            //_customer.OneClickOrder(productsToBuy[0], creditCard);
+            _customer.OneClickOrder(productForOneClickCheckout, creditCard);
         }
 
         public override string GetMonitoringText()

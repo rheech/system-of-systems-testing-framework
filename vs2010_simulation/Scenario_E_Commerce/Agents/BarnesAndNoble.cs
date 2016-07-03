@@ -27,6 +27,11 @@ namespace Scenario_E_Commerce.Agents
             tempProduct.Name = "Introduction to Programming Using C#";
             tempProduct.Price = 24.95;
             _books.Add(tempProduct);
+
+            tempProduct = new Product();
+            tempProduct.Name = "Introduction to Programming Using C++";
+            tempProduct.Price = 30.99;
+            _books.Add(tempProduct);
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
