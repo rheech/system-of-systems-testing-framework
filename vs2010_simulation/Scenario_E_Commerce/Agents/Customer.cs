@@ -27,6 +27,13 @@ namespace Scenario_E_Commerce.Agents
             CheckNextProductToBuy();
         }
 
+        public void OneClickOrder(Product productToBuy, Card creditCard)
+        {
+            _creditCard = creditCard;
+
+            SendMessage(typeof(Amazon), "OneClickOrder", productToBuy, creditCard);
+        }
+
         protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
         {
             switch (msgText)

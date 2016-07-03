@@ -38,9 +38,12 @@ namespace Scenario_E_Commerce.Agents
                     SearchProduct((Product)info[0]);
                     break;
                 case "AddCart": // Add cart request from the customer
-                    user_cart.Add((Product)info[0]);
+                    AddToCart((Product)info[0]);
                     // Add to cart and return success
                     SendMessage(typeof(Customer), "AddCartSucceed");
+                    break;
+                case "OneClickOrder": // One click order
+                    ProcessOneClickOrder((Product)info[0], (Card)info[1]);
                     break;
                 case "MakePayment": // Customer requests payment for processing order
                     MakePayment((Card)info[0]);
@@ -77,6 +80,19 @@ namespace Scenario_E_Commerce.Agents
 
             // if not found, return null
             SendMessage(typeof(Customer), "SearchProductReturn", null);
+        }
+
+        private void AddToCart(Product product)
+        {
+            user_cart.Add(product);
+        }
+
+        private void ProcessOneClickOrder(Product product, Card creditCard)
+        {
+            AddToCart(product);
+            SendMessage(typeof(Customer), "ProcessingOneClickOrder");
+
+            MakePayment(creditCard);
         }
 
         private void MakePayment(Card creditCard)

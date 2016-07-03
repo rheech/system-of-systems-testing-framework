@@ -56,6 +56,7 @@ namespace Scenario_E_Commerce
 
             // Begin simulation
             _customer.BuyProduct(productsToBuy.ToArray(), creditCard);
+            //_customer.OneClickOrder(productsToBuy[0], creditCard);
         }
 
         public override string GetMonitoringText()
