@@ -48,7 +48,7 @@ namespace Scenario_E_Commerce.Agents
                     break;
                 case "DeliverFinished": // Delivery finishe notice from UPS
                     // Notify Amazon
-                    SendMessage(typeof(Amazon), "Delivered");
+                    SendMessage(typeof(Amazon), "Delivered", (Package)info[0]);
                     break;
                 default:
                     break;

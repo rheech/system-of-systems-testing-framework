@@ -39,7 +39,7 @@ namespace Scenario_E_Commerce.Agents
             {
                 case "ChargeRequest": // Amazon requests the transaction for charging customer
                     ProcessPayment((Card)info[0], (double)info[1]);
-                    SendMessage(typeof(Amazon), "ChargeComplete");
+                    SendMessage(typeof(Amazon), "ChargeComplete", (Package)info[2]);
                     break;
                 default:
                     break;

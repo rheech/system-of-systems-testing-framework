@@ -51,11 +51,13 @@ namespace Scenario_E_Commerce.Agents
                     ProcessOneClickOrder((Product)info[0], (Card)info[1]);
                     break;
                 case "MakePayment": // Customer requests payment for processing order
-                    MakePayment((Card)info[0]);
+                    MakePayment((Card)info[0], new Package(user_cart));
+                    // Clear the cart after the order
+                    user_cart.Clear();
                     break;
                 case "ChargeComplete": // Payment success from Visa
                     // Send order to Barnes and Noble
-                    ProcessOrderToVendor();
+                    ProcessOrderToVendor((Package)info[0]);
                     break;
                 case "DeliveryProcessed": // The book company shipped the package
                     // Notify to the customer that the product is shipped
@@ -63,7 +65,7 @@ namespace Scenario_E_Commerce.Agents
                     break;
                 case "Delivered": // Package delivered
                     // Notify customer
-                    SendMessage(typeof(Customer), "OrderDelivered");
+                    SendMessage(typeof(Customer), "OrderDelivered", (Package)info[0]);
                     break;
                 default:
                     break;
@@ -94,13 +96,17 @@ namespace Scenario_E_Commerce.Agents
 
         private void ProcessOneClickOrder(Product product, Card creditCard)
         {
-            AddToCart(product);
+            Package package;
+
             SendMessage(typeof(Customer), "ProcessingOneClickOrder");
 
-            MakePayment(creditCard);
+            package = new Package();
+            package.Add(product);
+
+            SendMessage(typeof(Visa), "ChargeRequest", creditCard, product.Price, package);
         }
 
-        private void MakePayment(Card creditCard)
+        private void MakePayment(Card creditCard, Package package)
         {
             double totalAmount;
 
@@ -113,13 +119,14 @@ namespace Scenario_E_Commerce.Agents
             }
 
             // Send payment info to the credit card company
-            SendMessage(typeof(Visa), "ChargeRequest", creditCard, totalAmount);
+            SendMessage(typeof(Visa), "ChargeRequest", creditCard, totalAmount, package);
         }
 
-        private void ProcessOrderToVendor()
+        private void ProcessOrderToVendor(Package package)
         {
             // Send order to Barnes and Noble (book company)
-            SendMessage(typeof(BarnesAndNoble), "OrderRequest", user_cart);
+            SendMessage(typeof(BarnesAndNoble), "OrderRequest", package);
+
             // Notify customer that the order is charged successfully
             SendMessage(typeof(Customer), "OrderCharged");
         }

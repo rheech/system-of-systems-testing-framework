@@ -10,13 +10,14 @@ namespace Scenario_E_Commerce.Agents
     public class Customer : Agent
     {
         List<Product> _productToBuy;
+        List<Product> _receivedProducts;
         Card _creditCard;
         Product _lastProduct;
 
         public Customer(ScenarioMain simulator)
             : base(simulator)
         {
-
+            _receivedProducts = new List<Product>();
         }
 
         public void BuyProduct(Product[] productsToBuy, Card creditCard)
@@ -60,7 +61,9 @@ namespace Scenario_E_Commerce.Agents
                     break;
                 case "OrderCharged":
                 case "OrderShipped":
+                    break;
                 case "OrderDelivered":
+                    OpenPackage((Package)info[0]);
                     // Order is complete. Nothing to do for now.
                     break;
                 default:
@@ -89,6 +92,14 @@ namespace Scenario_E_Commerce.Agents
             }
         }
 
+        private void OpenPackage(Package package)
+        {
+            foreach (Product p in package)
+            {
+                _receivedProducts.Add(p);
+            }
+        }
+
         protected override void OnTick()
         {
             base.OnTick();
@@ -112,6 +123,14 @@ namespace Scenario_E_Commerce.Agents
                 }
 
                 return null;
+            }
+        }
+
+        public int NumberOfBooksReceived
+        {
+            get
+            {
+                return _receivedProducts.Count;
             }
         }
     }
