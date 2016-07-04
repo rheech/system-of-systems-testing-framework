@@ -17,6 +17,8 @@ namespace Scenario_E_Commerce
         UPSDriver _upsDriver;
         Visa _visa;
 
+        int _totalNumberOfBooks;
+
         protected override void Initialize()
         {
             // Instantiate constituents
@@ -54,6 +56,8 @@ namespace Scenario_E_Commerce
             productForOneClickCheckout.Name = "Introduction to Programming Using C++";
             productForOneClickCheckout.Price = 30.99;
 
+            _totalNumberOfBooks = 3;
+
             // Add credit card
             creditCard = new Card();
             creditCard.Number = "12345";
@@ -67,7 +71,13 @@ namespace Scenario_E_Commerce
 
         public override string GetMonitoringText()
         {
-            return "Test";
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat("Total number of books: {0}\r\n\r\n", _totalNumberOfBooks);
+
+            sb.AppendFormat("Number of books received: {0}\r\n", _customer.NumberOfBooksReceived);
+
+            return sb.ToString();
         }
     }
 }
