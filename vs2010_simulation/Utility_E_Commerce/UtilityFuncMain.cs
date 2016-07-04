@@ -23,15 +23,19 @@ namespace Utility_E_Commerce
         {
             switch (goalName)
             {
-                case "MCI_Response":
-                case "PatientTransfer":
-                case "Transport":
-                case "RescuePatient":
+                case "E-Commerce":
+                case "DeliverProduct":
+                    return CheckTotalOrdered();
                 default:
                     break;
             }
 
             return true;
+        }
+
+        public bool CheckTotalOrdered()
+        {
+            return (Simulation.ReceivedProducts == Simulation.TotalOrdered);
         }
 
         public ScenarioMain Simulation

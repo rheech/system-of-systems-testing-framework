@@ -79,5 +79,26 @@ namespace Scenario_E_Commerce
 
             return sb.ToString();
         }
+
+        public int ReceivedProducts
+        {
+            get
+            {
+                if (_customer != null)
+                {
+                    return _customer.NumberOfBooksReceived;
+                }
+
+                return -1;
+            }
+        }
+
+        public int TotalOrdered
+        {
+            get
+            {
+                return _totalNumberOfBooks;
+            }
+        }
     }
 }
