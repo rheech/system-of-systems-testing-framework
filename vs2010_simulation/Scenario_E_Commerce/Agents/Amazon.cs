@@ -9,30 +9,30 @@ namespace Scenario_E_Commerce.Agents
 {
     public class Amazon : Agent
     {
-        List<Product> stock_barnesAndNoble;
-        Package user_cart;
+        List<Product> _stock_barnesAndNoble;
+        Package _user_cart;
 
         public Amazon(ScenarioMain simulator) : base(simulator)
         {
             Product tempProduct;
-            stock_barnesAndNoble = new List<Product>();
-            user_cart = new Package();
+            _stock_barnesAndNoble = new List<Product>();
+            _user_cart = new Package();
 
             // We assume that Amazon already have the stock information of the vendor (Barnes and Noble)
             tempProduct = new Product();
             tempProduct.Name = "Software Engineering (10th Edition)";
             tempProduct.Price = 165.20;
-            stock_barnesAndNoble.Add(tempProduct);
+            _stock_barnesAndNoble.Add(tempProduct);
 
             tempProduct = new Product();
             tempProduct.Name = "Introduction to Programming Using C#";
             tempProduct.Price = 24.95;
-            stock_barnesAndNoble.Add(tempProduct);
+            _stock_barnesAndNoble.Add(tempProduct);
 
             tempProduct = new Product();
             tempProduct.Name = "Introduction to Programming Using C++";
             tempProduct.Price = 30.99;
-            stock_barnesAndNoble.Add(tempProduct);
+            _stock_barnesAndNoble.Add(tempProduct);
         }
 
         protected override void OnMessageReceived(object from, Type target, string msgText, params object[] info)
@@ -51,9 +51,9 @@ namespace Scenario_E_Commerce.Agents
                     ProcessOneClickOrder((Product)info[0], (Card)info[1]);
                     break;
                 case "MakePayment": // Customer requests payment for processing order
-                    MakePayment((Card)info[0], new Package(user_cart));
+                    MakePayment((Card)info[0], new Package(_user_cart));
                     // Clear the cart after the order
-                    user_cart.Clear();
+                    _user_cart.Clear();
                     break;
                 case "ChargeComplete": // Payment success from Visa
                     // Send order to Barnes and Noble
@@ -75,7 +75,7 @@ namespace Scenario_E_Commerce.Agents
         private void SearchProduct(Product product)
         {
             // Find the requested product in barnes and noble (hard coded)
-            foreach (Product p in stock_barnesAndNoble)
+            foreach (Product p in _stock_barnesAndNoble)
             {
                 if (p == product)
                 {
@@ -91,7 +91,7 @@ namespace Scenario_E_Commerce.Agents
 
         private void AddToCart(Product product)
         {
-            user_cart.Add(product);
+            _user_cart.Add(product);
         }
 
         private void ProcessOneClickOrder(Product product, Card creditCard)
@@ -113,7 +113,7 @@ namespace Scenario_E_Commerce.Agents
             totalAmount = 0;
 
             // Sum up all prices
-            foreach (Product p in user_cart)
+            foreach (Product p in _user_cart)
             {
                 totalAmount += p.Price;
             }
