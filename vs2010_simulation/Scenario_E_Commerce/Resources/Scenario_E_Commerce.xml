@@ -7,29 +7,29 @@
         <node name="OrderProduct" type="goal">
           <node name="ProceduralOrder" type="goal" operator="choice">
             <node name="Search" type="goal" operator="enable">
-              <node name="SearchProduct" type="interaction" operator="enable" />
+              <node name="SearchProduct" type="interaction" operator="enableinfo" />
               <node name="SearchProductReturn" type="interaction" />
             </node>
             <node name="Cart" type="goal">
-              <node name="AddCart" type="interaction" operator="enable" />
+              <node name="AddCart" type="interaction" operator="enableinfo" />
               <node name="AddCartSucceed" type="interaction" />
             </node>
           </node>
           <node name="ExpressOrder" type="goal">
-            <node name="OneClickOrder" type="interaction" operator="choice" />
+            <node name="OneClickOrder" type="interaction" operator="enableinfo" />
             <node name="ProcessingOneClickOrder" type="interaction" />
           </node>
         </node>
         <node name="Payment" type="goal">
-          <node name="MakePayment" type="interaction" operator="enable" />
-          <node name="ChargeRequest" type="interaction" operator="enable" />
+          <node name="MakePayment" type="interaction" operator="enableinfo" />
+          <node name="ChargeRequest" type="interaction" operator="enableinfo" />
           <node name="ChargeComplete" type="interaction" />
         </node>
       </node>
       <node name="DeliverProduct" type="goal">
-        <node name="OrderRequest" type="interaction" operator="enable"></node>
-        <node name="RequestDelivery" type="interaction" operator="enable"></node>
-        <node name="DeliverPackage" type="interaction" operator="enable"></node>
+        <node name="OrderRequest" type="interaction" operator="enableinfo"></node>
+        <node name="RequestDelivery" type="interaction" operator="enableinfo"></node>
+        <node name="DeliverPackage" type="interaction" operator="enableinfo"></node>
         <node name="Delivered" type="interaction" />
       </node>
     </node>
