@@ -81,6 +81,10 @@
             this.btnOracleBrowse = new System.Windows.Forms.Button();
             this.contextMenuOracleBrowse = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.oracleClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.comparisonLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsCompLv1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsCompLv2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsCompLv3 = new System.Windows.Forms.ToolStripMenuItem();
             this.txtOraclePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -102,10 +106,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lstGoalsResult = new System.Windows.Forms.ListBox();
             this.txtGoalOutput = new System.Windows.Forms.TextBox();
-            this.comparisonLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsCompLv1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsCompLv2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsCompLv3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -575,6 +575,39 @@
             this.oracleClear.Text = "Clear";
             this.oracleClear.Click += new System.EventHandler(this.oracleClear_Click);
             // 
+            // comparisonLevelToolStripMenuItem
+            // 
+            this.comparisonLevelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsCompLv1,
+            this.tsCompLv2,
+            this.tsCompLv3});
+            this.comparisonLevelToolStripMenuItem.Name = "comparisonLevelToolStripMenuItem";
+            this.comparisonLevelToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.comparisonLevelToolStripMenuItem.Text = "ComparisonLevel";
+            // 
+            // tsCompLv1
+            // 
+            this.tsCompLv1.Checked = true;
+            this.tsCompLv1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsCompLv1.Name = "tsCompLv1";
+            this.tsCompLv1.Size = new System.Drawing.Size(110, 22);
+            this.tsCompLv1.Text = "Level 1";
+            this.tsCompLv1.Click += new System.EventHandler(this.tsCompLv1_Click);
+            // 
+            // tsCompLv2
+            // 
+            this.tsCompLv2.Name = "tsCompLv2";
+            this.tsCompLv2.Size = new System.Drawing.Size(110, 22);
+            this.tsCompLv2.Text = "Level 2";
+            this.tsCompLv2.Click += new System.EventHandler(this.tsCompLv2_Click);
+            // 
+            // tsCompLv3
+            // 
+            this.tsCompLv3.Name = "tsCompLv3";
+            this.tsCompLv3.Size = new System.Drawing.Size(110, 22);
+            this.tsCompLv3.Text = "Level 3";
+            this.tsCompLv3.Click += new System.EventHandler(this.tsCompLv3_Click);
+            // 
             // txtOraclePath
             // 
             this.txtOraclePath.Location = new System.Drawing.Point(5, 187);
@@ -794,39 +827,6 @@
             this.txtGoalOutput.TabIndex = 16;
             this.txtGoalOutput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox_PreviewKeyDown);
             // 
-            // comparisonLevelToolStripMenuItem
-            // 
-            this.comparisonLevelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsCompLv1,
-            this.tsCompLv2,
-            this.tsCompLv3});
-            this.comparisonLevelToolStripMenuItem.Name = "comparisonLevelToolStripMenuItem";
-            this.comparisonLevelToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.comparisonLevelToolStripMenuItem.Text = "ComparisonLevel";
-            // 
-            // tsCompLv1
-            // 
-            this.tsCompLv1.Checked = true;
-            this.tsCompLv1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsCompLv1.Name = "tsCompLv1";
-            this.tsCompLv1.Size = new System.Drawing.Size(152, 22);
-            this.tsCompLv1.Text = "Level 1";
-            this.tsCompLv1.Click += new System.EventHandler(this.tsCompLv1_Click);
-            // 
-            // tsCompLv2
-            // 
-            this.tsCompLv2.Name = "tsCompLv2";
-            this.tsCompLv2.Size = new System.Drawing.Size(152, 22);
-            this.tsCompLv2.Text = "Level 2";
-            this.tsCompLv2.Click += new System.EventHandler(this.tsCompLv2_Click);
-            // 
-            // tsCompLv3
-            // 
-            this.tsCompLv3.Name = "tsCompLv3";
-            this.tsCompLv3.Size = new System.Drawing.Size(152, 22);
-            this.tsCompLv3.Text = "Level 3";
-            this.tsCompLv3.Click += new System.EventHandler(this.tsCompLv3_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -838,7 +838,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "System of Systems Testing Environment v1.1";
+            this.Text = "System of Systems Testing Framework v1.1";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
